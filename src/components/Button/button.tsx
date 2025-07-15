@@ -8,7 +8,12 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { ChevronDown, ChevronUp, Loader2, Check } from "lucide-react";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  RefreshIcon,
+  CheckIcon,
+} from "@shopify/polaris-icons";
 import { type ReactNode } from "react";
 
 import { cn } from "../../lib/utils";
@@ -227,19 +232,19 @@ const getDisclosureIcon = (disclosure: PolarisButtonDisclosure | undefined) => {
   if (!disclosure) return null;
 
   if (disclosure === true || disclosure === "down") {
-    return <ChevronDown className="size-4" />;
+    return <ChevronDownIcon className="size-4" />;
   }
   if (disclosure === "up") {
-    return <ChevronUp className="size-4" />;
+    return <ChevronUpIcon className="size-4" />;
   }
   if (disclosure === "select") {
-    return <Check className="size-4" />;
+    return <CheckIcon className="size-4" />;
   }
   return null;
 };
 
 // Spinner component for loading state
-const Spinner = () => <Loader2 className="size-4 animate-spin" />;
+const Spinner = () => <RefreshIcon className="size-4 animate-spin" />;
 
 export const Button = React.forwardRef<
   HTMLButtonElement | HTMLAnchorElement,

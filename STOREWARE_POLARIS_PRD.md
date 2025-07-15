@@ -7,6 +7,7 @@
 ## Project Objectives
 
 ### Primary Goals
+
 - **100% Polaris Compatibility**: Maintain complete API and visual compatibility with Shopify's Polaris design system
 - **Modern Foundation**: Built on proven shadcn/ui patterns for reliability and maintainability
 - **Developer Experience**: Provide excellent TypeScript support with comprehensive IntelliSense
@@ -14,6 +15,7 @@
 - **Performance**: Deliver lightweight, tree-shakeable components
 
 ### Secondary Goals
+
 - **Documentation**: Comprehensive documentation and examples for all components
 - **Testing**: Full test coverage with Vitest for reliability
 - **Storybook Integration**: Interactive component development and testing
@@ -40,22 +42,25 @@ npm install react react-dom
 ### Basic Setup
 
 1. **Install the package**:
+
 ```bash
 npm install @storeware/polaris
 ```
 
 2. **Import styles** in your application root:
+
 ```tsx
-import '@storeware/polaris/styles';
+import "@storeware/polaris/styles";
 ```
 
 3. **Use components**:
+
 ```tsx
-import { Button } from '@storeware/polaris';
+import { Button } from "@storeware/polaris";
 
 function App() {
   return (
-    <Button variant="primary" onClick={() => alert('Hello!')}>
+    <Button variant="primary" onClick={() => alert("Hello!")}>
       Click me
     </Button>
   );
@@ -65,44 +70,37 @@ function App() {
 ### Advanced Usage
 
 #### With Custom Styling
-```tsx
-import { Button } from '@storeware/polaris';
 
-<Button 
-  variant="primary" 
-  className="custom-button-class"
-  fullWidth
->
+```tsx
+import { Button } from "@storeware/polaris";
+
+<Button variant="primary" className="custom-button-class" fullWidth>
   Custom Styled Button
-</Button>
+</Button>;
 ```
 
 #### As Links
+
 ```tsx
-<Button 
-  url="https://example.com" 
-  external
-  variant="plain"
->
+<Button url="https://example.com" external variant="plain">
   External Link
 </Button>
 ```
 
 #### With Icons
-```tsx
-import { ShoppingCart } from 'lucide-react';
 
-<Button 
-  variant="primary" 
-  icon={<ShoppingCart />}
->
+```tsx
+import { CartIcon } from "@shopify/polaris-icons";
+
+<Button variant="primary" icon={<CartIcon />}>
   Add to Cart
-</Button>
+</Button>;
 ```
 
 ## Available Components
 
 ### Button Component
+
 The primary component currently available with full Polaris compatibility.
 
 **Variants**: `default`, `primary`, `secondary`, `tertiary`, `plain`, `monochromePlain`
@@ -115,47 +113,52 @@ For detailed documentation, see: `src/components/Button/BUTTON_DOCS.md`
 ## Development Setup
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (recommended) or npm
 - TypeScript 5+
 
 ### Getting Started
 
 1. **Clone the repository**:
+
 ```bash
 git clone <repository-url>
 cd storeware-polaris
 ```
 
 2. **Install dependencies**:
+
 ```bash
 pnpm install
 ```
 
 3. **Start development**:
+
 ```bash
 pnpm run dev
 ```
 
 4. **Start Storybook** (for component development):
+
 ```bash
 pnpm run storybook
 ```
 
 ### Development Scripts
 
-| Script | Description |
-|--------|-------------|
-| `pnpm run build` | Build the library for production |
-| `pnpm run dev` | Start TypeScript compiler in watch mode |
-| `pnpm run typecheck` | Run TypeScript type checking |
-| `pnpm run test` | Run test suite with Vitest |
-| `pnpm run test:ui` | Run tests with UI interface |
-| `pnpm run storybook` | Start Storybook development server |
-| `pnpm run build-storybook` | Build Storybook for production |
-| `pnpm run clean` | Clean build artifacts |
-| `pnpm run lint` | Run ESLint |
-| `pnpm run lint:fix` | Fix ESLint issues |
+| Script                     | Description                             |
+| -------------------------- | --------------------------------------- |
+| `pnpm run build`           | Build the library for production        |
+| `pnpm run dev`             | Start TypeScript compiler in watch mode |
+| `pnpm run typecheck`       | Run TypeScript type checking            |
+| `pnpm run test`            | Run test suite with Vitest              |
+| `pnpm run test:ui`         | Run tests with UI interface             |
+| `pnpm run storybook`       | Start Storybook development server      |
+| `pnpm run build-storybook` | Build Storybook for production          |
+| `pnpm run clean`           | Clean build artifacts                   |
+| `pnpm run lint`            | Run ESLint                              |
+| `pnpm run lint:fix`        | Fix ESLint issues                       |
 
 ## Build Process
 
@@ -167,6 +170,7 @@ The library uses a TypeScript-first build process:
 4. **CSS Processing**: Tailwind CSS compilation for styles
 
 ### Build Output Structure
+
 ```
 dist/
 ├── index.js              # Main entry point
@@ -179,11 +183,13 @@ dist/
 ## Testing
 
 ### Test Framework
+
 - **Vitest**: Modern testing framework with excellent TypeScript support
 - **Testing Library**: React Testing Library for component testing
 - **jsdom**: DOM environment for testing
 
 ### Running Tests
+
 ```bash
 # Run all tests
 pnpm test
@@ -196,7 +202,9 @@ pnpm test --watch
 ```
 
 ### Test Coverage
+
 All components should have comprehensive tests covering:
+
 - Rendering with different props
 - User interactions
 - Accessibility features
@@ -205,6 +213,7 @@ All components should have comprehensive tests covering:
 ## Publishing Workflow
 
 ### Pre-publish Checklist
+
 1. ✅ All tests pass (`pnpm test`)
 2. ✅ Build succeeds (`pnpm run build`)
 3. ✅ TypeScript compilation passes (`pnpm run typecheck`)
@@ -214,6 +223,7 @@ All components should have comprehensive tests covering:
 7. ✅ Version is bumped appropriately
 
 ### Publishing Steps
+
 ```bash
 # 1. Clean and build
 pnpm run clean
@@ -230,7 +240,9 @@ npm publish
 ```
 
 ### Package Configuration
+
 The package is configured with:
+
 - **ES Modules**: Modern module format
 - **TypeScript Declarations**: Full type support
 - **Tree Shaking**: Optimized bundle size
@@ -239,15 +251,17 @@ The package is configured with:
 ## Architecture
 
 ### Technology Stack
+
 - **React 18+**: Modern React with hooks and concurrent features
 - **TypeScript**: Full type safety and excellent developer experience
 - **Tailwind CSS**: Utility-first CSS framework
 - **shadcn/ui**: Component architecture patterns
 - **Radix UI**: Accessible component primitives
 - **Class Variance Authority**: Type-safe variant management
-- **Lucide React**: Icon library
+- **Shopify Polaris Icons**: Official Polaris icon library
 
 ### Component Structure
+
 ```
 src/
 ├── components/
@@ -265,6 +279,7 @@ src/
 ```
 
 ### Design Principles
+
 1. **API Compatibility**: Maintain 100% compatibility with Polaris APIs
 2. **Type Safety**: Comprehensive TypeScript support
 3. **Accessibility**: WCAG compliant by default
@@ -276,6 +291,7 @@ src/
 ## Roadmap
 
 ### Phase 1 (Current)
+
 - ✅ Button component with full Polaris compatibility
 - ✅ TypeScript support and type definitions
 - ✅ Comprehensive testing setup
@@ -283,12 +299,14 @@ src/
 - ✅ Build and publishing workflow
 
 ### Phase 2 (Planned)
+
 - [ ] Additional core components (Card, TextField, Select)
 - [ ] Theme customization system
 - [ ] Advanced accessibility features
 - [ ] Performance optimizations
 
 ### Phase 3 (Future)
+
 - [ ] Complete Polaris component coverage
 - [ ] Advanced theming capabilities
 - [ ] Plugin system for extensions
@@ -297,6 +315,7 @@ src/
 ## Contributing
 
 ### Code Standards
+
 - Use TypeScript for all code
 - Follow existing naming conventions
 - Add comprehensive tests for new features
@@ -305,6 +324,7 @@ src/
 - Follow semantic versioning
 
 ### Pull Request Process
+
 1. Create feature branch from main
 2. Implement changes with tests
 3. Update documentation

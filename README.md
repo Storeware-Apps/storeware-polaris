@@ -1,4 +1,4 @@
-# @storeseo/polaris
+# @storeware/polaris
 
 A React component library that matches Shopify's Polaris design system using shadcn/ui and Tailwind CSS as the foundation.
 
@@ -15,13 +15,13 @@ A React component library that matches Shopify's Polaris design system using sha
 
 ```bash
 # Using pnpm (recommended)
-pnpm add @storeseo/polaris
+pnpm add @storeware/polaris
 
 # Using npm
-npm install @storeseo/polaris
+npm install @storeware/polaris
 
 # Using yarn
-yarn add @storeseo/polaris
+yarn add @storeware/polaris
 ```
 
 ### Peer Dependencies
@@ -40,7 +40,7 @@ Import the CSS file in your app's entry point:
 
 ```tsx
 // In your main.tsx or App.tsx
-import "@storeseo/polaris/styles";
+import "@storeware/polaris/styles";
 ```
 
 ### 2. Configure Tailwind CSS
@@ -52,7 +52,7 @@ Add the package to your `tailwind.config.js`:
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@storeseo/polaris/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@storeware/polaris/dist/**/*.{js,ts,jsx,tsx}",
   ],
   // ... rest of your config
 };
@@ -63,7 +63,7 @@ module.exports = {
 ### Basic Button Usage
 
 ```tsx
-import { Button } from "@storeseo/polaris";
+import { Button } from "@storeware/polaris";
 
 function App() {
   return (
@@ -84,49 +84,6 @@ function App() {
 }
 ```
 
-### Enhanced Button with shadcn/ui Features
-
-```tsx
-import { PolarisButton } from "@storeseo/polaris";
-
-function App() {
-  return (
-    <PolarisButton asChild variant="primary">
-      <Link to="/dashboard">Go to Dashboard</Link>
-    </PolarisButton>
-  );
-}
-```
-
-### Available Components
-
-- `Button` - Standard Polaris Button component
-- `PolarisButton` - Enhanced Button with shadcn/ui features
-- `ShadcnButton` - Pure shadcn/ui Button component
-
-## 📚 API Reference
-
-### Button Props
-
-All components support the complete Polaris Button API:
-
-| Prop         | Type                                                                     | Default     | Description                |
-| ------------ | ------------------------------------------------------------------------ | ----------- | -------------------------- |
-| `variant`    | `"primary" \| "secondary" \| "tertiary" \| "plain" \| "monochromePlain"` | `"primary"` | Visual appearance          |
-| `size`       | `"micro" \| "slim" \| "medium" \| "large"`                               | `"medium"`  | Button size                |
-| `tone`       | `"success" \| "critical"`                                                | -           | Color treatment            |
-| `fullWidth`  | `boolean`                                                                | `false`     | Full width button          |
-| `disabled`   | `boolean`                                                                | `false`     | Disabled state             |
-| `loading`    | `boolean`                                                                | `false`     | Loading state with spinner |
-| `pressed`    | `boolean`                                                                | `false`     | Pressed state              |
-| `url`        | `string`                                                                 | -           | Render as link             |
-| `external`   | `boolean`                                                                | `false`     | Open link in new tab       |
-| `disclosure` | `boolean \| "up" \| "down" \| "select"`                                  | -           | Disclosure indicator       |
-| `icon`       | `ReactNode`                                                              | -           | Icon element               |
-| `onClick`    | `() => void`                                                             | -           | Click handler              |
-
-[View complete API documentation](./POLARIS_COMPATIBILITY.md)
-
 ## 🎯 Design System Compatibility
 
 This library provides **100% compatibility** with Shopify's Polaris design system:
@@ -136,11 +93,9 @@ This library provides **100% compatibility** with Shopify's Polaris design syste
 - ✅ **Accessibility**: Full ARIA support and keyboard navigation
 - ✅ **Functionality**: All features work as specified
 
-[View detailed compatibility analysis](./POLARIS_COMPATIBILITY.md)
-
 ## 🛠️ Development
 
-See [DEVELOPMENT.md](./src/DEVELOPMENT.md) for detailed development instructions.
+See [STOREWARE_POLARIS_PRD.md](./src/STOREWARE_POLARIS_PRD.md) for detailed development instructions.
 
 ## 📄 License
 

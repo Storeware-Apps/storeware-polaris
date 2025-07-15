@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { Button } from "./button";
-import { ShoppingCart, Plus, Download, ExternalLink } from "lucide-react";
+import {
+  CartIcon,
+  PlusIcon,
+  ExportIcon,
+  ExternalIcon,
+} from "@shopify/polaris-icons";
 
 const meta = {
   title: "Components/Button",
@@ -194,11 +199,11 @@ export const States: Story = {
 export const WithIcons: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Button icon={<Plus />}>Add item</Button>
-      <Button icon={<ShoppingCart />} variant="secondary">
+      <Button icon={<PlusIcon />}>Add item</Button>
+      <Button icon={<CartIcon />} variant="secondary">
         Add to cart
       </Button>
-      <Button icon={<Download />} variant="tertiary">
+      <Button icon={<ExportIcon />} variant="tertiary">
         Download
       </Button>
     </div>
@@ -238,7 +243,7 @@ export const AsLinks: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Button url="/dashboard">Internal link</Button>
-      <Button url="https://shopify.com" external icon={<ExternalLink />}>
+      <Button url="https://shopify.com" external icon={<ExternalIcon />}>
         External link
       </Button>
       <Button url="/settings" variant="plain">
@@ -271,13 +276,13 @@ export const ComplexExample: Story = {
     <div className="space-y-4 p-6 bg-gray-50 rounded-lg">
       <h3 className="text-lg font-semibold">Product Actions</h3>
       <div className="flex gap-2">
-        <Button icon={<Plus />} tone="success">
+        <Button icon={<PlusIcon />} tone="success">
           Add Product
         </Button>
         <Button variant="secondary" disclosure="down">
           More actions
         </Button>
-        <Button variant="tertiary" icon={<Download />}>
+        <Button variant="tertiary" icon={<ExportIcon />}>
           Export
         </Button>
       </div>
