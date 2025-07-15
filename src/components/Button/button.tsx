@@ -7,11 +7,140 @@
 
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { ChevronDown, ChevronUp, Loader2, Check } from "lucide-react";
+import { type ReactNode } from "react";
 
 import { cn } from "../../lib/utils";
-import type { PolarisButtonProps } from "./button.types";
+
+// Type definitions moved from separate file following shadcn/ui pattern
+export type ButtonSize = "medium" | "large" | "micro" | "slim";
+export type ButtonTextAlign = "start" | "center" | "end" | "left" | "right";
+export type ButtonTone = "success" | "critical";
+export type ButtonVariant =
+  | "default"
+  | "plain"
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "monochromePlain";
+export type ButtonDisclosure = boolean | "up" | "down" | "select";
+export type ButtonTarget = "_blank" | "_self" | "_parent" | "_top";
+
+export interface PolarisButtonProps {
+  /** The content to display inside the button */
+  children?: string | string[] | ReactNode;
+
+  /** Changes the size of the button, giving it more or less padding */
+  size?: ButtonSize;
+
+  /** Changes the inner text alignment of the button */
+  textAlign?: ButtonTextAlign;
+
+  /** Allows the button to grow to the width of its container */
+  fullWidth?: boolean;
+
+  /** Displays the button with a disclosure icon. Defaults to `down` when set to true */
+  disclosure?: ButtonDisclosure;
+
+  /** Removes underline from button text (including on interaction) */
+  removeUnderline?: boolean;
+
+  /** Icon to display to the left of the button content */
+  icon?: ReactNode;
+
+  /** Indicates whether or not the button is the primary navigation link when rendered inside of an `IndexTable.Row` */
+  dataPrimaryLink?: boolean;
+
+  /** Sets the color treatment of the Button */
+  tone?: ButtonTone;
+
+  /** Changes the visual appearance of the Button */
+  variant?: ButtonVariant;
+
+  /** A unique identifier for the button */
+  id?: string;
+
+  /** A destination to link to, rendered in the href attribute of a link */
+  url?: string;
+
+  /** Forces url to open in a new tab */
+  external?: boolean;
+
+  /** Where to display the url */
+  target?: ButtonTarget;
+
+  /** Tells the browser to download the url instead of opening it */
+  download?: string | boolean;
+
+  /** Allows the button to submit a form */
+  submit?: boolean;
+
+  /** Disables the button, disallowing merchant interaction */
+  disabled?: boolean;
+
+  /** Replaces button text with a spinner while a background action is being performed */
+  loading?: boolean;
+
+  /** Sets the button in a pressed state */
+  pressed?: boolean;
+
+  /** Visually hidden text for screen readers */
+  accessibilityLabel?: string;
+
+  /** A valid WAI-ARIA role to define the semantic value of this element */
+  role?: string;
+
+  /** Id of the element the button controls */
+  ariaControls?: string;
+
+  /** Tells screen reader the controlled element is expanded */
+  ariaExpanded?: boolean;
+
+  /** Indicates the ID of the element that describes the button */
+  ariaDescribedBy?: string;
+
+  /** Indicates the current checked state of the button when acting as a toggle or switch */
+  ariaChecked?: "false" | "true";
+
+  /** Callback when clicked */
+  onClick?: () => unknown;
+
+  /** Callback when button becomes focused */
+  onFocus?: () => void;
+
+  /** Callback when focus leaves button */
+  onBlur?: () => void;
+
+  /** Callback when a keypress event is registered on the button */
+  onKeyPress?: (
+    event: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void;
+
+  /** Callback when a keyup event is registered on the button */
+  onKeyUp?: (
+    event: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void;
+
+  /** Callback when a keydown event is registered on the button */
+  onKeyDown?: (
+    event: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void;
+
+  /** Callback when mouse enter */
+  onMouseEnter?: () => void;
+
+  /** Callback when element is touched */
+  onTouchStart?: () => void;
+
+  /** Callback when pointerdown event is being triggered */
+  onPointerDown?: (
+    event: React.PointerEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => void;
+
+  /** Additional CSS class name (inherited from shadcn/ui Button) */
+  className?: string;
+}
 
 // Enhanced Button interface that extends Polaris with shadcn/ui features
 export interface EnhancedButtonProps extends PolarisButtonProps {
@@ -19,55 +148,45 @@ export interface EnhancedButtonProps extends PolarisButtonProps {
   asChild?: boolean;
 }
 
-// Re-export types for convenience
-export type PolarisButtonSize = "medium" | "large" | "micro" | "slim";
-export type PolarisButtonTextAlign =
-  | "start"
-  | "center"
-  | "end"
-  | "left"
-  | "right";
-export type PolarisButtonTone = "success" | "critical";
-export type PolarisButtonVariant =
-  | "plain"
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "monochromePlain";
-export type PolarisButtonDisclosure = boolean | "up" | "down" | "select";
-export type PolarisButtonTarget = "_blank" | "_self" | "_parent" | "_top";
+// Re-export types for convenience (maintaining backward compatibility)
+export type PolarisButtonSize = ButtonSize;
+export type PolarisButtonTextAlign = ButtonTextAlign;
+export type PolarisButtonTone = ButtonTone;
+export type PolarisButtonVariant = ButtonVariant;
+export type PolarisButtonDisclosure = ButtonDisclosure;
+export type PolarisButtonTarget = ButtonTarget;
 
 // Create Polaris-specific button variants using CVA
 const polarisButtonVariants = cva(
-  "cursor-pointer inline-flex items-center justify-center whitespace-nowrap font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+  "cursor-pointer inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 relative m-0 border-0 font-sans !text-[13px] font-medium !leading-[20.15px] !rounded-lg",
   {
     variants: {
       variant: {
+        // Polaris default variant - white background with specific shadow styling
+        default:
+          "bg-white text-gray-700 hover:bg-[#f6f6f6] shadow-[inset_0px_0.5px_0px_#c6c6c6,_0px_1px_1px_#c6c6c6,_inset_0.5px_0px_0px_#c6c6c6,_inset_-0.5px_0px_0px_#c6c6c6] hover:shadow-[inset_0px_0.5px_0px_#c6c6c6,_0px_1px_0px_#c6c6c6,_inset_0.5px_0px_0px_#c6c6c6,_inset_-0.5px_0px_0px_#c6c6c6] focus-visible:ring-gray-500/20",
         // Polaris primary variant - dark background with white text
         primary:
-          "bg-gray-900 text-white shadow-sm hover:bg-gray-800 focus-visible:ring-gray-900/20",
+          "bg-gray-900 text-white hover:bg-gray-800 focus-visible:ring-gray-900/20",
         // Polaris secondary variant - light background with dark text
         secondary:
-          "bg-gray-100 text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:ring-gray-500/20",
+          "bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-500/20",
         // Polaris tertiary variant - outlined button
         tertiary:
-          "border border-gray-300 bg-white text-gray-900 shadow-sm hover:bg-gray-50 focus-visible:ring-gray-500/20",
+          "!border !border-gray-300 bg-white text-gray-900 hover:bg-gray-50 focus-visible:ring-gray-500/20",
         // Polaris plain variant - link-like appearance with blue text and underline on hover
         plain:
-          "text-blue-600 hover:text-blue-700 hover:underline focus-visible:ring-blue-600/20 bg-transparent shadow-none",
+          "text-blue-600 hover:text-blue-700 hover:underline focus-visible:ring-blue-600/20 bg-transparent !shadow-none",
         // Polaris monochrome plain variant - muted appearance
         monochromePlain:
-          "text-gray-600 hover:text-gray-700 hover:underline focus-visible:ring-gray-500/20 bg-transparent shadow-none",
+          "text-gray-600 hover:text-gray-700 hover:underline focus-visible:ring-gray-500/20 bg-transparent !shadow-none",
       },
       size: {
-        // Polaris micro size - smallest (20px height)
-        micro: "h-5 px-2 py-0.5 text-xs gap-1 has-[>svg]:px-1.5 rounded",
-        // Polaris slim size - compact (28px height)
-        slim: "h-7 px-3 py-1 text-sm gap-1.5 has-[>svg]:px-2.5 rounded",
-        // Polaris medium size - default (36px height)
-        medium: "h-9 px-4 py-2 text-sm gap-2 has-[>svg]:px-3 rounded",
-        // Polaris large size - bigger (44px height)
-        large: "h-11 px-6 py-3 text-base gap-2 has-[>svg]:px-5 rounded",
+        // Polaris size variants with proper dimensions
+        micro: "!h-5 !px-2 !py-0.5 gap-1 text-xs",
+        slim: "!h-6 !px-2.5 !py-1 gap-1.5",
+        medium: "!h-6 !px-4 !py-2 gap-2",
+        large: "!h-7 !px-5 !py-2.5 gap-2.5 text-sm",
       },
       tone: {
         default: "",
@@ -93,7 +212,7 @@ const polarisButtonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "default",
       size: "medium",
       tone: "default",
       textAlign: "center",
@@ -137,7 +256,7 @@ export const Button = React.forwardRef<
       icon,
       dataPrimaryLink,
       tone = "default",
-      variant = "primary",
+      variant = "default",
       id,
       url,
       external,
@@ -265,7 +384,6 @@ export const Button = React.forwardRef<
 
 Button.displayName = "Button";
 
-// Export variants and types
+// Export variants for convenience
 export { polarisButtonVariants };
 export { polarisButtonVariants as buttonVariants };
-export type { PolarisButtonProps };

@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import { Button } from './button';
-import { ShoppingCart, Plus, Download, ExternalLink } from 'lucide-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
+import { Button } from "./button";
+import { ShoppingCart, Plus, Download, ExternalLink } from "lucide-react";
 
 const meta = {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     docs: {
       description: {
         component: `
@@ -25,6 +25,7 @@ A comprehensive Button component that provides 100% API compatibility with Shopi
 
 ## Variants
 
+- **Default**: Standard button with Polaris default styling (used when no variant is specified)
 - **Primary**: Main call-to-action buttons
 - **Secondary**: Secondary actions
 - **Tertiary**: Outlined buttons for less prominent actions
@@ -33,58 +34,67 @@ A comprehensive Button component that provides 100% API compatibility with Shopi
 
 ## Sizes
 
-- **Micro**: 20px height - for compact interfaces
-- **Slim**: 28px height - for tight spaces
-- **Medium**: 36px height - default size
-- **Large**: 44px height - for prominent actions
+- **Micro**: 20px height (h-5) - for compact interfaces
+- **Slim**: 24px height (h-6) - for tight spaces
+- **Medium**: 32px height (h-8) - default size
+- **Large**: 40px height (h-10) - for prominent actions
         `,
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'plain', 'monochromePlain'],
-      description: 'Changes the visual appearance of the Button',
+      control: "select",
+      options: [
+        "default",
+        "primary",
+        "secondary",
+        "tertiary",
+        "plain",
+        "monochromePlain",
+      ],
+      description: "Changes the visual appearance of the Button",
     },
     size: {
-      control: 'select',
-      options: ['micro', 'slim', 'medium', 'large'],
-      description: 'Changes the size of the button, giving it more or less padding',
+      control: "select",
+      options: ["micro", "slim", "medium", "large"],
+      description:
+        "Changes the size of the button, giving it more or less padding",
     },
     tone: {
-      control: 'select',
-      options: [undefined, 'success', 'critical'],
-      description: 'Sets the color treatment of the Button',
+      control: "select",
+      options: [undefined, "success", "critical"],
+      description: "Sets the color treatment of the Button",
     },
     fullWidth: {
-      control: 'boolean',
-      description: 'Allows the button to grow to the width of its container',
+      control: "boolean",
+      description: "Allows the button to grow to the width of its container",
     },
     disabled: {
-      control: 'boolean',
-      description: 'Disables the button, disallowing interaction',
+      control: "boolean",
+      description: "Disables the button, disallowing interaction",
     },
     loading: {
-      control: 'boolean',
-      description: 'Replaces button text with a spinner while a background action is being performed',
+      control: "boolean",
+      description:
+        "Replaces button text with a spinner while a background action is being performed",
     },
     pressed: {
-      control: 'boolean',
-      description: 'Sets the button in a pressed state',
+      control: "boolean",
+      description: "Sets the button in a pressed state",
     },
     disclosure: {
-      control: 'select',
-      options: [undefined, true, 'up', 'down', 'select'],
-      description: 'Displays the button with a disclosure icon',
+      control: "select",
+      options: [undefined, true, "up", "down", "select"],
+      description: "Displays the button with a disclosure icon",
     },
     textAlign: {
-      control: 'select',
-      options: ['start', 'center', 'end', 'left', 'right'],
-      description: 'Changes the inner text alignment of the button',
+      control: "select",
+      options: ["start", "center", "end", "left", "right"],
+      description: "Changes the inner text alignment of the button",
     },
-    onClick: { action: 'clicked' },
+    onClick: { action: "clicked" },
   },
   args: {
     onClick: fn(),
@@ -95,38 +105,53 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Basic variants
+export const Default: Story = {
+  args: {
+    children: "Click me",
+    variant: "default",
+  },
+};
+
 export const Primary: Story = {
   args: {
-    children: 'Add product',
-    variant: 'primary',
+    children: "Add product",
+    variant: "primary",
   },
 };
 
 export const Secondary: Story = {
   args: {
-    children: 'Cancel',
-    variant: 'secondary',
+    children: "Cancel",
+    variant: "secondary",
   },
 };
 
 export const Tertiary: Story = {
   args: {
-    children: 'Learn more',
-    variant: 'tertiary',
+    children: "Learn more",
+    variant: "tertiary",
   },
 };
 
 export const Plain: Story = {
   args: {
-    children: 'View shipping settings',
-    variant: 'plain',
+    children: "View shipping settings",
+    variant: "plain",
   },
 };
 
 export const MonochromePlain: Story = {
   args: {
-    children: 'View details',
-    variant: 'monochromePlain',
+    children: "View details",
+    variant: "monochromePlain",
+  },
+};
+
+// Demonstrates default behavior when no variant is specified
+export const NoVariantSpecified: Story = {
+  args: {
+    children: "No variant prop",
+    // Note: no variant prop specified - should use default
   },
 };
 
@@ -170,8 +195,12 @@ export const WithIcons: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Button icon={<Plus />}>Add item</Button>
-      <Button icon={<ShoppingCart />} variant="secondary">Add to cart</Button>
-      <Button icon={<Download />} variant="tertiary">Download</Button>
+      <Button icon={<ShoppingCart />} variant="secondary">
+        Add to cart
+      </Button>
+      <Button icon={<Download />} variant="tertiary">
+        Download
+      </Button>
     </div>
   ),
 };
@@ -181,8 +210,12 @@ export const Disclosure: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Button disclosure="down">More actions</Button>
-      <Button disclosure="up" variant="secondary">Less options</Button>
-      <Button disclosure="select" variant="tertiary">Select option</Button>
+      <Button disclosure="up" variant="secondary">
+        Less options
+      </Button>
+      <Button disclosure="select" variant="tertiary">
+        Select option
+      </Button>
     </div>
   ),
 };
@@ -199,7 +232,7 @@ export const FullWidth: Story = {
 // As Links
 export const AsLinks: Story = {
   args: {
-    disabled: true
+    disabled: true,
   },
 
   render: () => (
@@ -208,18 +241,26 @@ export const AsLinks: Story = {
       <Button url="https://shopify.com" external icon={<ExternalLink />}>
         External link
       </Button>
-      <Button url="/settings" variant="plain">Settings</Button>
+      <Button url="/settings" variant="plain">
+        Settings
+      </Button>
     </div>
-  )
+  ),
 };
 
 // Text Alignment
 export const TextAlignment: Story = {
   render: () => (
     <div className="w-80 space-y-2">
-      <Button fullWidth textAlign="start">Start aligned</Button>
-      <Button fullWidth textAlign="center">Center aligned</Button>
-      <Button fullWidth textAlign="end">End aligned</Button>
+      <Button fullWidth textAlign="start">
+        Start aligned
+      </Button>
+      <Button fullWidth textAlign="center">
+        Center aligned
+      </Button>
+      <Button fullWidth textAlign="end">
+        End aligned
+      </Button>
     </div>
   ),
 };
@@ -230,13 +271,23 @@ export const ComplexExample: Story = {
     <div className="space-y-4 p-6 bg-gray-50 rounded-lg">
       <h3 className="text-lg font-semibold">Product Actions</h3>
       <div className="flex gap-2">
-        <Button icon={<Plus />} tone="success">Add Product</Button>
-        <Button variant="secondary" disclosure="down">More actions</Button>
-        <Button variant="tertiary" icon={<Download />}>Export</Button>
+        <Button icon={<Plus />} tone="success">
+          Add Product
+        </Button>
+        <Button variant="secondary" disclosure="down">
+          More actions
+        </Button>
+        <Button variant="tertiary" icon={<Download />}>
+          Export
+        </Button>
       </div>
       <div className="flex gap-2">
-        <Button variant="plain" url="/help">Need help?</Button>
-        <Button variant="monochromePlain" url="/docs">View documentation</Button>
+        <Button variant="plain" url="/help">
+          Need help?
+        </Button>
+        <Button variant="monochromePlain" url="/docs">
+          View documentation
+        </Button>
       </div>
     </div>
   ),
