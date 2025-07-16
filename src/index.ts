@@ -7,6 +7,9 @@ export {
   buttonGroupVariants,
 } from "./components/ButtonGroup/buttonGroup.js";
 
+// Export Box component
+export { Box, boxVariants } from "./components/Box/box.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -36,6 +39,21 @@ export type {
   PolarisButtonGroupGap,
   PolarisButtonGroupVariant,
 } from "./components/ButtonGroup/buttonGroup";
+
+// Export Box types (consolidated in box.tsx following shadcn/ui pattern)
+export type {
+  PolarisBoxProps,
+  EnhancedBoxProps,
+  ColorBackgroundAlias,
+  ColorBorderAlias,
+  ColorTextAlias,
+  SpaceScale,
+  BorderRadiusAliasOrScale,
+  BorderWidthScale,
+  ShadowAliasOrScale,
+  BreakpointsAlias,
+  ResponsiveSpacing,
+} from "./components/Box/box";
 
 // Export utilities
 export { cn } from "./lib/utils.js";

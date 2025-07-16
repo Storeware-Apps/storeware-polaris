@@ -99,9 +99,9 @@ import { CartIcon } from "@shopify/polaris-icons";
 
 ## Available Components
 
-### Button Component
+### Button Component ✅
 
-The primary component currently available with full Polaris compatibility.
+The primary action component with full Polaris compatibility.
 
 **Variants**: `default`, `primary`, `secondary`, `tertiary`, `plain`, `monochromePlain`
 **Sizes**: `micro`, `slim`, `medium`, `large`
@@ -109,6 +109,32 @@ The primary component currently available with full Polaris compatibility.
 **Tones**: `success`, `critical`
 
 For detailed documentation, see: `src/components/Button/BUTTON_DOCS.md`
+
+### ButtonGroup Component ✅
+
+Component for grouping related buttons with proper spacing and layout.
+
+**Variants**: `segmented`
+**Gap Options**: `extraTight`, `tight`, `loose`
+**Features**: `fullWidth`, `connectedTop`, `noWrap`
+
+For detailed documentation, see: `src/components/ButtonGroup/BUTTONGROUP_DOCS.md`
+
+### Box Component ✅
+
+The most primitive layout component providing access to Polaris design tokens.
+
+**Features**:
+
+- Complete Polaris color token support (background, border, text)
+- Comprehensive spacing system with responsive support
+- Border properties (width, radius, style, individual sides)
+- Layout properties (position, overflow, dimensions)
+- Shadow system with all Polaris shadow tokens
+- Accessibility features (visual/print hiding, ARIA support)
+- Semantic HTML element support
+
+For detailed documentation, see: `src/components/Box/BOX_DOCS.md`
 
 ## Development Setup
 
@@ -290,17 +316,27 @@ src/
 
 ## Roadmap
 
-### Phase 1 (Current)
+### Phase 1 (Completed) ✅
 
 - ✅ Button component with full Polaris compatibility
+- ✅ ButtonGroup component with segmented styling
+- ✅ Box component with complete design token support
 - ✅ TypeScript support and type definitions
-- ✅ Comprehensive testing setup
-- ✅ Storybook integration
+- ✅ Comprehensive testing setup with Vitest
+- ✅ Storybook integration for all components
 - ✅ Build and publishing workflow
 
-### Phase 2 (Planned)
+### Phase 2 (Current)
 
-- [ ] Additional core components (Card, TextField, Select)
+- 🚧 Page component (next priority)
+- 🚧 Text component for typography
+- 🚧 Index Table component for data display
+- [ ] Card component for content containers
+- [ ] TextField component for form inputs
+- [ ] Select component for dropdowns
+
+### Phase 3 (Planned)
+
 - [ ] Theme customization system
 - [ ] Advanced accessibility features
 - [ ] Performance optimizations
