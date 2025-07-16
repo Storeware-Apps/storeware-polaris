@@ -54,7 +54,7 @@ const polarisButtonGroupVariants = cva("flex items-center", {
     },
     variant: {
       segmented:
-        "gap-0 [&>*:not(:first-child)]:rounded-l-none [&>*:not(:last-child)]:rounded-r-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:first-child)]:ml-[-1px] [&>*]:relative [&>*:not(:last-child)]:after:absolute [&>*:not(:last-child)]:after:top-0 [&>*:not(:last-child)]:after:right-[-1px] [&>*:not(:last-child)]:after:h-full [&>*:not(:last-child)]:after:w-px [&>*:not(:last-child)]:after:bg-gray-300/50 [&>*:not(:last-child)]:after:content-[''] [&>*:not(:last-child)]:after:z-[1]",
+        "[&>button]:ml-[-10px] [&>button]:[background-color:#ffffff] [&>button:hover]:[background-color:#f6f6f6] [&>button]:!rounded-none [&>button:first-child]:!rounded-tl-md [&>button:first-child]:!rounded-bl-md [&>button:last-child]:!rounded-tr-md [&>button:last-child]:!rounded-br-md",
     },
     fullWidth: {
       true: "w-full [&>*]:flex-1",
