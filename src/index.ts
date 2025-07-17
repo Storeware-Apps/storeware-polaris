@@ -10,6 +10,15 @@ export {
 // Export Box component
 export { Box, boxVariants } from "./components/Box/box.js";
 
+// Export Text component
+export { Text, textVariants } from "./components/Text/Text.js";
+
+// Export TextField component
+export {
+  TextField,
+  textFieldVariants,
+} from "./components/TextField/TextField.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -54,6 +63,38 @@ export type {
   BreakpointsAlias,
   ResponsiveSpacing,
 } from "./components/Box/box";
+
+// Export Text types (consolidated in Text.tsx following shadcn/ui pattern)
+export type {
+  PolarisTextProps,
+  EnhancedTextProps,
+  TextProps,
+  TextVariant,
+  TextAlignment,
+  TextTone,
+  TextFontWeight,
+  TextElement,
+  // Backward compatibility aliases
+  PolarisTextVariant,
+  PolarisTextAlignment,
+  PolarisTextTone,
+  PolarisTextFontWeight,
+  PolarisTextElement,
+} from "./components/Text/Text";
+
+// Export TextField types (consolidated in TextField.tsx following shadcn/ui pattern)
+export type {
+  PolarisTextFieldProps,
+  EnhancedTextFieldProps,
+  TextFieldProps,
+  TextFieldType,
+  TextFieldAlignment,
+  TextFieldInputMode,
+  TextFieldSize,
+  TextFieldVariant,
+  TextFieldTone,
+  TextFieldError,
+} from "./components/TextField/TextField";
 
 // Export utilities
 export { cn } from "./lib/utils.js";
