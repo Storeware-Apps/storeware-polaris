@@ -12,7 +12,14 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
-    "./styles": "./dist/styles/globals.css",
+    "./styles": {
+      "import": "./dist/styles/globals.css",
+      "require": "./dist/styles/globals.css"
+    },
+    "./styles/globals.css": {
+      "import": "./dist/styles/globals.css",
+      "require": "./dist/styles/globals.css"
+    },
     "./package.json": "./package.json"
   },
   "files": [
