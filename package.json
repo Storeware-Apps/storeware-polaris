@@ -21,11 +21,12 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node fix-imports.js",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node fix-imports.js && pnpm copy:css",
+    "copy:css": "mkdir -p dist/styles && cp src/styles/globals.css dist/styles/globals.css",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "prepublishOnly": "pnpm run clean && pnpm run build",
+    "prepare": "pnpm run clean && pnpm run build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
