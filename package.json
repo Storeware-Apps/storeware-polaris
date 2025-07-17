@@ -1,8 +1,8 @@
 {
   "name": "@storeware/polaris",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
-  "description": "A React component library that matches Shopify's Polaris design system using shadcn/ui and Tailwind CSS",
+  "description": "A custom component library that matches Shopify's Polaris design system using shadcn/ui and Tailwind CSS",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -93,5 +93,9 @@
     "typescript": "^5.0.0",
     "vite": "^5.0.0",
     "vitest": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Storeware-Apps/storeware-polaris"
   }
 }
