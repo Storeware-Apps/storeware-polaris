@@ -1,3 +1,4 @@
+import "./styles/globals.css";
 export { Button, buttonVariants } from "./components/Button/button.js";
 export { ButtonGroup, buttonGroupVariants, } from "./components/ButtonGroup/buttonGroup.js";
 export { Box, boxVariants } from "./components/Box/box.js";
