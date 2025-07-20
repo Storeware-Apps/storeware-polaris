@@ -1,13 +1,523 @@
-import "./styles/globals.css";
-export { Button, buttonVariants } from "./components/Button/button.js";
-export { ButtonGroup, buttonGroupVariants, } from "./components/ButtonGroup/buttonGroup.js";
-export { Box, boxVariants } from "./components/Box/box.js";
-export { Text, textVariants } from "./components/Text/Text.js";
-export { TextField, textFieldVariants, } from "./components/TextField/TextField.js";
-export type { PolarisButtonProps, EnhancedButtonProps, ButtonSize, ButtonTextAlign, ButtonTone, ButtonVariant, ButtonDisclosure, ButtonTarget, PolarisButtonSize, PolarisButtonTextAlign, PolarisButtonTone, PolarisButtonVariant, PolarisButtonDisclosure, PolarisButtonTarget, } from "./components/Button/button";
-export type { PolarisButtonGroupProps, EnhancedButtonGroupProps, ButtonGroupGap, ButtonGroupVariant, PolarisButtonGroupGap, PolarisButtonGroupVariant, } from "./components/ButtonGroup/buttonGroup";
-export type { PolarisBoxProps, EnhancedBoxProps, ColorBackgroundAlias, ColorBorderAlias, ColorTextAlias, SpaceScale, BorderRadiusAliasOrScale, BorderWidthScale, ShadowAliasOrScale, BreakpointsAlias, ResponsiveSpacing, } from "./components/Box/box";
-export type { PolarisTextProps, EnhancedTextProps, TextProps, TextVariant, TextAlignment, TextTone, TextFontWeight, TextElement, PolarisTextVariant, PolarisTextAlignment, PolarisTextTone, PolarisTextFontWeight, PolarisTextElement, } from "./components/Text/Text";
-export type { PolarisTextFieldProps, EnhancedTextFieldProps, TextFieldProps, TextFieldType, TextFieldAlignment, TextFieldInputMode, TextFieldSize, TextFieldVariant, TextFieldTone, TextFieldError, } from "./components/TextField/TextField";
-export { cn } from "./lib/utils.js";
-//# sourceMappingURL=index.d.ts.map
+import { ClassProp } from 'class-variance-authority/types';
+import { ClassValue } from 'clsx';
+import * as React_2 from 'react';
+import { ReactNode } from 'react';
+import { VariantProps } from 'class-variance-authority';
+
+export declare type BorderRadiusAliasOrScale = "0" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "750" | "full";
+
+export declare type BorderWidthScale = "0" | "0165" | "025" | "050" | "100";
+
+export declare const Box: React_2.ForwardRefExoticComponent<EnhancedBoxProps & React_2.RefAttributes<any>>;
+
+export declare const boxVariants: (props?: ({
+    visuallyHidden?: boolean | null | undefined;
+    printHidden?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare type BreakpointsAlias = "xs" | "sm" | "md" | "lg" | "xl";
+
+export declare const Button: React_2.ForwardRefExoticComponent<EnhancedButtonProps & React_2.RefAttributes<HTMLButtonElement | HTMLAnchorElement>>;
+
+export declare type ButtonDisclosure = boolean | "up" | "down" | "select";
+
+export declare const ButtonGroup: React_2.ForwardRefExoticComponent<EnhancedButtonGroupProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare type ButtonGroupGap = "extraTight" | "tight" | "loose";
+
+export declare type ButtonGroupVariant = "segmented";
+
+export declare const buttonGroupVariants: (props?: ({
+    gap?: "extraTight" | "tight" | "loose" | null | undefined;
+    variant?: "segmented" | null | undefined;
+    fullWidth?: boolean | null | undefined;
+    connectedTop?: boolean | null | undefined;
+    noWrap?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare type ButtonSize = "medium" | "large" | "micro" | "slim";
+
+export declare type ButtonTarget = "_blank" | "_self" | "_parent" | "_top";
+
+export declare type ButtonTextAlign = "start" | "center" | "end" | "left" | "right";
+
+export declare type ButtonTone = "success" | "critical";
+
+export declare type ButtonVariant = "default" | "plain" | "primary" | "secondary" | "tertiary" | "monochromePlain";
+
+export declare const buttonVariants: (props?: ({
+    variant?: "default" | "plain" | "primary" | "secondary" | "tertiary" | "monochromePlain" | null | undefined;
+    size?: "medium" | "large" | "micro" | "slim" | null | undefined;
+    tone?: "success" | "critical" | "default" | null | undefined;
+    textAlign?: "start" | "center" | "end" | "left" | "right" | null | undefined;
+    fullWidth?: boolean | null | undefined;
+    pressed?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare function cn(...inputs: ClassValue[]): string;
+
+export declare type ColorBackgroundAlias = "bg" | "bg-inverse" | "bg-surface" | "bg-surface-hover" | "bg-surface-active" | "bg-surface-selected" | "bg-surface-disabled" | "bg-surface-secondary" | "bg-surface-secondary-hover" | "bg-surface-secondary-active" | "bg-surface-secondary-selected" | "bg-surface-tertiary" | "bg-surface-tertiary-hover" | "bg-surface-tertiary-active" | "bg-surface-brand" | "bg-surface-brand-hover" | "bg-surface-brand-active" | "bg-surface-brand-selected" | "bg-surface-info" | "bg-surface-info-hover" | "bg-surface-info-active" | "bg-surface-success" | "bg-surface-success-hover" | "bg-surface-success-active" | "bg-surface-caution" | "bg-surface-caution-hover" | "bg-surface-caution-active" | "bg-surface-warning" | "bg-surface-warning-hover" | "bg-surface-warning-active" | "bg-surface-critical" | "bg-surface-critical-hover" | "bg-surface-critical-active" | "bg-surface-emphasis" | "bg-surface-emphasis-hover" | "bg-surface-emphasis-active" | "bg-surface-magic" | "bg-surface-magic-hover" | "bg-surface-magic-active" | "bg-surface-inverse" | "bg-surface-transparent" | "bg-fill" | "bg-fill-hover" | "bg-fill-active" | "bg-fill-selected" | "bg-fill-disabled" | "bg-fill-secondary" | "bg-fill-secondary-hover" | "bg-fill-secondary-active" | "bg-fill-secondary-selected" | "bg-fill-tertiary" | "bg-fill-tertiary-hover" | "bg-fill-tertiary-active" | "bg-fill-brand" | "bg-fill-brand-hover" | "bg-fill-brand-active" | "bg-fill-brand-selected" | "bg-fill-brand-disabled" | "bg-fill-info" | "bg-fill-info-hover" | "bg-fill-info-active" | "bg-fill-info-secondary" | "bg-fill-success" | "bg-fill-success-hover" | "bg-fill-success-active" | "bg-fill-success-secondary" | "bg-fill-warning" | "bg-fill-warning-hover" | "bg-fill-warning-active" | "bg-fill-warning-secondary" | "bg-fill-caution" | "bg-fill-caution-hover" | "bg-fill-caution-active" | "bg-fill-caution-secondary" | "bg-fill-critical" | "bg-fill-critical-hover" | "bg-fill-critical-active" | "bg-fill-critical-selected" | "bg-fill-critical-secondary" | "bg-fill-emphasis" | "bg-fill-emphasis-hover" | "bg-fill-emphasis-active" | "bg-fill-magic" | "bg-fill-magic-secondary" | "bg-fill-magic-secondary-hover" | "bg-fill-magic-secondary-active" | "bg-fill-inverse" | "bg-fill-inverse-hover" | "bg-fill-inverse-active" | "bg-fill-transparent" | "bg-fill-transparent-hover" | "bg-fill-transparent-active" | "bg-fill-transparent-selected" | "bg-fill-transparent-secondary" | "bg-fill-transparent-secondary-hover" | "bg-fill-transparent-secondary-active";
+
+export declare type ColorBorderAlias = "border" | "border-hover" | "border-disabled" | "border-secondary" | "border-tertiary" | "border-focus" | "border-brand" | "border-info" | "border-success" | "border-caution" | "border-warning" | "border-critical" | "border-critical-secondary" | "border-emphasis" | "border-emphasis-hover" | "border-emphasis-active" | "border-magic" | "border-magic-secondary" | "border-magic-secondary-hover" | "border-inverse" | "border-inverse-hover" | "border-inverse-active";
+
+export declare type ColorTextAlias = "text" | "text-secondary" | "text-disabled" | "text-link" | "text-link-hover" | "text-link-active" | "text-brand" | "text-brand-hover" | "text-brand-on-bg-fill" | "text-brand-on-bg-fill-hover" | "text-brand-on-bg-fill-active" | "text-brand-on-bg-fill-disabled" | "text-info" | "text-info-hover" | "text-info-active" | "text-info-secondary" | "text-info-on-bg-fill" | "text-success" | "text-success-hover" | "text-success-active" | "text-success-secondary" | "text-success-on-bg-fill" | "text-caution" | "text-caution-hover" | "text-caution-active" | "text-caution-secondary" | "text-caution-on-bg-fill" | "text-warning" | "text-warning-hover" | "text-warning-active" | "text-warning-secondary" | "text-warning-on-bg-fill" | "text-critical" | "text-critical-hover" | "text-critical-active" | "text-critical-secondary" | "text-critical-on-bg-fill" | "text-emphasis" | "text-emphasis-hover" | "text-emphasis-active" | "text-emphasis-on-bg-fill" | "text-emphasis-on-bg-fill-hover" | "text-emphasis-on-bg-fill-active" | "text-magic" | "text-magic-secondary" | "text-magic-on-bg-fill" | "text-inverse" | "text-inverse-secondary" | "text-link-inverse";
+
+export declare interface EnhancedBoxProps extends PolarisBoxProps {
+}
+
+export declare interface EnhancedButtonGroupProps extends PolarisButtonGroupProps {
+}
+
+export declare interface EnhancedButtonProps extends PolarisButtonProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
+}
+
+export declare interface EnhancedTextFieldProps extends NonMutuallyExclusiveProps {
+    /** Additional CSS class name for custom styling */
+    className?: string;
+}
+
+export declare interface EnhancedTextProps extends PolarisTextProps {
+    /** Additional CSS class name */
+    className?: string;
+}
+
+declare interface NonMutuallyExclusiveProps {
+    /** Text to display before value */
+    prefix?: React_2.ReactNode;
+    /** Text to display after value */
+    suffix?: React_2.ReactNode;
+    /** Content to vertically display above the input value */
+    verticalContent?: React_2.ReactNode;
+    /** Hint text to display */
+    placeholder?: string;
+    /** Initial value for the input */
+    value?: string;
+    /** Additional hint text to display */
+    helpText?: React_2.ReactNode;
+    /** Label for the input */
+    label: React_2.ReactNode;
+    /** Adds an action to the label */
+    labelAction?: {
+        content: React_2.ReactNode;
+        onAction(): void;
+    };
+    /** Visually hide the label */
+    labelHidden?: boolean;
+    /** Show a clear text button in the input */
+    clearButton?: boolean;
+    /** Indicates whether or not the entire value should be selected on focus */
+    selectTextOnFocus?: boolean;
+    /** An inline autocomplete suggestion containing the input value */
+    suggestion?: string;
+    /** Disable editing of the input */
+    readOnly?: boolean;
+    /** Automatically focus the input */
+    autoFocus?: boolean;
+    /** Force the focus state on the input */
+    focused?: boolean;
+    /** Allow for multiple lines of input */
+    multiline?: boolean | number;
+    /** Error to display beneath the label */
+    error?: TextFieldError;
+    /** An element connected to the right of the input */
+    connectedRight?: React_2.ReactNode;
+    /** An element connected to the left of the input */
+    connectedLeft?: React_2.ReactNode;
+    /** Determine type of input */
+    type?: TextFieldType;
+    /** Name of the input */
+    name?: string;
+    /** ID for the input */
+    id?: string;
+    /** Defines a specific role attribute for the input */
+    role?: string;
+    /** Limit increment value for numeric and date-time inputs */
+    step?: number;
+    /** Increment value for numeric and date-time inputs when using Page Up or Page Down */
+    largeStep?: number;
+    /** Enable automatic completion by the browser */
+    autoComplete: string;
+    /** Mimics the behavior of the native HTML attribute, limiting the maximum value */
+    max?: number | string;
+    /** Maximum character length for an input */
+    maxLength?: number;
+    /** Maximum height of the input element. Only applies when multiline is true */
+    maxHeight?: number | string;
+    /** Mimics the behavior of the native HTML attribute, limiting the minimum value */
+    min?: number | string;
+    /** Minimum character length for an input */
+    minLength?: number;
+    /** A regular expression to check the value against */
+    pattern?: string;
+    /** Choose the keyboard that should be used on mobile devices */
+    inputMode?: TextFieldInputMode;
+    /** Indicate whether value should have spelling checked */
+    spellCheck?: boolean;
+    /** Indicates the id of a component owned by the input */
+    ariaOwns?: string;
+    /** Indicates whether or not a Popover is displayed */
+    ariaExpanded?: boolean;
+    /** Indicates the id of a component controlled by the input */
+    ariaControls?: string;
+    /** Indicates the id of a related component's visually focused element to the input */
+    ariaActiveDescendant?: string;
+    /** Indicates what kind of user input completion suggestions are provided */
+    ariaAutocomplete?: string;
+    /** Indicates whether or not the character count should be displayed */
+    showCharacterCount?: boolean;
+    /** Determines the alignment of the text in the input */
+    align?: TextFieldAlignment;
+    /** Visual required indicator, adds an asterisk to label */
+    requiredIndicator?: boolean;
+    /** Indicates whether or not a monospaced font should be used */
+    monospaced?: boolean;
+    /** Visual styling options for the TextField */
+    variant?: TextFieldVariant;
+    /** Changes the size of the input, giving it more or less padding */
+    size?: TextFieldSize;
+    /** Indicates the tone of the text field */
+    tone?: TextFieldTone;
+    /** Whether the TextField will grow as the text within the input changes */
+    autoSize?: boolean;
+    /** Indicates the loading state */
+    loading?: boolean;
+    /** Callback fired when clear button is clicked */
+    onClearButtonClick?(id: string): void;
+    /** Callback fired when value is changed */
+    onChange?(value: string, id: string): void;
+    /** When provided, callback fired instead of onChange when value is changed via the number step control */
+    onSpinnerChange?(value: string, id: string): void;
+    /** Callback fired when input is focused */
+    onFocus?: (event?: React_2.FocusEvent) => void;
+    /** Callback fired when input is blurred */
+    onBlur?(event?: React_2.FocusEvent): void;
+}
+
+export declare interface PolarisBoxProps {
+    /** Content to display inside the box */
+    children?: React_2.ReactNode;
+    /** HTML Element type */
+    as?: "div" | "span" | "section" | "legend" | "ul" | "li";
+    /** Background color */
+    background?: ColorBackgroundAlias;
+    /** Border color */
+    borderColor?: ColorBorderAlias | "transparent";
+    /** Border style */
+    borderStyle?: "solid" | "dashed";
+    /** Border radius */
+    borderRadius?: BorderRadiusAliasOrScale;
+    /** Vertical end horizontal start border radius */
+    borderEndStartRadius?: BorderRadiusAliasOrScale;
+    /** Vertical end horizontal end border radius */
+    borderEndEndRadius?: BorderRadiusAliasOrScale;
+    /** Vertical start horizontal start border radius */
+    borderStartStartRadius?: BorderRadiusAliasOrScale;
+    /** Vertical start horizontal end border radius */
+    borderStartEndRadius?: BorderRadiusAliasOrScale;
+    /** Border width */
+    borderWidth?: BorderWidthScale;
+    /** Vertical start border width */
+    borderBlockStartWidth?: BorderWidthScale;
+    /** Vertical end border width */
+    borderBlockEndWidth?: BorderWidthScale;
+    /** Horizontal start border width */
+    borderInlineStartWidth?: BorderWidthScale;
+    /** Horizontal end border width */
+    borderInlineEndWidth?: BorderWidthScale;
+    /** Color of children */
+    color?: ColorTextAlias;
+    /** HTML id attribute */
+    id?: string;
+    /** Minimum height of container */
+    minHeight?: string;
+    /** Minimum width of container */
+    minWidth?: string;
+    /** Maximum width of container */
+    maxWidth?: string;
+    /** Clip horizontal content of children */
+    overflowX?: "hidden" | "scroll" | "clip";
+    /** Clip vertical content of children */
+    overflowY?: "hidden" | "scroll" | "clip";
+    /** Spacing around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    padding?: ResponsiveSpacing;
+    /** Vertical start and end spacing around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    paddingBlock?: ResponsiveSpacing;
+    /** Vertical start spacing around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    paddingBlockStart?: ResponsiveSpacing;
+    /** Vertical end spacing around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    paddingBlockEnd?: ResponsiveSpacing;
+    /** Horizontal start and end spacing around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    paddingInline?: ResponsiveSpacing;
+    /** Horizontal start spacing around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    paddingInlineStart?: ResponsiveSpacing;
+    /** Horizontal end spacing around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    paddingInlineEnd?: ResponsiveSpacing;
+    /** Aria role */
+    role?: string;
+    /** Shadow on box */
+    shadow?: ShadowAliasOrScale;
+    /** Set tab order */
+    tabIndex?: number;
+    /** Width of container */
+    width?: string;
+    /** Position of box */
+    position?: "relative" | "absolute" | "fixed" | "sticky";
+    /** Top position of box */
+    insetBlockStart?: ResponsiveSpacing;
+    /** Bottom position of box */
+    insetBlockEnd?: ResponsiveSpacing;
+    /** Left position of box */
+    insetInlineStart?: ResponsiveSpacing;
+    /** Right position of box */
+    insetInlineEnd?: ResponsiveSpacing;
+    /** Opacity of box */
+    opacity?: string;
+    /** Outline color */
+    outlineColor?: ColorBorderAlias;
+    /** Outline style */
+    outlineStyle?: "solid" | "dashed";
+    /** Outline width */
+    outlineWidth?: BorderWidthScale;
+    /** Visually hide the contents during print */
+    printHidden?: boolean;
+    /** Visually hide the contents (still announced by screenreader) */
+    visuallyHidden?: boolean;
+    /** z-index of box */
+    zIndex?: string;
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
+export declare type PolarisButtonDisclosure = ButtonDisclosure;
+
+export declare type PolarisButtonGroupGap = ButtonGroupGap;
+
+export declare interface PolarisButtonGroupProps {
+    /** Determines the space between button group items */
+    gap?: ButtonGroupGap;
+    /** Styling variant for group */
+    variant?: ButtonGroupVariant;
+    /** Buttons will stretch/shrink to occupy the full width */
+    fullWidth?: boolean;
+    /** Remove top left and right border radius */
+    connectedTop?: boolean;
+    /** Prevent buttons in button group from wrapping to next line */
+    noWrap?: boolean;
+    /** Button components */
+    children?: React_2.ReactNode;
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
+export declare type PolarisButtonGroupVariant = ButtonGroupVariant;
+
+export declare interface PolarisButtonProps {
+    /** The content to display inside the button */
+    children?: string | string[] | ReactNode;
+    /** Changes the size of the button, giving it more or less padding */
+    size?: ButtonSize;
+    /** Changes the inner text alignment of the button */
+    textAlign?: ButtonTextAlign;
+    /** Allows the button to grow to the width of its container */
+    fullWidth?: boolean;
+    /** Displays the button with a disclosure icon. Defaults to `down` when set to true */
+    disclosure?: ButtonDisclosure;
+    /** Removes underline from button text (including on interaction) */
+    removeUnderline?: boolean;
+    /** Icon to display to the left of the button content */
+    icon?: ReactNode;
+    /** Indicates whether or not the button is the primary navigation link when rendered inside of an `IndexTable.Row` */
+    dataPrimaryLink?: boolean;
+    /** Sets the color treatment of the Button */
+    tone?: ButtonTone;
+    /** Changes the visual appearance of the Button */
+    variant?: ButtonVariant;
+    /** A unique identifier for the button */
+    id?: string;
+    /** A destination to link to, rendered in the href attribute of a link */
+    url?: string;
+    /** Forces url to open in a new tab */
+    external?: boolean;
+    /** Where to display the url */
+    target?: ButtonTarget;
+    /** Tells the browser to download the url instead of opening it */
+    download?: string | boolean;
+    /** Allows the button to submit a form */
+    submit?: boolean;
+    /** Disables the button, disallowing merchant interaction */
+    disabled?: boolean;
+    /** Replaces button text with a spinner while a background action is being performed */
+    loading?: boolean;
+    /** Sets the button in a pressed state */
+    pressed?: boolean;
+    /** Visually hidden text for screen readers */
+    accessibilityLabel?: string;
+    /** A valid WAI-ARIA role to define the semantic value of this element */
+    role?: string;
+    /** Id of the element the button controls */
+    ariaControls?: string;
+    /** Tells screen reader the controlled element is expanded */
+    ariaExpanded?: boolean;
+    /** Indicates the ID of the element that describes the button */
+    ariaDescribedBy?: string;
+    /** Indicates the current checked state of the button when acting as a toggle or switch */
+    ariaChecked?: "false" | "true";
+    /** Callback when clicked */
+    onClick?: () => unknown;
+    /** Callback when button becomes focused */
+    onFocus?: () => void;
+    /** Callback when focus leaves button */
+    onBlur?: () => void;
+    /** Callback when a keypress event is registered on the button */
+    onKeyPress?: (event: React_2.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    /** Callback when a keyup event is registered on the button */
+    onKeyUp?: (event: React_2.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    /** Callback when a keydown event is registered on the button */
+    onKeyDown?: (event: React_2.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    /** Callback when mouse enter */
+    onMouseEnter?: () => void;
+    /** Callback when element is touched */
+    onTouchStart?: () => void;
+    /** Callback when pointerdown event is being triggered */
+    onPointerDown?: (event: React_2.PointerEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+    /** Additional CSS class name (inherited from shadcn/ui Button) */
+    className?: string;
+}
+
+export declare type PolarisButtonSize = ButtonSize;
+
+export declare type PolarisButtonTarget = ButtonTarget;
+
+export declare type PolarisButtonTextAlign = ButtonTextAlign;
+
+export declare type PolarisButtonTone = ButtonTone;
+
+export declare type PolarisButtonVariant = ButtonVariant;
+
+export declare type PolarisTextAlignment = TextAlignment;
+
+export declare type PolarisTextElement = TextElement;
+
+export declare interface PolarisTextFieldProps extends NonMutuallyExclusiveProps {
+    onChange?(value: string, id: string): void;
+    readonly?: boolean;
+    disabled?: boolean;
+    selectTextOnFocus?: boolean;
+    suggestion?: string;
+}
+
+export declare type PolarisTextFontWeight = TextFontWeight;
+
+export declare interface PolarisTextProps {
+    /** Text to display */
+    children?: React_2.ReactNode;
+    /** The element type */
+    as?: TextElement;
+    /** Adjust horizontal alignment of text */
+    alignment?: TextAlignment;
+    /** Prevent text from overflowing */
+    breakWord?: boolean;
+    /** Adjust tone of text */
+    tone?: TextTone;
+    /** Adjust weight of text */
+    fontWeight?: TextFontWeight;
+    /** HTML id attribute */
+    id?: string;
+    /** Use a numeric font variant with monospace appearance */
+    numeric?: boolean;
+    /** Truncate text overflow with ellipsis */
+    truncate?: boolean;
+    /** Typographic style of text */
+    variant?: TextVariant;
+    /** Visually hide the text */
+    visuallyHidden?: boolean;
+    /** Add a line-through to the text */
+    textDecorationLine?: "line-through";
+}
+
+export declare type PolarisTextTone = TextTone;
+
+export declare type PolarisTextVariant = TextVariant;
+
+export declare type ResponsiveSpacing = SpaceScale | {
+    [Breakpoint in BreakpointsAlias]?: SpaceScale;
+};
+
+export declare type ShadowAliasOrScale = "0" | "100" | "200" | "300" | "400" | "500" | "600" | "bevel-100" | "inset-100" | "inset-200" | "button" | "button-hover" | "button-inset" | "button-primary" | "button-primary-hover" | "button-primary-inset" | "button-primary-critical" | "button-primary-critical-hover" | "button-primary-critical-inset" | "button-primary-success" | "button-primary-success-hover" | "button-primary-success-inset" | "border-inset";
+
+export declare type SpaceScale = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
+
+declare const Text_2: React_2.ForwardRefExoticComponent<EnhancedTextProps & VariantProps<(props?: ({
+    variant?: "headingXs" | "headingSm" | "headingMd" | "headingLg" | "headingXl" | "heading2xl" | "heading3xl" | "bodyXs" | "bodySm" | "bodyMd" | "bodyLg" | null | undefined;
+    alignment?: "start" | "center" | "end" | "justify" | null | undefined;
+    tone?: "success" | "critical" | "disabled" | "inherit" | "text-inverse" | "text-inverse-secondary" | "base" | "caution" | "subdued" | "magic" | "magic-subdued" | null | undefined;
+    fontWeight?: "medium" | "bold" | "regular" | "semibold" | null | undefined;
+    breakWord?: boolean | null | undefined;
+    truncate?: boolean | null | undefined;
+    numeric?: boolean | null | undefined;
+    visuallyHidden?: boolean | null | undefined;
+    textDecorationLine?: "none" | "line-through" | null | undefined;
+} & ClassProp) | undefined) => string> & React_2.RefAttributes<any>>;
+export { Text_2 as Text }
+
+export declare type TextAlignment = "start" | "center" | "end" | "justify";
+
+export declare type TextElement = "dt" | "dd" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "strong" | "legend";
+
+export declare const TextField: React_2.ForwardRefExoticComponent<TextFieldProps & React_2.RefAttributes<HTMLInputElement | HTMLTextAreaElement>>;
+
+export declare type TextFieldAlignment = "left" | "center" | "right";
+
+export declare type TextFieldError = string | boolean | React_2.ReactNode;
+
+export declare type TextFieldInputMode = "none" | "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url";
+
+export declare interface TextFieldProps extends EnhancedTextFieldProps {
+    onChange?(value: string, id: string): void;
+    readonly?: boolean;
+    disabled?: boolean;
+    selectTextOnFocus?: boolean;
+    suggestion?: string;
+}
+
+export declare type TextFieldSize = "slim" | "medium";
+
+export declare type TextFieldTone = "magic";
+
+export declare type TextFieldType = "text" | "email" | "number" | "integer" | "password" | "search" | "tel" | "url" | "date" | "datetime-local" | "month" | "time" | "week" | "currency";
+
+export declare type TextFieldVariant = "inherit" | "borderless";
+
+export declare const textFieldVariants: (props?: ({
+    size?: "medium" | "slim" | null | undefined;
+    variant?: "inherit" | "borderless" | null | undefined;
+    align?: "center" | "left" | "right" | null | undefined;
+    tone?: "magic" | null | undefined;
+    error?: boolean | null | undefined;
+    monospaced?: boolean | null | undefined;
+    multiline?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare type TextFontWeight = "regular" | "medium" | "semibold" | "bold";
+
+export declare type TextProps = EnhancedTextProps & VariantProps<typeof textVariants>;
+
+export declare type TextTone = "base" | "disabled" | "inherit" | "success" | "critical" | "caution" | "subdued" | "text-inverse" | "text-inverse-secondary" | "magic" | "magic-subdued";
+
+export declare type TextVariant = "headingXs" | "headingSm" | "headingMd" | "headingLg" | "headingXl" | "heading2xl" | "heading3xl" | "bodyXs" | "bodySm" | "bodyMd" | "bodyLg";
+
+export declare const textVariants: (props?: ({
+    variant?: "headingXs" | "headingSm" | "headingMd" | "headingLg" | "headingXl" | "heading2xl" | "heading3xl" | "bodyXs" | "bodySm" | "bodyMd" | "bodyLg" | null | undefined;
+    alignment?: "start" | "center" | "end" | "justify" | null | undefined;
+    tone?: "success" | "critical" | "disabled" | "inherit" | "text-inverse" | "text-inverse-secondary" | "base" | "caution" | "subdued" | "magic" | "magic-subdued" | null | undefined;
+    fontWeight?: "medium" | "bold" | "regular" | "semibold" | null | undefined;
+    breakWord?: boolean | null | undefined;
+    truncate?: boolean | null | undefined;
+    numeric?: boolean | null | undefined;
+    visuallyHidden?: boolean | null | undefined;
+    textDecorationLine?: "none" | "line-through" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export { }
