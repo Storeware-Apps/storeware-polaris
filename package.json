@@ -28,8 +28,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node fix-imports.js && pnpm copy:css",
-    "copy:css": "mkdir -p dist/styles && cp src/styles/globals.css dist/styles/globals.css",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node fix-imports.js && pnpm build:css",
+    "build:css": "mkdir -p dist/styles && npx postcss src/styles/globals.css -o dist/styles/globals.css",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
@@ -91,6 +91,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "jsdom": "^26.1.0",
     "postcss": "^8.4.0",
+    "postcss-cli": "^11.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^8.6.14",
