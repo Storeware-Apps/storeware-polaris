@@ -249,10 +249,10 @@ const polarisTextFieldVariants = cva(
     // Flex behavior
     "flex-grow flex-shrink",
     // Appearance and interaction
-    "appearance-none outline-none cursor-text",
+    "appearance-none outline-hidden cursor-text",
     // Focus styles matching Polaris
-    "focus-visible:outline-none focus-visible:border-[rgb(0,123,255)] focus-visible:border-2",
-    "focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-[rgb(0,123,255)] focus-visible:ring-offset-1",
+    "focus-visible:outline-hidden focus-visible:border-[rgb(0,123,255)] focus-visible:border-2",
+    "focus-visible:bg-white focus-visible:ring-3 focus-visible:ring-[rgb(0,123,255)] focus-visible:ring-offset-1",
     // Hover styles
     "hover:border-[rgb(97,97,97)] hover:bg-[rgb(247,247,247)]",
     // Disabled styles
@@ -578,7 +578,7 @@ export const TextField = React.forwardRef<
       clearButton && clearButtonVisible ? (
         <button
           type="button"
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground focus:outline-hidden focus:ring-3 focus:ring-ring focus:ring-offset-2 rounded-sm"
           onClick={handleClearButtonClick}
           tabIndex={-1}
           aria-label="Clear"
@@ -630,7 +630,7 @@ export const TextField = React.forwardRef<
           <button
             type="button"
             onClick={labelAction.onAction}
-            className="ml-2 text-xs text-primary hover:underline focus:outline-none focus:underline"
+            className="ml-2 text-xs text-primary hover:underline focus:outline-hidden focus:underline"
           >
             {labelAction.content}
           </button>

@@ -188,22 +188,22 @@ pnpm run storybook
 
 ## Build Process
 
-The library uses a TypeScript-first build process:
+The library uses a modern TypeScript-first build process:
 
-1. **TypeScript Compilation**: Uses `tsc` with `tsconfig.build.json`
-2. **Path Alias Resolution**: Uses `tsc-alias` to resolve path aliases
-3. **Import Fixing**: Custom script to fix ES module imports
-4. **CSS Processing**: Tailwind CSS compilation for styles
+1. **Vite Build System**: Uses Vite for fast bundling and development
+2. **TypeScript Compilation**: Full type safety with declaration file generation
+3. **Tailwind CSS v4**: Integrated via @tailwindcss/vite plugin for optimal performance
+4. **Dual Format Output**: Generates both ESM and CommonJS builds
 
 ### Build Output Structure
 
 ```
 dist/
-├── index.js              # Main entry point
+├── index.js              # ESM entry point
+├── index.cjs             # CommonJS entry point
 ├── index.d.ts           # TypeScript declarations
-├── components/          # Individual component files
-├── lib/                # Utility functions
-└── styles/             # CSS files
+├── style.css            # Compiled Tailwind CSS
+└── *.map                # Source maps for debugging
 ```
 
 ## Testing
@@ -280,7 +280,7 @@ The package is configured with:
 
 - **React 18+**: Modern React with hooks and concurrent features
 - **TypeScript**: Full type safety and excellent developer experience
-- **Tailwind CSS**: Utility-first CSS framework
+- **Tailwind CSS v4**: Latest utility-first CSS framework with improved performance
 - **shadcn/ui**: Component architecture patterns
 - **Radix UI**: Accessible component primitives
 - **Class Variance Authority**: Type-safe variant management

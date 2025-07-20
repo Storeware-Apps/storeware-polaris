@@ -2,10 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import dts from "vite-plugin-dts";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     dts({
       insertTypesEntry: true,
       include: ["src/**/*"],
@@ -13,7 +15,7 @@ export default defineConfig({
         "**/*.stories.*",
         "**/*.test.*",
         "src/examples/**/*",
-        "src/test/**/*"
+        "src/test/**/*",
       ],
       rollupTypes: true,
       copyDtsFiles: false,
@@ -43,8 +45,5 @@ export default defineConfig({
     alias: {
       "~": resolve(__dirname, "./src"),
     },
-  },
-  css: {
-    postcss: "./postcss.config.cjs",
   },
 });

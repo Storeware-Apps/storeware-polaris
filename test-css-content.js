@@ -6,7 +6,7 @@ import path from "path";
 
 console.log("Testing compiled CSS content...");
 
-const cssPath = path.join(process.cwd(), "dist/styles/globals.css");
+const cssPath = path.join(process.cwd(), "dist/style.css");
 
 try {
   const cssContent = fs.readFileSync(cssPath, "utf8");
@@ -28,8 +28,8 @@ try {
     { name: "justify-center", pattern: ".justify-center" },
     { name: "transition-all", pattern: ".transition-all" },
     {
-      name: "focus-visible:ring-2",
-      pattern: ".focus-visible\\:ring-2:focus-visible",
+      name: "focus-visible:ring-3",
+      pattern: ".focus-visible\\:ring-3:focus-visible",
     },
     { name: "border-border", pattern: "border-color: hsl(var(--border))" },
   ];

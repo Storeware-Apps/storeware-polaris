@@ -2420,7 +2420,7 @@ function ae(...e) {
   return it(Ye(e));
 }
 const lt = ue(
-  "cursor-pointer inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 relative m-0 border-0 font-sans !text-[13px] font-medium !leading-[20.15px] !rounded-lg",
+  "cursor-pointer inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-hidden focus-visible:ring-3 focus-visible:ring-offset-2 relative m-0 border-0 font-sans !text-[13px] font-medium !leading-[20.15px] !rounded-lg",
   {
     variants: {
       variant: {
@@ -2582,7 +2582,7 @@ const bt = ue("flex items-center", {
       loose: "gap-4"
     },
     variant: {
-      segmented: "[&>button]:ml-[-10px] [&>button]:[background-color:#ffffff] [&>button:hover]:[background-color:#f6f6f6] [&>button]:!rounded-none [&>button:first-child]:!rounded-tl-md [&>button:first-child]:!rounded-bl-md [&>button:last-child]:!rounded-tr-md [&>button:last-child]:!rounded-br-md"
+      segmented: "gap-0 [&>button]:ml-[-10px] [&>button]:[background-color:#ffffff] [&>button:hover]:[background-color:#f6f6f6] [&>button]:!rounded-none [&>button:first-child]:!rounded-tl-md [&>button:first-child]:!rounded-bl-md [&>button:last-child]:!rounded-tr-md [&>button:last-child]:!rounded-br-md"
     },
     fullWidth: {
       true: "w-full [&>*]:flex-1",
@@ -3183,10 +3183,10 @@ const yt = ue(
     // Flex behavior
     "flex-grow flex-shrink",
     // Appearance and interaction
-    "appearance-none outline-none cursor-text",
+    "appearance-none outline-hidden cursor-text",
     // Focus styles matching Polaris
-    "focus-visible:outline-none focus-visible:border-[rgb(0,123,255)] focus-visible:border-2",
-    "focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-[rgb(0,123,255)] focus-visible:ring-offset-1",
+    "focus-visible:outline-hidden focus-visible:border-[rgb(0,123,255)] focus-visible:border-2",
+    "focus-visible:bg-white focus-visible:ring-3 focus-visible:ring-[rgb(0,123,255)] focus-visible:ring-offset-1",
     // Hover styles
     "hover:border-[rgb(97,97,97)] hover:bg-[rgb(247,247,247)]",
     // Disabled styles
@@ -3389,7 +3389,7 @@ const yt = ue(
       "button",
       {
         type: "button",
-        className: "absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm",
+        className: "absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground focus:outline-hidden focus:ring-3 focus:ring-ring focus:ring-offset-2 rounded-sm",
         onClick: mr,
         tabIndex: -1,
         "aria-label": "Clear",
@@ -3425,7 +3425,7 @@ const yt = ue(
             {
               type: "button",
               onClick: a.onAction,
-              className: "ml-2 text-xs text-primary hover:underline focus:outline-none focus:underline",
+              className: "ml-2 text-xs text-primary hover:underline focus:outline-hidden focus:underline",
               children: a.content
             }
           )
