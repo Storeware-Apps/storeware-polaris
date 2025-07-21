@@ -1,7 +1,6 @@
 # Current dependencies on/for this PR:
 
-- --> #pr_number
-- dev
+<!-- branch-stack -->
 
 # Description
 
@@ -11,7 +10,7 @@
 
 ## Type of change
 
-- [x] Task one
+- [x]Task one
 - [ ] Task two
 
 # How Has This Been Tested?
