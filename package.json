@@ -56,6 +56,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
     "@shopify/polaris-icons": "^9.3.1",
     "class-variance-authority": "^0.7.0",

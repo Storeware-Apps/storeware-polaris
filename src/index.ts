@@ -21,6 +21,15 @@ export {
   textFieldVariants,
 } from "./components/TextField/TextField.js";
 
+// Export Popover component
+export {
+  Popover,
+  polarisPopoverVariants,
+} from "./components/Popover/popover.js";
+
+// Export Card component
+export { Card, polarisCardVariants } from "./components/Card/card.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -97,6 +106,36 @@ export type {
   TextFieldTone,
   TextFieldError,
 } from "./components/TextField/TextField";
+
+// Export Popover types (consolidated in popover.tsx following shadcn/ui pattern)
+export type {
+  PolarisPopoverProps,
+  EnhancedPopoverProps,
+  PopoverCloseSource,
+  PopoverPreferredPosition,
+  PopoverPreferredAlignment,
+  PopoverAutofocusTarget,
+  // Backward compatibility aliases
+  PolarisPopoverCloseSource,
+  PolarisPopoverPreferredPosition,
+  PolarisPopoverPreferredAlignment,
+  PolarisPopoverAutofocusTarget,
+  PolarisEnhancedPopoverProps,
+} from "./components/Popover/popover";
+
+// Export Card types (consolidated in card.tsx following shadcn/ui pattern)
+export type {
+  PolarisCardProps,
+  EnhancedCardProps,
+  CardBackground,
+  CardPadding,
+  CardRoundedAbove,
+  // Backward compatibility aliases
+  PolarisCardBackground,
+  PolarisCardPadding,
+  PolarisCardRoundedAbove,
+  PolarisEnhancedCardProps,
+} from "./components/Card/card";
 
 // Export utilities
 export { cn } from "./lib/utils.js";

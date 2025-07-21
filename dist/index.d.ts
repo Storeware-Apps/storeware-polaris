@@ -54,6 +54,16 @@ export declare const buttonVariants: (props?: ({
     pressed?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const Card: React_2.ForwardRefExoticComponent<EnhancedCardProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare type CardBackground = ColorBackgroundAlias;
+
+export declare type CardPadding = SpaceScale | {
+    [Breakpoint in BreakpointsAlias]?: SpaceScale;
+};
+
+export declare type CardRoundedAbove = "xs" | "sm" | "md" | "lg" | "xl";
+
 export declare function cn(...inputs: ClassValue[]): string;
 
 export declare type ColorBackgroundAlias = "bg" | "bg-inverse" | "bg-surface" | "bg-surface-hover" | "bg-surface-active" | "bg-surface-selected" | "bg-surface-disabled" | "bg-surface-secondary" | "bg-surface-secondary-hover" | "bg-surface-secondary-active" | "bg-surface-secondary-selected" | "bg-surface-tertiary" | "bg-surface-tertiary-hover" | "bg-surface-tertiary-active" | "bg-surface-brand" | "bg-surface-brand-hover" | "bg-surface-brand-active" | "bg-surface-brand-selected" | "bg-surface-info" | "bg-surface-info-hover" | "bg-surface-info-active" | "bg-surface-success" | "bg-surface-success-hover" | "bg-surface-success-active" | "bg-surface-caution" | "bg-surface-caution-hover" | "bg-surface-caution-active" | "bg-surface-warning" | "bg-surface-warning-hover" | "bg-surface-warning-active" | "bg-surface-critical" | "bg-surface-critical-hover" | "bg-surface-critical-active" | "bg-surface-emphasis" | "bg-surface-emphasis-hover" | "bg-surface-emphasis-active" | "bg-surface-magic" | "bg-surface-magic-hover" | "bg-surface-magic-active" | "bg-surface-inverse" | "bg-surface-transparent" | "bg-fill" | "bg-fill-hover" | "bg-fill-active" | "bg-fill-selected" | "bg-fill-disabled" | "bg-fill-secondary" | "bg-fill-secondary-hover" | "bg-fill-secondary-active" | "bg-fill-secondary-selected" | "bg-fill-tertiary" | "bg-fill-tertiary-hover" | "bg-fill-tertiary-active" | "bg-fill-brand" | "bg-fill-brand-hover" | "bg-fill-brand-active" | "bg-fill-brand-selected" | "bg-fill-brand-disabled" | "bg-fill-info" | "bg-fill-info-hover" | "bg-fill-info-active" | "bg-fill-info-secondary" | "bg-fill-success" | "bg-fill-success-hover" | "bg-fill-success-active" | "bg-fill-success-secondary" | "bg-fill-warning" | "bg-fill-warning-hover" | "bg-fill-warning-active" | "bg-fill-warning-secondary" | "bg-fill-caution" | "bg-fill-caution-hover" | "bg-fill-caution-active" | "bg-fill-caution-secondary" | "bg-fill-critical" | "bg-fill-critical-hover" | "bg-fill-critical-active" | "bg-fill-critical-selected" | "bg-fill-critical-secondary" | "bg-fill-emphasis" | "bg-fill-emphasis-hover" | "bg-fill-emphasis-active" | "bg-fill-magic" | "bg-fill-magic-secondary" | "bg-fill-magic-secondary-hover" | "bg-fill-magic-secondary-active" | "bg-fill-inverse" | "bg-fill-inverse-hover" | "bg-fill-inverse-active" | "bg-fill-transparent" | "bg-fill-transparent-hover" | "bg-fill-transparent-active" | "bg-fill-transparent-selected" | "bg-fill-transparent-secondary" | "bg-fill-transparent-secondary-hover" | "bg-fill-transparent-secondary-active";
@@ -71,6 +81,16 @@ export declare interface EnhancedButtonGroupProps extends PolarisButtonGroupProp
 export declare interface EnhancedButtonProps extends PolarisButtonProps {
     /** Use the Slot component for composition (shadcn/ui feature) */
     asChild?: boolean;
+}
+
+export declare interface EnhancedCardProps extends PolarisCardProps {
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
+export declare interface EnhancedPopoverProps extends PolarisPopoverProps {
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
 }
 
 export declare interface EnhancedTextFieldProps extends NonMutuallyExclusiveProps {
@@ -396,6 +416,90 @@ export declare type PolarisButtonTone = ButtonTone;
 
 export declare type PolarisButtonVariant = ButtonVariant;
 
+export declare type PolarisCardBackground = CardBackground;
+
+export declare type PolarisCardPadding = CardPadding;
+
+export declare interface PolarisCardProps {
+    /** Card content */
+    children?: React_2.ReactNode;
+    /** Background color */
+    background?: CardBackground;
+    /** The spacing around the card */
+    padding?: CardPadding;
+    /** Border radius value above a set breakpoint */
+    roundedAbove?: CardRoundedAbove;
+}
+
+export declare type PolarisCardRoundedAbove = CardRoundedAbove;
+
+export declare const polarisCardVariants: (props?: ({
+    roundedAbove?: "xs" | "sm" | "md" | "lg" | "xl" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare type PolarisEnhancedCardProps = EnhancedCardProps;
+
+export declare type PolarisEnhancedPopoverProps = EnhancedPopoverProps;
+
+export declare type PolarisPopoverAutofocusTarget = PopoverAutofocusTarget;
+
+export declare type PolarisPopoverCloseSource = PopoverCloseSource;
+
+export declare type PolarisPopoverPreferredAlignment = PopoverPreferredAlignment;
+
+export declare type PolarisPopoverPreferredPosition = PopoverPreferredPosition;
+
+export declare interface PolarisPopoverProps {
+    /** The content to display inside the popover */
+    children?: React_2.ReactNode;
+    /** The preferred direction to open the popover */
+    preferredPosition?: PopoverPreferredPosition;
+    /** The preferred alignment of the popover relative to its activator */
+    preferredAlignment?: PopoverPreferredAlignment;
+    /** Show or hide the Popover */
+    active: boolean;
+    /** The element to activate the Popover */
+    activator: React_2.ReactElement;
+    /** Use the activator's input element to calculate the Popover position */
+    preferInputActivator?: boolean;
+    /** The element type to wrap the activator with */
+    activatorWrapper?: string;
+    /** Override on the default z-index of 400 */
+    zIndexOverride?: number;
+    /** Prevents focusing the activator or the next focusable element when the popover is deactivated */
+    preventFocusOnClose?: boolean;
+    /** Automatically add wrap content in a section */
+    sectioned?: boolean;
+    /** Allow popover to stretch to the full width of its activator */
+    fullWidth?: boolean;
+    /** Allow popover to stretch to fit content vertically */
+    fullHeight?: boolean;
+    /** Allow popover content to determine the overlay width and height */
+    fluidContent?: boolean;
+    /** Remains in a fixed position */
+    fixed?: boolean;
+    /** Used to illustrate the type of popover element */
+    ariaHaspopup?: boolean | "false" | "true" | "menu" | "dialog" | "grid" | "listbox" | "tree";
+    /** Allow the popover overlay to be hidden when printing */
+    hideOnPrint?: boolean;
+    /** Callback when popover is closed */
+    onClose: (source: PopoverCloseSource) => void;
+    /** The preferred auto focus target defaulting to the popover container */
+    autofocusTarget?: PopoverAutofocusTarget;
+    /** Prevents closing the popover when other overlays are clicked */
+    preventCloseOnChildOverlayClick?: boolean;
+    /** Prevents page scrolling when the end of the scrollable Popover overlay content is reached */
+    captureOverscroll?: boolean;
+}
+
+export declare const polarisPopoverVariants: (props?: ({
+    sectioned?: boolean | null | undefined;
+    fullWidth?: boolean | null | undefined;
+    fullHeight?: boolean | null | undefined;
+    fluidContent?: boolean | null | undefined;
+    hideOnPrint?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare type PolarisTextAlignment = TextAlignment;
 
 export declare type PolarisTextElement = TextElement;
@@ -440,6 +544,16 @@ export declare interface PolarisTextProps {
 export declare type PolarisTextTone = TextTone;
 
 export declare type PolarisTextVariant = TextVariant;
+
+export declare const Popover: React_2.ForwardRefExoticComponent<EnhancedPopoverProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare type PopoverAutofocusTarget = "none" | "first-node" | "container";
+
+export declare type PopoverCloseSource = "click-outside" | "escape" | "focus-outside" | "content-click";
+
+export declare type PopoverPreferredAlignment = "left" | "center" | "right";
+
+export declare type PopoverPreferredPosition = "above" | "below" | "mostSpace" | "cover";
 
 export declare type ResponsiveSpacing = SpaceScale | {
     [Breakpoint in BreakpointsAlias]?: SpaceScale;
