@@ -15,7 +15,7 @@ Git Town is a powerful Git workflow tool that streamlines branch management, ena
 Git Town solves common Git workflow challenges:
 
 1. **Complex Branch Dependencies**: Easily manage feature branches that depend on other feature branches
-2. **Merge Conflicts**: Minimize conflicts through intelligent rebasing strategies
+2. **Merge Conflicts**: Minimize conflicts through intelligent merge strategies that preserve branch context
 3. **Branch Synchronization**: Keep all branches up-to-date with minimal effort
 4. **Team Collaboration**: Consistent workflow patterns across the entire team
 5. **PR Management**: Streamlined pull request creation and merging
@@ -39,10 +39,32 @@ See the [official installation guide](https://www.git-town.com/install) for othe
 This repository is already configured with Git Town. The configuration includes:
 
 - **Main Branch**: `main`
-- **Feature Sync Strategy**: `rebase` (maintains clean history)
+- **Feature Sync Strategy**: `merge` (preserves branch history and context)
 - **Ship Strategy**: `api` (merges PRs via GitHub API)
-- **New Branch Sharing**: Automatically pushes new branches to origin
+- **New Branch Sharing**: Disabled (branches are not automatically pushed)
+- **Push Hooks**: Enabled (runs pre-push hooks during sync operations)
 - **GitHub Integration**: Configured for GitHub workflow
+
+## Merge vs Rebase Strategy
+
+This repository is configured to use **merge strategy** for feature branch synchronization instead of rebase. Here's why:
+
+### Merge Strategy Benefits:
+
+- **Preserves Branch Context**: Maintains the original branch structure and commit history
+- **Safer for Shared Branches**: Less likely to cause issues when multiple developers work on the same branch
+- **Clearer History**: Shows when and how branches were integrated
+- **Conflict Resolution**: Conflicts are resolved once during merge, not repeatedly during rebase
+
+### When Merge Strategy is Used:
+
+- **Feature Branches**: When syncing with parent branches (`git sync`)
+- **Stacked Branches**: When updating child branches with parent changes
+- **Branch Integration**: When incorporating changes from main branch
+
+### Push Hooks Enabled:
+
+Pre-push hooks are enabled to ensure code quality checks run before pushing changes to the remote repository.
 
 ## Core Commands
 
@@ -58,9 +80,9 @@ git hack feature/user-authentication
 
 # This automatically:
 # 1. Creates the branch from main
-# 2. Pushes it to origin
-# 3. Sets up tracking
-# 4. Establishes parent-child relationship
+# 2. Sets up tracking (branch is NOT automatically pushed)
+# 3. Establishes parent-child relationship
+# 4. You can manually push when ready: git push -u origin <branch-name>
 ```
 
 #### `git append <branch-name>`
@@ -99,9 +121,9 @@ git sync
 # This automatically:
 # 1. Fetches latest changes from origin
 # 2. Syncs main branch with upstream
-# 3. Rebases current branch onto its parent
-# 4. Updates all child branches
-# 5. Pushes changes to origin
+# 3. Merges parent branch changes into current branch
+# 4. Updates all child branches with merge strategy
+# 5. Runs pre-push hooks and pushes changes to origin
 ```
 
 #### `git sync --all`
@@ -219,7 +241,7 @@ git commit -m "Update API foundation"
 # Sync to update all child branches
 git sync
 
-# All child branches are automatically rebased onto the updated parent
+# All child branches are automatically updated with merge strategy
 ```
 
 ## Branch Management Commands
@@ -347,8 +369,8 @@ git town config
 # Set a different main branch
 git town config main-branch develop
 
-# Change sync strategy for feature branches
-git town config feature-sync-strategy merge
+# Change sync strategy for feature branches (already set to merge)
+# git town config feature-sync-strategy rebase  # to switch back to rebase
 
 # Configure GitHub token for API operations
 git town config github-token <your-token>
@@ -533,7 +555,7 @@ git commit -m "Fix payment model validation"
 # Sync to update all child branches
 git sync
 
-# All child branches are automatically rebased with the changes
+# All child branches are automatically updated with merge strategy
 # Continue working on feature/payment-ui
 git checkout feature/payment-ui
 ```
@@ -565,15 +587,28 @@ This repository uses a `.git-branches.toml` file to store Git Town configuration
 ```toml
 # Current configuration for storeware-polaris
 [branches]
+main = "main"
+perennials = []
 
-[config]
-main-branch = "main"
-feature-sync-strategy = "rebase"
-perennial-sync-strategy = "rebase"
-ship-strategy = "api"
-sync-tags = true
-sync-with-upstream = true
-share-new-branches = true
+[create]
+new-branch-type = ""
+share-new-branches = "no"
+
+[hosting]
+dev-remote = "origin"
+forge-type = "github"
+
+[ship]
+delete-tracking-branch = false
+strategy = "api"
+
+[sync]
+feature-strategy = "merge"
+perennial-strategy = "rebase"
+prototype-strategy = "merge"
+push-hook = true
+tags = true
+upstream = true
 ```
 
 ## Aliases and Shortcuts
@@ -591,6 +626,26 @@ git ship     # Merge and cleanup branch
 git append   # Create child branch
 git prepend  # Create parent branch
 git delete   # Delete branch safely
+```
+
+### Global "gg" Alias
+
+This repository is configured with a global Git alias "gg" that provides even shorter commands:
+
+```bash
+# Use "gg" instead of "git town" for all commands
+gg sync      # Same as: git town sync
+gg hack      # Same as: git town hack
+gg propose   # Same as: git town propose
+gg ship      # Same as: git town ship
+gg branch    # Same as: git town branch
+gg config    # Same as: git town config
+gg status    # Same as: git town status
+
+# All Git Town commands work with the "gg" alias
+gg append feature/new-branch
+gg delete old-branch
+gg compress
 ```
 
 ## Performance Tips

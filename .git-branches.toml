@@ -6,8 +6,8 @@ perennials = []
 perennial-regex = ""
 
 [create]
-new-branch-type = "feature"
-share-new-branches = "push"
+new-branch-type = ""
+share-new-branches = "no"
 
 [hosting]
 dev-remote = "origin"
@@ -19,9 +19,9 @@ delete-tracking-branch = false
 strategy = "api"
 
 [sync]
-feature-strategy = "rebase"
+feature-strategy = "merge"
 perennial-strategy = "rebase"
 prototype-strategy = "merge"
-push-hook = false
+push-hook = true
 tags = true
 upstream = true
