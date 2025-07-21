@@ -7,7 +7,7 @@
 
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 
 import { cn } from "../../lib/utils";
 
@@ -181,21 +181,21 @@ export const Popover = React.forwardRef<
       preferredAlignment = "center",
       active,
       activator,
-      preferInputActivator = true,
+      preferInputActivator: _preferInputActivator = true,
       activatorWrapper = "div",
       zIndexOverride = 400,
-      preventFocusOnClose = false,
+      preventFocusOnClose: _preventFocusOnClose = false,
       sectioned = false,
       fullWidth = false,
       fullHeight = false,
       fluidContent = false,
-      fixed = false,
-      ariaHaspopup,
+      fixed: _fixed = false,
+      ariaHaspopup: _ariaHaspopup,
       hideOnPrint = false,
       onClose,
-      autofocusTarget = "container",
+      autofocusTarget: _autofocusTarget = "container",
       preventCloseOnChildOverlayClick = false,
-      captureOverscroll = false,
+      captureOverscroll: _captureOverscroll = false,
       className,
       ...props
     },
@@ -213,7 +213,7 @@ export const Popover = React.forwardRef<
       onClose("escape");
     };
 
-    const handleInteractOutside = (event: Event) => {
+    const handleInteractOutside = (_event: Event) => {
       if (!preventCloseOnChildOverlayClick) {
         onClose("click-outside");
       }

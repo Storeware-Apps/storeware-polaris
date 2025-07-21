@@ -129,7 +129,7 @@ type Story = StoryObj<typeof meta>;
 
 // 1. Default - Basic card with content (matches Polaris exactly)
 export const Default: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "400px" }}>
       <Card {...args}>
         <Text as="h2" variant="bodyMd">
@@ -145,7 +145,7 @@ export const WithSubduedBackground: Story = {
   args: {
     background: "bg-surface-disabled",
   },
-  render: (args) => (
+  render: args => (
     <div style={{ width: "400px" }}>
       <Card {...args}>
         <Text as="h2" variant="bodyMd">
@@ -158,7 +158,7 @@ export const WithSubduedBackground: Story = {
 
 // 3. With varying padding - Cards with different padding sizes (matches Polaris exactly)
 export const WithVaryingPadding: Story = {
-  render: (args) => (
+  render: _args => (
     <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
       <Card padding="200">
         <Text variant="bodySm">Small padding (200)</Text>
@@ -181,7 +181,7 @@ export const WithResponsiveBorderRadius: Story = {
   args: {
     roundedAbove: "md",
   },
-  render: (args) => (
+  render: args => (
     <div style={{ width: "400px" }}>
       <Card {...args}>
         <Text variant="bodyMd">
@@ -195,7 +195,7 @@ export const WithResponsiveBorderRadius: Story = {
 
 // 5. With section - Card with sectioned content areas (matches Polaris exactly)
 export const WithSection: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -204,7 +204,7 @@ export const WithSection: Story = {
               Online store dashboard
             </Text>
             <Text variant="bodyMd">
-              View a summary of your online store's performance.
+              View a summary of your online store&apos;s performance.
             </Text>
           </div>
           <div className="p-4">
@@ -221,7 +221,7 @@ export const WithSection: Story = {
 
 // 6. With subdued section - Sections with muted styling (matches Polaris exactly)
 export const WithSubduedSection: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -247,7 +247,7 @@ export const WithSubduedSection: Story = {
 
 // 7. With multiple sections - Multiple content sections with dividers (matches Polaris exactly)
 export const WithMultipleSections: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -285,7 +285,7 @@ export const WithMultipleSections: Story = {
 
 // 8. With multiple titled sections - Sections with individual titles (matches Polaris exactly)
 export const WithMultipleTitledSections: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -347,7 +347,7 @@ export const WithMultipleTitledSections: Story = {
 
 // 9. With subsection - Nested content organization (matches Polaris exactly)
 export const WithSubsection: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -402,7 +402,7 @@ export const WithSubsection: Story = {
 
 // 10. With flushed section - Sections without padding (matches Polaris exactly)
 export const WithFlushedSection: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -457,7 +457,7 @@ export const WithFlushedSection: Story = {
 
 // 11. With sections and actions - Cards with action buttons (matches Polaris exactly)
 export const WithSectionsAndActions: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -466,7 +466,7 @@ export const WithSectionsAndActions: Story = {
               Store settings
             </Text>
             <Text variant="bodyMd">
-              Manage your store's basic information and preferences.
+              Manage your store&apos;s basic information and preferences.
             </Text>
           </div>
 
@@ -519,7 +519,7 @@ export const WithSectionsAndCriticalAction: Story = {
   args: {
     background: "bg-surface-critical",
   },
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -562,7 +562,7 @@ export const WithSectionsAndCriticalAction: Story = {
 
 // 13. With separate header - Cards with dedicated header areas (matches Polaris exactly)
 export const WithSeparateHeader: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -613,7 +613,7 @@ export const WithSeparateHeader: Story = {
 
 // 14. With header actions - Headers with action buttons (matches Polaris exactly)
 export const WithHeaderActions: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -671,7 +671,7 @@ export const WithHeaderActions: Story = {
 
 // 15. With header icon actions - Headers with icon-based actions (matches Polaris exactly)
 export const WithHeaderIconActions: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -740,7 +740,7 @@ export const WithHeaderIconActions: Story = {
 
 // 16. With footer actions - Cards with footer action areas (matches Polaris exactly)
 export const WithFooterActions: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -785,7 +785,7 @@ export const WithFooterActions: Story = {
 
 // 17. With multiple footer actions - Multiple actions in footer (matches Polaris exactly)
 export const WithMultipleFooterActions: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -834,7 +834,7 @@ export const WithMultipleFooterActions: Story = {
 
 // 18. With custom footer action - Custom styled footer actions (matches Polaris exactly)
 export const WithCustomFooterAction: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -890,7 +890,7 @@ export const WithCustomFooterAction: Story = {
 
 // 19. With critical footer action - Destructive actions in footer (matches Polaris exactly)
 export const WithCriticalFooterAction: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -941,7 +941,7 @@ export const WithCriticalFooterAction: Story = {
 
 // 20. With custom React Node title - Complex title content (matches Polaris exactly)
 export const WithCustomReactNodeTitle: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "500px" }}>
       <Card {...args}>
         <div className="space-y-0">
@@ -1005,7 +1005,7 @@ export const WithCustomReactNodeTitle: Story = {
 
 // 21. With all elements - Comprehensive example with all features (matches Polaris exactly)
 export const WithAllElements: Story = {
-  render: (args) => (
+  render: args => (
     <div style={{ width: "600px" }}>
       <Card {...args}>
         <div className="space-y-0">

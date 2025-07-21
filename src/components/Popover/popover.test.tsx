@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { Popover } from "./popover";
 import { Button } from "../Button/button";
 
@@ -150,7 +149,7 @@ describe("Popover Component", () => {
       { hideOnPrint: true },
     ];
 
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const { unmount } = render(<Popover {...defaultProps} {...variant} />);
       const popoverContent = screen.getByRole("dialog");
 
@@ -174,7 +173,7 @@ describe("Popover Component", () => {
       { preferredPosition: "cover" as const },
     ];
 
-    positions.forEach((position) => {
+    positions.forEach(position => {
       const { unmount } = render(<Popover {...defaultProps} {...position} />);
       const popoverContent = screen.getByRole("dialog");
       expect(popoverContent).toBeInTheDocument();
@@ -189,7 +188,7 @@ describe("Popover Component", () => {
       { preferredAlignment: "right" as const },
     ];
 
-    alignments.forEach((alignment) => {
+    alignments.forEach(alignment => {
       const { unmount } = render(<Popover {...defaultProps} {...alignment} />);
       const popoverContent = screen.getByRole("dialog");
       expect(popoverContent).toBeInTheDocument();
