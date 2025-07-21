@@ -371,6 +371,7 @@ src/
 - ✅ TextField component for form inputs
 - ✅ Popover component for overlays and menus
 - ✅ Card component for content containers
+- ✅ Bleed component for negative margin layouts
 - ✅ TypeScript support and type definitions
 - ✅ Comprehensive testing setup with Vitest
 - ✅ Storybook integration for all components

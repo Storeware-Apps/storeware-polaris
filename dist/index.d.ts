@@ -4,6 +4,10 @@ import * as React_2 from 'react';
 import { ReactNode } from 'react';
 import { VariantProps } from 'class-variance-authority';
 
+export declare const Bleed: React_2.ForwardRefExoticComponent<EnhancedBleedProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const bleedVariants: (props?: ({} & ClassProp) | undefined) => string;
+
 export declare type BorderRadiusAliasOrScale = "0" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "750" | "full";
 
 export declare type BorderWidthScale = "0" | "0165" | "025" | "050" | "100";
@@ -16,6 +20,8 @@ export declare const boxVariants: (props?: ({
 } & ClassProp) | undefined) => string;
 
 export declare type BreakpointsAlias = "xs" | "sm" | "md" | "lg" | "xl";
+
+declare type BreakpointsAlias_2 = "xs" | "sm" | "md" | "lg" | "xl";
 
 export declare const Button: React_2.ForwardRefExoticComponent<EnhancedButtonProps & React_2.RefAttributes<HTMLButtonElement | HTMLAnchorElement>>;
 
@@ -71,6 +77,9 @@ export declare type ColorBackgroundAlias = "bg" | "bg-inverse" | "bg-surface" | 
 export declare type ColorBorderAlias = "border" | "border-hover" | "border-disabled" | "border-secondary" | "border-tertiary" | "border-focus" | "border-brand" | "border-info" | "border-success" | "border-caution" | "border-warning" | "border-critical" | "border-critical-secondary" | "border-emphasis" | "border-emphasis-hover" | "border-emphasis-active" | "border-magic" | "border-magic-secondary" | "border-magic-secondary-hover" | "border-inverse" | "border-inverse-hover" | "border-inverse-active";
 
 export declare type ColorTextAlias = "text" | "text-secondary" | "text-disabled" | "text-link" | "text-link-hover" | "text-link-active" | "text-brand" | "text-brand-hover" | "text-brand-on-bg-fill" | "text-brand-on-bg-fill-hover" | "text-brand-on-bg-fill-active" | "text-brand-on-bg-fill-disabled" | "text-info" | "text-info-hover" | "text-info-active" | "text-info-secondary" | "text-info-on-bg-fill" | "text-success" | "text-success-hover" | "text-success-active" | "text-success-secondary" | "text-success-on-bg-fill" | "text-caution" | "text-caution-hover" | "text-caution-active" | "text-caution-secondary" | "text-caution-on-bg-fill" | "text-warning" | "text-warning-hover" | "text-warning-active" | "text-warning-secondary" | "text-warning-on-bg-fill" | "text-critical" | "text-critical-hover" | "text-critical-active" | "text-critical-secondary" | "text-critical-on-bg-fill" | "text-emphasis" | "text-emphasis-hover" | "text-emphasis-active" | "text-emphasis-on-bg-fill" | "text-emphasis-on-bg-fill-hover" | "text-emphasis-on-bg-fill-active" | "text-magic" | "text-magic-secondary" | "text-magic-on-bg-fill" | "text-inverse" | "text-inverse-secondary" | "text-link-inverse";
+
+export declare interface EnhancedBleedProps extends PolarisBleedProps {
+}
 
 export declare interface EnhancedBoxProps extends PolarisBoxProps {
 }
@@ -213,6 +222,25 @@ declare interface NonMutuallyExclusiveProps {
     onFocus?: (event?: React_2.FocusEvent) => void;
     /** Callback fired when input is blurred */
     onBlur?(event?: React_2.FocusEvent): void;
+}
+
+export declare interface PolarisBleedProps {
+    /** Content to display inside the bleed container */
+    children?: React_2.ReactNode;
+    /** Negative horizontal space around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    marginInline?: ResponsiveSpacing_2;
+    /** Negative vertical space around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    marginBlock?: ResponsiveSpacing_2;
+    /** Negative top space around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    marginBlockStart?: ResponsiveSpacing_2;
+    /** Negative bottom space around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    marginBlockEnd?: ResponsiveSpacing_2;
+    /** Negative left space around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    marginInlineStart?: ResponsiveSpacing_2;
+    /** Negative right space around children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    marginInlineEnd?: ResponsiveSpacing_2;
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
 }
 
 export declare interface PolarisBoxProps {
@@ -559,9 +587,15 @@ export declare type ResponsiveSpacing = SpaceScale | {
     [Breakpoint in BreakpointsAlias]?: SpaceScale;
 };
 
+declare type ResponsiveSpacing_2 = SpaceScale_2 | {
+    [Breakpoint in BreakpointsAlias_2]?: SpaceScale_2;
+};
+
 export declare type ShadowAliasOrScale = "0" | "100" | "200" | "300" | "400" | "500" | "600" | "bevel-100" | "inset-100" | "inset-200" | "button" | "button-hover" | "button-inset" | "button-primary" | "button-primary-hover" | "button-primary-inset" | "button-primary-critical" | "button-primary-critical-hover" | "button-primary-critical-inset" | "button-primary-success" | "button-primary-success-hover" | "button-primary-success-inset" | "border-inset";
 
 export declare type SpaceScale = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
+
+declare type SpaceScale_2 = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
 
 declare const Text_2: React_2.ForwardRefExoticComponent<EnhancedTextProps & VariantProps<(props?: ({
     variant?: "headingXs" | "headingSm" | "headingMd" | "headingLg" | "headingXl" | "heading2xl" | "heading3xl" | "bodyXs" | "bodySm" | "bodyMd" | "bodyLg" | null | undefined;
