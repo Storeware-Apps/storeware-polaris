@@ -169,7 +169,8 @@ export interface EnhancedPageProps extends PolarisPageProps {
 // Page variants using cva
 const polarisPageVariants = cva(
   // Base styles matching Polaris Page
-  "min-h-screen bg-[rgb(246,246,247)]",
+  // "min-h-screen bg-[rgb(246,246,247)]",
+  "min-h-screen",
   {
     variants: {
       width: {

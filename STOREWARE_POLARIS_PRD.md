@@ -26,7 +26,7 @@
 ### For Consuming Projects
 
 ```bash
-npm install @storeware/polaris
+npm install @storeware/polaris@github:Storeware-Apps/storeware-polaris
 ```
 
 ### Peer Dependencies
@@ -44,7 +44,7 @@ npm install react react-dom
 1. **Install the package**:
 
 ```bash
-npm install @storeware/polaris
+npm install @storeware/polaris@github:Storeware-Apps/storeware-polaris
 ```
 
 2. **Import styles** in your application root:
@@ -181,6 +181,17 @@ Layout component for grouping related concepts and tasks in a familiar, recogniz
 **Features**: Semantic HTML structure, accessibility support, customizable styling
 
 For detailed documentation, see: `src/components/Card/CARD_DOCS.md`
+
+### Badge Component ✅
+
+Component for informing merchants of the tone of an object or of an action that's been taken.
+
+**Tones**: `default`, `success`, `critical`, `warning`, `attention`, `info`, `new`, `read-only`, `enabled`, `subdued`
+**Progress States**: `incomplete`, `partiallyComplete`, `complete`
+**Sizes**: `small`, `medium`
+**Features**: Icon support, accessibility compliant, customizable styling
+
+For detailed documentation, see: `src/components/Badge/BADGE_DOCS.md`
 
 ## Development Setup
 
@@ -372,6 +383,7 @@ src/
 - ✅ Popover component for overlays and menus
 - ✅ Card component for content containers
 - ✅ Bleed component for negative margin layouts
+- ✅ Badge component for status indicators
 - ✅ TypeScript support and type definitions
 - ✅ Comprehensive testing setup with Vitest
 - ✅ Storybook integration for all components

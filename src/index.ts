@@ -36,6 +36,9 @@ export { Bleed, bleedVariants } from "./components/Bleed/bleed.js";
 // Export Page component
 export { Page, polarisPageVariants } from "./components/Page/page.js";
 
+// Export Badge component
+export { Badge, badgeVariants } from "./components/Badge/badge.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -158,6 +161,16 @@ export type {
   MenuGroupDescriptor,
   PaginationProps,
 } from "./components/Page/page";
+
+// Export Badge types (consolidated in badge.tsx following shadcn/ui pattern)
+export type {
+  PolarisBadgeProps,
+  EnhancedBadgeProps,
+  BadgeProps,
+  BadgeTone,
+  BadgeProgress,
+  BadgeSize,
+} from "./components/Badge/badge";
 
 // Export utilities
 export { cn } from "./lib/utils.js";

@@ -4,6 +4,22 @@ import * as React_2 from 'react';
 import { ReactNode } from 'react';
 import { VariantProps } from 'class-variance-authority';
 
+export declare const Badge: React_2.ForwardRefExoticComponent<EnhancedBadgeProps & React_2.RefAttributes<HTMLSpanElement>>;
+
+export declare type BadgeProgress = "incomplete" | "partiallyComplete" | "complete";
+
+export declare type BadgeProps = EnhancedBadgeProps;
+
+export declare type BadgeSize = "small" | "medium";
+
+export declare type BadgeTone = "default" | "success" | "critical" | "warning" | "attention" | "info" | "new" | "read-only" | "enabled" | "subdued";
+
+export declare const badgeVariants: (props?: ({
+    tone?: "success" | "critical" | "default" | "read-only" | "enabled" | "subdued" | "warning" | "attention" | "info" | "new" | null | undefined;
+    size?: "medium" | "small" | null | undefined;
+    progress?: "incomplete" | "partiallyComplete" | "complete" | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare const Bleed: React_2.ForwardRefExoticComponent<EnhancedBleedProps & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const bleedVariants: (props?: ({} & ClassProp) | undefined) => string;
@@ -106,6 +122,11 @@ export declare type ColorBackgroundAlias = "bg" | "bg-inverse" | "bg-surface" | 
 export declare type ColorBorderAlias = "border" | "border-hover" | "border-disabled" | "border-secondary" | "border-tertiary" | "border-focus" | "border-brand" | "border-info" | "border-success" | "border-caution" | "border-warning" | "border-critical" | "border-critical-secondary" | "border-emphasis" | "border-emphasis-hover" | "border-emphasis-active" | "border-magic" | "border-magic-secondary" | "border-magic-secondary-hover" | "border-inverse" | "border-inverse-hover" | "border-inverse-active";
 
 export declare type ColorTextAlias = "text" | "text-secondary" | "text-disabled" | "text-link" | "text-link-hover" | "text-link-active" | "text-brand" | "text-brand-hover" | "text-brand-on-bg-fill" | "text-brand-on-bg-fill-hover" | "text-brand-on-bg-fill-active" | "text-brand-on-bg-fill-disabled" | "text-info" | "text-info-hover" | "text-info-active" | "text-info-secondary" | "text-info-on-bg-fill" | "text-success" | "text-success-hover" | "text-success-active" | "text-success-secondary" | "text-success-on-bg-fill" | "text-caution" | "text-caution-hover" | "text-caution-active" | "text-caution-secondary" | "text-caution-on-bg-fill" | "text-warning" | "text-warning-hover" | "text-warning-active" | "text-warning-secondary" | "text-warning-on-bg-fill" | "text-critical" | "text-critical-hover" | "text-critical-active" | "text-critical-secondary" | "text-critical-on-bg-fill" | "text-emphasis" | "text-emphasis-hover" | "text-emphasis-active" | "text-emphasis-on-bg-fill" | "text-emphasis-on-bg-fill-hover" | "text-emphasis-on-bg-fill-active" | "text-magic" | "text-magic-secondary" | "text-magic-on-bg-fill" | "text-inverse" | "text-inverse-secondary" | "text-link-inverse";
+
+export declare interface EnhancedBadgeProps extends PolarisBadgeProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
+}
 
 export declare interface EnhancedBleedProps extends PolarisBleedProps {
 }
@@ -318,6 +339,21 @@ export declare interface PaginationProps {
         next?: string;
         previous?: string;
     };
+}
+
+export declare interface PolarisBadgeProps {
+    /** The content to display inside the badge */
+    children?: ReactNode;
+    /** Set the color of the badge for the given tone */
+    tone?: BadgeTone;
+    /** Set the progress of the badge */
+    progress?: BadgeProgress;
+    /** Icon to display in the badge */
+    icon?: React_2.FunctionComponent<React_2.SVGProps<SVGSVGElement>> | "placeholder" | string;
+    /** Size of the badge */
+    size?: BadgeSize;
+    /** Additional CSS class name */
+    className?: string;
 }
 
 export declare interface PolarisBleedProps {
