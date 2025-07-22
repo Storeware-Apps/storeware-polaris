@@ -33,6 +33,9 @@ export { Card, polarisCardVariants } from "./components/Card/card.js";
 // Export Bleed component
 export { Bleed, bleedVariants } from "./components/Bleed/bleed.js";
 
+// Export Page component
+export { Page, polarisPageVariants } from "./components/Page/page.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -145,6 +148,16 @@ export type {
   PolarisBleedProps,
   EnhancedBleedProps,
 } from "./components/Bleed/bleed";
+
+// Export Page types (consolidated in page.tsx following shadcn/ui pattern)
+export type {
+  PolarisPageProps,
+  EnhancedPageProps,
+  LinkAction,
+  CallbackAction,
+  MenuGroupDescriptor,
+  PaginationProps,
+} from "./components/Page/page";
 
 // Export utilities
 export { cn } from "./lib/utils.js";

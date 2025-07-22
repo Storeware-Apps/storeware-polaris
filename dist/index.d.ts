@@ -60,6 +60,35 @@ export declare const buttonVariants: (props?: ({
     pressed?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare interface CallbackAction {
+    /** Content the action displays */
+    content?: React_2.ReactNode;
+    /** Callback when an action takes place */
+    onAction?(): void;
+    /** A unique identifier for the action */
+    id?: string;
+    /** A label for the action used by assistive technologies */
+    accessibilityLabel?: string;
+    /** Disables the action */
+    disabled?: boolean;
+    /** Provides extra visual weight and identifies the primary action in a set of actions */
+    primary?: boolean;
+    /** Indicates a dangerous or potentially negative action */
+    destructive?: boolean;
+    /** Displays the action as a plain button */
+    plain?: boolean;
+    /** Renders the action as a button with a disclosure triangle */
+    disclosure?: boolean;
+    /** Allows the action to submit a form */
+    submit?: boolean;
+    /** Displays a loading indicator */
+    loading?: boolean;
+    /** Icon to display to the left of the action content */
+    icon?: React_2.ReactNode;
+    /** Tooltip content to display on hover */
+    helpText?: string;
+}
+
 export declare const Card: React_2.ForwardRefExoticComponent<EnhancedCardProps & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare type CardBackground = ColorBackgroundAlias;
@@ -97,6 +126,11 @@ export declare interface EnhancedCardProps extends PolarisCardProps {
     className?: string;
 }
 
+export declare interface EnhancedPageProps extends PolarisPageProps {
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
 export declare interface EnhancedPopoverProps extends PolarisPopoverProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
     className?: string;
@@ -110,6 +144,36 @@ export declare interface EnhancedTextFieldProps extends NonMutuallyExclusiveProp
 export declare interface EnhancedTextProps extends PolarisTextProps {
     /** Additional CSS class name */
     className?: string;
+}
+
+export declare interface LinkAction {
+    /** Content the action displays */
+    content?: React_2.ReactNode;
+    /** Callback when an action takes place */
+    onAction?(): void;
+    /** A unique identifier for the action */
+    id?: string;
+    /** A destination to link to */
+    url?: string;
+    /** Forces url to open in a new tab */
+    external?: boolean;
+    /** Allows the link to open in the same tab */
+    target?: ButtonTarget;
+    /** Tells the browser to download the url instead of opening it. Provides a hint for the downloaded filename if it is a string value */
+    download?: string | boolean;
+    /** A label for the action used by assistive technologies */
+    accessibilityLabel?: string;
+}
+
+export declare interface MenuGroupDescriptor {
+    /** Title for the group */
+    title?: string;
+    /** List of actions */
+    actions: (CallbackAction | LinkAction)[];
+    /** Icon to display with the group */
+    icon?: React_2.ReactNode;
+    /** Whether the group should be disabled */
+    disabled?: boolean;
 }
 
 declare interface NonMutuallyExclusiveProps {
@@ -222,6 +286,38 @@ declare interface NonMutuallyExclusiveProps {
     onFocus?: (event?: React_2.FocusEvent) => void;
     /** Callback fired when input is blurred */
     onBlur?(event?: React_2.FocusEvent): void;
+}
+
+export declare const Page: React_2.ForwardRefExoticComponent<EnhancedPageProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare interface PaginationProps {
+    /** Keyboard shortcuts for the next button */
+    nextKeys?: string[];
+    /** Keyboard shortcuts for the previous button */
+    previousKeys?: string[];
+    /** Tooltip for the next button */
+    nextTooltip?: string;
+    /** Tooltip for the previous button */
+    previousTooltip?: string;
+    /** The URL of the next page */
+    nextURL?: string;
+    /** The URL of the previous page */
+    previousURL?: string;
+    /** Whether there is a next page to show */
+    hasNext?: boolean;
+    /** Whether there is a previous page to show */
+    hasPrevious?: boolean;
+    /** Callback when next button is clicked */
+    onNext?(): void;
+    /** Callback when previous button is clicked */
+    onPrevious?(): void;
+    /** Accessible label for the pagination */
+    accessibilityLabel?: string;
+    /** Accessible label for the next button */
+    accessibilityLabels?: {
+        next?: string;
+        previous?: string;
+    };
 }
 
 export declare interface PolarisBleedProps {
@@ -468,6 +564,49 @@ export declare const polarisCardVariants: (props?: ({
 export declare type PolarisEnhancedCardProps = EnhancedCardProps;
 
 export declare type PolarisEnhancedPopoverProps = EnhancedPopoverProps;
+
+export declare interface PolarisPageProps {
+    /** The contents of the page */
+    children?: React_2.ReactNode;
+    /** Page title, in large type */
+    title?: string;
+    /** Page subtitle, in regular type */
+    subtitle?: string;
+    /** Important status information shown immediately after the title */
+    titleMetadata?: React_2.ReactNode;
+    /** Removes spacing between title and subtitle */
+    compactTitle?: boolean;
+    /** Visually hide the title */
+    titleHidden?: boolean;
+    /** Remove the normal max-width on the page */
+    fullWidth?: boolean;
+    /** Decreases the maximum layout width. Intended for single-column layouts */
+    narrowWidth?: boolean;
+    /** Primary page-level action */
+    primaryAction?: CallbackAction | LinkAction;
+    /** Collection of secondary page-level actions */
+    secondaryActions?: (CallbackAction | LinkAction)[];
+    /** Collection of page-level groups of secondary actions */
+    actionGroups?: MenuGroupDescriptor[];
+    /** A back action link */
+    backAction?: LinkAction | CallbackAction;
+    /** Page-level pagination */
+    pagination?: PaginationProps;
+    /** A label to use for the page when the page is ready, used by screen readers */
+    pageReadyAccessibilityLabel?: string;
+    /** Enables filtering action list items */
+    filterActions?: boolean;
+    /** Additional metadata */
+    additionalMetadata?: React_2.ReactNode;
+    /** Callback that returns true when secondary actions are rolled up into action groups */
+    onActionRollup?: (hasRolledUp: boolean) => void;
+    /** Whether or not to add a max-width to the subtitle */
+    hasSubtitleMaxWidth?: boolean;
+}
+
+export declare const polarisPageVariants: (props?: ({
+    width?: "default" | "full" | "narrow" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare type PolarisPopoverAutofocusTarget = PopoverAutofocusTarget;
 

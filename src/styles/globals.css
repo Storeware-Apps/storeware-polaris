@@ -2,8 +2,9 @@
 
 @theme {
   /* Font family configuration */
-  --font-sans: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI",
-    Roboto, "Helvetica Neue", sans-serif;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto,
+    "Helvetica Neue", sans-serif;
 
   /* Container configuration */
   --container-center: true;
