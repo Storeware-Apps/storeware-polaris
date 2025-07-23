@@ -262,27 +262,41 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
     filter.onChange(selected, filter.key);
   };
 
+  const handleButtonClick = () => {
+    if (isOpen) {
+      // If popover is open, close it
+      setIsOpen(false);
+    } else {
+      // If popover is closed, open it
+      setIsOpen(true);
+    }
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Popover
       active={isOpen}
       activator={
         <Button
+          size="micro"
           variant="tertiary"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={handleButtonClick}
           disabled={disabled}
           pressed={isOpen}>
           {filter.label}
           {filter.selected.length > 0 && (
-            <span className="ml-1 px-1.5 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full">
+            <span className="ml-1 px-1.5 py-0.5 text-xs bg-blue-100 text-black rounded-full">
               {filter.selected.length}
             </span>
           )}
         </Button>
       }
-      onClose={() => setIsOpen(false)}
+      onClose={handleClose}
       preferredPosition="below"
       sectioned>
-      {/* <div className="p-4 min-w-[200px]"> */}
       <ChoiceList
         title={filter.label}
         titleHidden
@@ -291,7 +305,6 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
         onChange={handleSelectionChange}
         allowMultiple={filter.allowMultiple}
       />
-      {/* </div> */}
     </Popover>
   );
 };
@@ -322,7 +335,7 @@ const SortPopover: React.FC<{
         {sortOptions.map(option => (
           <button
             key={option.value}
-            className="w-full text-left px-3 py-2 hover:bg-gray-100 rounded text-sm"
+            className="w-full text-left px-3 py-2 hover:bg-[#f6f6f6] rounded text-sm"
             onClick={() => {
               if (onSort) onSort([option.value]);
               setActive(false);
@@ -466,7 +479,7 @@ export const IndexFilters = React.forwardRef<
 
               {/* Pinned Filters with light border */}
               {pinnedFilters && pinnedFilters.length > 0 && (
-                <div className="border-t border-gray-200 pt-2">
+                <div className="border-t border-gray-200 pt-0.5">
                   <div className="flex flex-wrap gap-2">
                     {pinnedFilters.map(filter => (
                       <PinnedFilterButton
@@ -555,6 +568,7 @@ export const IndexFilters = React.forwardRef<
                   <>
                     {tabs.map((tab, index) => (
                       <Button
+                        size="micro"
                         key={tab.id}
                         variant="tertiary"
                         pressed={index === selected}

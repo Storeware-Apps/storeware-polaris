@@ -163,7 +163,7 @@ export type PolarisButtonTarget = ButtonTarget;
 
 // Create Polaris-specific button variants using CVA
 const polarisButtonVariants = cva(
-  "cursor-pointer inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-hidden focus-visible:ring-3 focus-visible:ring-offset-2 relative m-0 border-0 font-sans !text-[13px] font-medium !leading-[20.15px] !rounded-lg",
+  "cursor-pointer inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-hidden focus-visible:ring-3 focus-visible:ring-offset-2 relative m-0 border-0 font-sans !text-xs font-medium !leading-[20.15px] !rounded-lg",
   {
     variants: {
       variant: {
@@ -312,8 +312,8 @@ export const Button = React.forwardRef<
           tone === "critical"
             ? "critical"
             : tone === "success"
-            ? "success"
-            : "default",
+              ? "success"
+              : "default",
         textAlign,
         fullWidth,
         pressed,
@@ -358,8 +358,7 @@ export const Button = React.forwardRef<
           href={url}
           target={external ? "_blank" : target}
           rel={external ? "noopener noreferrer" : undefined}
-          download={download}
-        >
+          download={download}>
           {icon && !isLoading && (
             <span className="inline-flex shrink-0">{icon}</span>
           )}

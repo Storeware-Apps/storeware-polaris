@@ -342,4 +342,47 @@ describe("useIndexResourceState", () => {
     fireEvent.click(screen.getByText("Clear"));
     expect(screen.getByTestId("selected-count")).toHaveTextContent("0");
   });
+
+  describe("Conditional Styling", () => {
+    it("applies correct border-radius when hasIndexFilters is true", () => {
+      render(
+        <IndexTable
+          headings={[{ title: "Name" }, { title: "Email" }]}
+          itemCount={0}
+          hasIndexFilters={true}
+        />
+      );
+
+      const table = screen.getByRole("table");
+      expect(table).toHaveClass("before:rounded-b-[8px]");
+      expect(table).not.toHaveClass("before:rounded-[8px]");
+    });
+
+    it("applies correct border-radius when hasIndexFilters is false", () => {
+      render(
+        <IndexTable
+          headings={[{ title: "Name" }, { title: "Email" }]}
+          itemCount={0}
+          hasIndexFilters={false}
+        />
+      );
+
+      const table = screen.getByRole("table");
+      expect(table).toHaveClass("before:rounded-[8px]");
+      expect(table).not.toHaveClass("before:rounded-b-[8px]");
+    });
+
+    it("defaults to hasIndexFilters=false when prop is not provided", () => {
+      render(
+        <IndexTable
+          headings={[{ title: "Name" }, { title: "Email" }]}
+          itemCount={0}
+        />
+      );
+
+      const table = screen.getByRole("table");
+      expect(table).toHaveClass("before:rounded-[8px]");
+      expect(table).not.toHaveClass("before:rounded-b-[8px]");
+    });
+  });
 });

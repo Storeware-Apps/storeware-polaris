@@ -17,33 +17,39 @@ import { IndexTable, useIndexResourceState } from "@storeware/polaris";
 
 function MyComponent() {
   const orders = [
-    { id: '1020', order: '#1020', date: 'Jul 20 at 4:34pm', customer: 'Jaydon Stanton' },
-    { id: '1019', order: '#1019', date: 'Jul 20 at 3:46pm', customer: 'Ruben Westerfelt' },
+    {
+      id: "1020",
+      order: "#1020",
+      date: "Jul 20 at 4:34pm",
+      customer: "Jaydon Stanton",
+    },
+    {
+      id: "1019",
+      order: "#1019",
+      date: "Jul 20 at 3:46pm",
+      customer: "Ruben Westerfelt",
+    },
   ];
 
-  const resourceName = { singular: 'order', plural: 'orders' };
-  const { selectedResources, allResourcesSelected, handleSelectionChange } = 
+  const resourceName = { singular: "order", plural: "orders" };
+  const { selectedResources, allResourcesSelected, handleSelectionChange } =
     useIndexResourceState(orders);
 
   return (
     <IndexTable
       resourceName={resourceName}
       itemCount={orders.length}
-      selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+      selectedItemsCount={
+        allResourcesSelected ? "All" : selectedResources.length
+      }
       onSelectionChange={handleSelectionChange}
-      headings={[
-        { title: 'Order' },
-        { title: 'Date' },
-        { title: 'Customer' },
-      ]}
-    >
+      headings={[{ title: "Order" }, { title: "Date" }, { title: "Customer" }]}>
       {orders.map((order, index) => (
         <IndexTable.Row
           id={order.id}
           key={order.id}
           selected={selectedResources.includes(order.id)}
-          position={index}
-        >
+          position={index}>
           <IndexTable.Cell>{order.order}</IndexTable.Cell>
           <IndexTable.Cell>{order.date}</IndexTable.Cell>
           <IndexTable.Cell>{order.customer}</IndexTable.Cell>
@@ -58,59 +64,60 @@ function MyComponent() {
 
 ### Core Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `headings` | `IndexTableHeading[]` | - | List of table headings |
-| `itemCount` | `number` | - | Number of items in the table |
-| `children` | `React.ReactNode` | - | Table rows (IndexTable.Row components) |
+| Prop        | Type                  | Default | Description                            |
+| ----------- | --------------------- | ------- | -------------------------------------- |
+| `headings`  | `IndexTableHeading[]` | -       | List of table headings                 |
+| `itemCount` | `number`              | -       | Number of items in the table           |
+| `children`  | `React.ReactNode`     | -       | Table rows (IndexTable.Row components) |
 
 ### Selection Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `selectable` | `boolean` | `true` | Whether the table supports selection |
-| `selectedItemsCount` | `number \| "All"` | - | Number of selected items |
-| `onSelectionChange` | `(selectionType, toggleType, selection?, position?) => void` | - | Callback when selection changes |
-| `resourceName` | `{ singular: string; plural: string }` | - | Resource name for accessibility |
+| Prop                 | Type                                                         | Default | Description                          |
+| -------------------- | ------------------------------------------------------------ | ------- | ------------------------------------ |
+| `selectable`         | `boolean`                                                    | `true`  | Whether the table supports selection |
+| `selectedItemsCount` | `number \| "All"`                                            | -       | Number of selected items             |
+| `onSelectionChange`  | `(selectionType, toggleType, selection?, position?) => void` | -       | Callback when selection changes      |
+| `resourceName`       | `{ singular: string; plural: string }`                       | -       | Resource name for accessibility      |
 
 ### Sorting Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `sortable` | `boolean[]` | - | Array indicating which columns are sortable |
-| `sortDirection` | `"ascending" \| "descending"` | - | Current sort direction |
-| `sortColumnIndex` | `number` | - | Index of the column being sorted |
-| `onSort` | `(headingIndex, direction) => void` | - | Callback when sort is triggered |
-| `defaultSortDirection` | `"ascending" \| "descending"` | `"descending"` | Default sort direction |
+| Prop                   | Type                                | Default        | Description                                 |
+| ---------------------- | ----------------------------------- | -------------- | ------------------------------------------- |
+| `sortable`             | `boolean[]`                         | -              | Array indicating which columns are sortable |
+| `sortDirection`        | `"ascending" \| "descending"`       | -              | Current sort direction                      |
+| `sortColumnIndex`      | `number`                            | -              | Index of the column being sorted            |
+| `onSort`               | `(headingIndex, direction) => void` | -              | Callback when sort is triggered             |
+| `defaultSortDirection` | `"ascending" \| "descending"`       | `"descending"` | Default sort direction                      |
 
 ### Bulk Actions Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `promotedBulkActions` | `(MenuGroupDescriptor \| BulkAction)[]` | - | Promoted bulk actions |
-| `bulkActions` | `(MenuGroupDescriptor \| BulkAction)[]` | - | Additional bulk actions |
+| Prop                  | Type                                    | Default | Description             |
+| --------------------- | --------------------------------------- | ------- | ----------------------- |
+| `promotedBulkActions` | `(MenuGroupDescriptor \| BulkAction)[]` | -       | Promoted bulk actions   |
+| `bulkActions`         | `(MenuGroupDescriptor \| BulkAction)[]` | -       | Additional bulk actions |
 
 ### Layout Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `condensed` | `boolean` | `false` | Whether to use condensed styling |
-| `hasZebraStriping` | `boolean` | `false` | Whether to use zebra striping |
-| `lastColumnSticky` | `boolean` | `false` | Whether the last column should be sticky |
-| `loading` | `boolean` | `false` | Whether the table is in loading state |
+| Prop               | Type      | Default | Description                                                                      |
+| ------------------ | --------- | ------- | -------------------------------------------------------------------------------- |
+| `condensed`        | `boolean` | `false` | Whether to use condensed styling                                                 |
+| `hasZebraStriping` | `boolean` | `false` | Whether to use zebra striping                                                    |
+| `lastColumnSticky` | `boolean` | `false` | Whether the last column should be sticky                                         |
+| `loading`          | `boolean` | `false` | Whether the table is in loading state                                            |
+| `hasIndexFilters`  | `boolean` | `false` | Whether IndexFilters is present above this table (affects border-radius styling) |
 
 ### Empty State Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `emptyState` | `React.ReactNode` | - | Content to show when table is empty |
+| Prop         | Type              | Default | Description                         |
+| ------------ | ----------------- | ------- | ----------------------------------- |
+| `emptyState` | `React.ReactNode` | -       | Content to show when table is empty |
 
 ### TanStack Table Integration Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `data` | `TData[]` | - | Data array for TanStack Table integration |
-| `columns` | `ColumnDef<TData>[]` | - | Column definitions for TanStack Table |
+| Prop      | Type                 | Default | Description                               |
+| --------- | -------------------- | ------- | ----------------------------------------- |
+| `data`    | `TData[]`            | -       | Data array for TanStack Table integration |
+| `columns` | `ColumnDef<TData>[]` | -       | Column definitions for TanStack Table     |
 
 ## Subcomponents
 
@@ -123,42 +130,39 @@ Represents a single row in the table.
   id="unique-id"
   selected={false}
   position={0}
-  onClick={() => console.log('Row clicked')}
->
+  onClick={() => console.log("Row clicked")}>
   {/* Cell content */}
 </IndexTable.Row>
 ```
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `string` | - | Unique identifier for the row |
-| `selected` | `boolean \| "indeterminate"` | `false` | Whether the row is selected |
-| `position` | `number` | - | Zero-indexed position of the row |
-| `tone` | `"subdued" \| "success" \| "warning" \| "critical"` | - | Visual tone of the row |
-| `disabled` | `boolean` | `false` | Whether the row is disabled |
-| `rowType` | `"data" \| "subheader" \| "child"` | `"data"` | Type of row |
-| `onClick` | `() => void` | - | Click handler for the row |
+| Prop       | Type                                                | Default  | Description                      |
+| ---------- | --------------------------------------------------- | -------- | -------------------------------- |
+| `id`       | `string`                                            | -        | Unique identifier for the row    |
+| `selected` | `boolean \| "indeterminate"`                        | `false`  | Whether the row is selected      |
+| `position` | `number`                                            | -        | Zero-indexed position of the row |
+| `tone`     | `"subdued" \| "success" \| "warning" \| "critical"` | -        | Visual tone of the row           |
+| `disabled` | `boolean`                                           | `false`  | Whether the row is disabled      |
+| `rowType`  | `"data" \| "subheader" \| "child"`                  | `"data"` | Type of row                      |
+| `onClick`  | `() => void`                                        | -        | Click handler for the row        |
 
 ### IndexTable.Cell
 
 Represents a single cell in a table row.
 
 ```tsx
-<IndexTable.Cell>
-  Cell content
-</IndexTable.Cell>
+<IndexTable.Cell>Cell content</IndexTable.Cell>
 ```
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `as` | `"th" \| "td"` | `"td"` | HTML element type |
-| `flush` | `boolean` | `false` | Whether to remove cell padding |
-| `colSpan` | `number` | - | Number of columns to span |
-| `scope` | `"col" \| "row" \| "colgroup" \| "rowgroup"` | - | Scope for header cells |
+| Prop      | Type                                         | Default | Description                    |
+| --------- | -------------------------------------------- | ------- | ------------------------------ |
+| `as`      | `"th" \| "td"`                               | `"td"`  | HTML element type              |
+| `flush`   | `boolean`                                    | `false` | Whether to remove cell padding |
+| `colSpan` | `number`                                     | -       | Number of columns to span      |
+| `scope`   | `"col" \| "row" \| "colgroup" \| "rowgroup"` | -       | Scope for header cells         |
 
 ## Hooks
 
@@ -167,8 +171,12 @@ Represents a single cell in a table row.
 Hook for managing table selection state, similar to Polaris's `useIndexResourceState`.
 
 ```tsx
-const { selectedResources, allResourcesSelected, handleSelectionChange, clearSelection } = 
-  useIndexResourceState(resources);
+const {
+  selectedResources,
+  allResourcesSelected,
+  handleSelectionChange,
+  clearSelection,
+} = useIndexResourceState(resources);
 ```
 
 #### Parameters
@@ -192,31 +200,28 @@ import { IndexTable, useIndexResourceState } from "@storeware/polaris";
 
 function BasicTable() {
   const orders = [
-    { id: '1', order: '#1001', customer: 'John Doe' },
-    { id: '2', order: '#1002', customer: 'Jane Smith' },
+    { id: "1", order: "#1001", customer: "John Doe" },
+    { id: "2", order: "#1002", customer: "Jane Smith" },
   ];
 
-  const { selectedResources, allResourcesSelected, handleSelectionChange } = 
+  const { selectedResources, allResourcesSelected, handleSelectionChange } =
     useIndexResourceState(orders);
 
   return (
     <IndexTable
-      resourceName={{ singular: 'order', plural: 'orders' }}
+      resourceName={{ singular: "order", plural: "orders" }}
       itemCount={orders.length}
-      selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+      selectedItemsCount={
+        allResourcesSelected ? "All" : selectedResources.length
+      }
       onSelectionChange={handleSelectionChange}
-      headings={[
-        { title: 'Order' },
-        { title: 'Customer' },
-      ]}
-    >
+      headings={[{ title: "Order" }, { title: "Customer" }]}>
       {orders.map((order, index) => (
         <IndexTable.Row
           id={order.id}
           key={order.id}
           selected={selectedResources.includes(order.id)}
-          position={index}
-        >
+          position={index}>
           <IndexTable.Cell>{order.order}</IndexTable.Cell>
           <IndexTable.Cell>{order.customer}</IndexTable.Cell>
         </IndexTable.Row>
@@ -240,18 +245,18 @@ interface Order {
 
 function TanStackTable() {
   const data: Order[] = [
-    { id: '1', order: '#1001', customer: 'John Doe' },
-    { id: '2', order: '#1002', customer: 'Jane Smith' },
+    { id: "1", order: "#1001", customer: "John Doe" },
+    { id: "2", order: "#1002", customer: "Jane Smith" },
   ];
 
   const columns: ColumnDef<Order>[] = [
     {
-      accessorKey: 'order',
-      header: 'Order',
+      accessorKey: "order",
+      header: "Order",
     },
     {
-      accessorKey: 'customer',
-      header: 'Customer',
+      accessorKey: "customer",
+      header: "Customer",
     },
   ];
 
@@ -296,11 +301,73 @@ The IndexTable component includes:
 The component is fully typed with TypeScript:
 
 ```tsx
-import type { 
-  IndexTableProps, 
-  IndexTableRowProps, 
+import type {
+  IndexTableProps,
+  IndexTableRowProps,
   IndexTableCellProps,
   IndexTableHeading,
-  BulkAction 
+  BulkAction,
 } from "@storeware/polaris";
 ```
+
+## Conditional Styling with IndexFilters
+
+The IndexTable component supports conditional styling based on whether it's used with IndexFilters above it. This creates a seamless visual connection between the filter controls and the table.
+
+### Usage with IndexFilters
+
+When using IndexTable with IndexFilters, set the `hasIndexFilters` prop to `true`:
+
+```tsx
+import {
+  IndexFilters,
+  IndexTable,
+  useIndexResourceState,
+} from "@storeware/polaris";
+
+function MyComponent() {
+  const { mode, setMode } = useSetIndexFiltersMode();
+  const [queryValue, setQueryValue] = useState("");
+
+  const orders = [
+    /* your data */
+  ];
+  const { selectedResources, allResourcesSelected, handleSelectionChange } =
+    useIndexResourceState(orders);
+
+  return (
+    <>
+      <IndexFilters
+        mode={mode}
+        setMode={setMode}
+        queryValue={queryValue}
+        queryPlaceholder="Search orders"
+        onQueryChange={setQueryValue}
+        onQueryClear={() => setQueryValue("")}
+      />
+      <IndexTable
+        resourceName={{ singular: "order", plural: "orders" }}
+        itemCount={orders.length}
+        selectedItemsCount={
+          allResourcesSelected ? "All" : selectedResources.length
+        }
+        onSelectionChange={handleSelectionChange}
+        hasIndexFilters={true} // This creates the connected styling
+        headings={[
+          { title: "Order" },
+          { title: "Date" },
+          { title: "Customer" },
+        ]}>
+        {/* Table rows */}
+      </IndexTable>
+    </>
+  );
+}
+```
+
+### Styling Behavior
+
+- **`hasIndexFilters={true}`**: The table will have rounded bottom corners only (`border-radius: 0 0 8px 8px`), creating a seamless connection with IndexFilters above
+- **`hasIndexFilters={false}` or not specified**: The table will have rounded corners on all sides (`border-radius: 8px`), suitable for standalone use
+
+This conditional styling ensures that the IndexTable visually integrates properly with IndexFilters while maintaining its standalone appearance when used independently.

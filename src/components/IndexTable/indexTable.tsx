@@ -16,6 +16,7 @@ import {
 
 import { cn } from "../../lib/utils";
 import { Text } from "../Text/Text";
+import { Button } from "../Button/button";
 import { Pagination, type PaginationProps } from "../Pagination/pagination";
 
 // Internal Checkbox component for IndexTable selection
@@ -200,6 +201,8 @@ export interface EnhancedIndexTableProps<TData = any>
   data?: TData[];
   /** Column definitions (TanStack Table integration) */
   columns?: ColumnDef<TData>[];
+  /** Whether IndexFilters is present above this table (affects border-radius styling) */
+  hasIndexFilters?: boolean;
 }
 
 // Re-export types for convenience (maintaining backward compatibility)
@@ -210,7 +213,7 @@ export type PolarisMenuGroupDescriptor = MenuGroupDescriptor;
 
 // Create Polaris-specific IndexTable variants using CVA
 const polarisIndexTableVariants = cva(
-  "w-full border-collapse bg-white overflow-hidden relative before:content-[''] before:absolute before:inset-0 before:z-[101] before:rounded-[8px] before:pointer-events-none before:border before:border-[#e3e3e3] before:mix-blend-luminosity before:shadow-[var(--p-shadow-bevel-100)]",
+  "w-full border-collapse bg-white overflow-hidden relative before:content-[''] before:absolute before:inset-0 before:z-[101] before:pointer-events-none before:border before:border-[#e3e3e3] before:mix-blend-luminosity before:shadow-[var(--p-shadow-bevel-100)]",
   {
     variants: {
       condensed: {
@@ -225,11 +228,16 @@ const polarisIndexTableVariants = cva(
         true: "opacity-50 pointer-events-none",
         false: "",
       },
+      hasIndexFilters: {
+        true: "before:rounded-b-[8px]",
+        false: "before:rounded-[8px]",
+      },
     },
     defaultVariants: {
       condensed: false,
       hasZebraStriping: false,
       loading: false,
+      hasIndexFilters: false,
     },
   }
 );
@@ -305,7 +313,7 @@ const IndexTableBase = React.forwardRef<
     {
       headings,
       promotedBulkActions: _promotedBulkActions,
-      bulkActions: _bulkActions,
+      bulkActions,
       children,
       emptyState,
       sort: _sort,
@@ -332,6 +340,7 @@ const IndexTableBase = React.forwardRef<
       asChild = false,
       data,
       columns,
+      hasIndexFilters = false,
       ...props
     },
     ref
@@ -353,6 +362,48 @@ const IndexTableBase = React.forwardRef<
       const hasSelectedItems =
         (typeof selectedItemsCount === "number" && selectedItemsCount > 0) ||
         selectedItemsCount === "All";
+
+      // Helper function to render bulk action buttons
+      const renderBulkActionButtons = () => {
+        if (!bulkActions || bulkActions.length === 0 || !hasSelectedItems) {
+          return null;
+        }
+
+        return (
+          <div className="flex items-center gap-2 ml-auto">
+            {bulkActions.map((action, index) => {
+              // Handle both BulkAction and MenuGroupDescriptor
+              if ("actions" in action) {
+                // This is a MenuGroupDescriptor - render all actions in the group
+                return action.actions.map((groupAction, groupIndex) => (
+                  <Button
+                    key={`${index}-${groupIndex}`}
+                    variant="primary"
+                    size="slim"
+                    onClick={groupAction.onAction}
+                    disabled={groupAction.disabled}
+                    tone={groupAction.destructive ? "critical" : undefined}>
+                    {groupAction.content}
+                  </Button>
+                ));
+              } else {
+                // This is a BulkAction
+                return (
+                  <Button
+                    key={index}
+                    variant="primary"
+                    size="slim"
+                    onClick={action.onAction}
+                    disabled={action.disabled}
+                    tone={action.destructive ? "critical" : undefined}>
+                    {action.content}
+                  </Button>
+                );
+              }
+            })}
+          </div>
+        );
+      };
 
       if (table) {
         // TanStack Table headers
@@ -401,11 +452,14 @@ const IndexTableBase = React.forwardRef<
                       }),
                       "text-left"
                     )}>
-                    <Text variant="bodyMd" as="span">
-                      {selectedItemsCount === "All"
-                        ? `All ${resourceName?.plural || "items"} selected`
-                        : `${selectedItemsCount} ${selectedItemsCount === 1 ? resourceName?.singular || "item" : resourceName?.plural || "items"} selected`}
-                    </Text>
+                    <div className="flex items-center justify-between w-full">
+                      <Text variant="bodyMd" as="span">
+                        {selectedItemsCount === "All"
+                          ? `All ${resourceName?.plural || "items"} selected`
+                          : `${selectedItemsCount} ${selectedItemsCount === 1 ? resourceName?.singular || "item" : resourceName?.plural || "items"} selected`}
+                      </Text>
+                      {renderBulkActionButtons()}
+                    </div>
                   </th>
                 ) : (
                   headerGroup.headers.map((header, index) => (
@@ -480,11 +534,14 @@ const IndexTableBase = React.forwardRef<
                   }),
                   "text-left"
                 )}>
-                <Text variant="bodyMd" as="span">
-                  {selectedItemsCount === "All"
-                    ? `All ${resourceName?.plural || "items"} selected`
-                    : `${selectedItemsCount} ${selectedItemsCount === 1 ? resourceName?.singular || "item" : resourceName?.plural || "items"} selected`}
-                </Text>
+                <div className="flex items-center justify-between w-full">
+                  <Text variant="bodyMd" as="span">
+                    {selectedItemsCount === "All"
+                      ? `All ${resourceName?.plural || "items"} selected`
+                      : `${selectedItemsCount} ${selectedItemsCount === 1 ? resourceName?.singular || "item" : resourceName?.plural || "items"} selected`}
+                  </Text>
+                  {renderBulkActionButtons()}
+                </div>
               </th>
             ) : (
               headings.map((heading, index) => (
@@ -586,6 +643,7 @@ const IndexTableBase = React.forwardRef<
               condensed,
               hasZebraStriping,
               loading,
+              hasIndexFilters,
             }),
             className
           )}

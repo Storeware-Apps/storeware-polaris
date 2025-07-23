@@ -232,6 +232,8 @@ export declare interface EnhancedIndexTableProps<TData = any> extends IndexTable
     data?: TData[];
     /** Column definitions (TanStack Table integration) */
     columns?: ColumnDef<TData>[];
+    /** Whether IndexFilters is present above this table (affects border-radius styling) */
+    hasIndexFilters?: boolean;
 }
 
 export declare interface EnhancedPageProps extends PolarisPageProps {
@@ -539,6 +541,7 @@ export declare const indexTableVariants: (props?: ({
     condensed?: boolean | null | undefined;
     hasZebraStriping?: boolean | null | undefined;
     loading?: boolean | null | undefined;
+    hasIndexFilters?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare type Key = string;

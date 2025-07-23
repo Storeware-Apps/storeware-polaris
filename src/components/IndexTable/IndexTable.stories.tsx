@@ -3,6 +3,7 @@ import { useState } from "react";
 import { IndexTable, useIndexResourceState } from "./indexTable";
 import {
   IndexFilters,
+  IndexFiltersMode,
   useSetIndexFiltersMode,
 } from "../IndexFilters/indexFilters";
 import { Card } from "../Card/card";
@@ -172,6 +173,103 @@ export const WithPagination: Story = {
       description: {
         story:
           "IndexTable with integrated pagination using the pagination prop. The pagination appears automatically at the bottom of the table when the pagination prop is provided.",
+      },
+    },
+  },
+};
+
+// With bulk actions
+export const WithBulkActions: Story = {
+  render: () => {
+    const resourceName = { singular: "order", plural: "orders" };
+    const { selectedResources, allResourcesSelected, handleSelectionChange } =
+      useIndexResourceState(sampleOrders);
+
+    const bulkActions = [
+      {
+        content: "Mark as fulfilled",
+        onAction: () => {
+          console.log("Mark as fulfilled clicked for:", selectedResources);
+          alert(`Marking ${selectedResources.length} orders as fulfilled`);
+        },
+      },
+      {
+        content: "Archive orders",
+        onAction: () => {
+          console.log("Archive orders clicked for:", selectedResources);
+          alert(`Archiving ${selectedResources.length} orders`);
+        },
+      },
+      {
+        content: "Delete",
+        onAction: () => {
+          console.log("Delete clicked for:", selectedResources);
+          alert(`Deleting ${selectedResources.length} orders`);
+        },
+        destructive: true,
+      },
+    ];
+
+    const rowMarkup = sampleOrders.map((order, index) => (
+      <IndexTable.Row
+        id={order.id}
+        key={order.id}
+        selected={selectedResources.includes(order.id)}
+        position={index}>
+        <IndexTable.Cell>
+          <Text variant="bodyMd" fontWeight="bold" as="span">
+            {order.order}
+          </Text>
+        </IndexTable.Cell>
+        <IndexTable.Cell>{order.date}</IndexTable.Cell>
+        <IndexTable.Cell>{order.customer}</IndexTable.Cell>
+        <IndexTable.Cell>
+          <Text as="span" alignment="end">
+            {order.total}
+          </Text>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Badge
+            progress={
+              order.paymentStatus === "Paid" ? "complete" : "partiallyComplete"
+            }>
+            {order.paymentStatus}
+          </Badge>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Badge progress="incomplete">{order.fulfillmentStatus}</Badge>
+        </IndexTable.Cell>
+      </IndexTable.Row>
+    ));
+
+    return (
+      <Card>
+        <IndexTable
+          resourceName={resourceName}
+          itemCount={sampleOrders.length}
+          selectedItemsCount={
+            allResourcesSelected ? "All" : selectedResources.length
+          }
+          onSelectionChange={handleSelectionChange}
+          bulkActions={bulkActions}
+          headings={[
+            { title: "Order" },
+            { title: "Date" },
+            { title: "Customer" },
+            { title: "Total", alignment: "end" },
+            { title: "Payment status" },
+            { title: "Fulfillment status" },
+          ]}>
+          {rowMarkup}
+        </IndexTable>
+      </Card>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "IndexTable with bulk actions that appear when rows are selected. Select one or more rows to see the action buttons appear to the right of the selection count.",
       },
     },
   },
@@ -437,6 +535,7 @@ export const WithIndexFilters: Story = {
             allResourcesSelected ? "All" : selectedResources.length
           }
           onSelectionChange={handleSelectionChange}
+          hasIndexFilters={true}
           headings={[
             { title: "Order" },
             { title: "Date" },
@@ -541,6 +640,7 @@ export const CompleteIntegration: Story = {
             allResourcesSelected ? "All" : selectedResources.length
           }
           onSelectionChange={handleSelectionChange}
+          hasIndexFilters={true}
           pagination={{
             hasPrevious: currentPage > 1,
             hasNext: currentPage < totalPages,
@@ -624,6 +724,117 @@ export const WithZebraStriping: Story = {
       description: {
         story:
           "IndexTable with zebra striping for better visual separation of rows.",
+      },
+    },
+  },
+};
+
+// Conditional styling demonstration
+export const ConditionalStyling: Story = {
+  render: () => {
+    const resourceName = { singular: "order", plural: "orders" };
+    const { selectedResources, allResourcesSelected, handleSelectionChange } =
+      useIndexResourceState(sampleOrders);
+
+    const rowMarkup = sampleOrders.slice(0, 3).map((order, index) => (
+      <IndexTable.Row
+        id={order.id}
+        key={order.id}
+        selected={selectedResources.includes(order.id)}
+        position={index}>
+        <IndexTable.Cell>{order.order}</IndexTable.Cell>
+        <IndexTable.Cell>{order.date}</IndexTable.Cell>
+        <IndexTable.Cell>{order.customer}</IndexTable.Cell>
+        <IndexTable.Cell>
+          <Text as="span" alignment="end">
+            {order.total}
+          </Text>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Badge tone={order.paymentStatus === "paid" ? "success" : "critical"}>
+            {order.paymentStatus}
+          </Badge>
+        </IndexTable.Cell>
+        <IndexTable.Cell>
+          <Badge
+            tone={
+              order.fulfillmentStatus === "fulfilled" ? "success" : "warning"
+            }>
+            {order.fulfillmentStatus}
+          </Badge>
+        </IndexTable.Cell>
+      </IndexTable.Row>
+    ));
+
+    return (
+      <div className="space-y-8">
+        <div>
+          <Text as="h3" variant="headingMd">
+            IndexTable with IndexFilters (rounded bottom corners only)
+          </Text>
+          <div className="mt-4">
+            <IndexFilters
+              queryValue=""
+              queryPlaceholder="Search orders"
+              onQueryChange={() => {}}
+              onQueryClear={() => {}}
+              mode={IndexFiltersMode.Default}
+              setMode={() => {}}
+            />
+            <IndexTable
+              resourceName={resourceName}
+              itemCount={3}
+              selectedItemsCount={
+                allResourcesSelected ? "All" : selectedResources.length
+              }
+              onSelectionChange={handleSelectionChange}
+              hasIndexFilters={true}
+              headings={[
+                { title: "Order" },
+                { title: "Date" },
+                { title: "Customer" },
+                { title: "Total", alignment: "end" },
+                { title: "Payment status" },
+                { title: "Fulfillment status" },
+              ]}>
+              {rowMarkup}
+            </IndexTable>
+          </div>
+        </div>
+
+        <div>
+          <Text as="h3" variant="headingMd">
+            IndexTable without IndexFilters (rounded all corners)
+          </Text>
+          <div className="mt-4">
+            <IndexTable
+              resourceName={resourceName}
+              itemCount={3}
+              selectedItemsCount={
+                allResourcesSelected ? "All" : selectedResources.length
+              }
+              onSelectionChange={handleSelectionChange}
+              hasIndexFilters={false}
+              headings={[
+                { title: "Order" },
+                { title: "Date" },
+                { title: "Customer" },
+                { title: "Total", alignment: "end" },
+                { title: "Payment status" },
+                { title: "Fulfillment status" },
+              ]}>
+              {rowMarkup}
+            </IndexTable>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates the conditional styling of IndexTable based on whether IndexFilters is present above it. When hasIndexFilters=true, only the bottom corners are rounded. When hasIndexFilters=false, all corners are rounded.",
       },
     },
   },

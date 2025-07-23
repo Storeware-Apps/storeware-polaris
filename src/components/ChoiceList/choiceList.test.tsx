@@ -144,7 +144,9 @@ describe("ChoiceList", () => {
 
   it("uses custom name prop", () => {
     const onChange = vi.fn();
-    render(<ChoiceList {...defaultProps} name="customName" onChange={onChange} />);
+    render(
+      <ChoiceList {...defaultProps} name="customName" onChange={onChange} />
+    );
 
     const option1 = screen.getByDisplayValue("option1");
     fireEvent.click(option1);
@@ -166,5 +168,91 @@ describe("ChoiceList", () => {
     fireEvent.click(option1);
 
     expect(onChange).not.toHaveBeenCalled();
+  });
+
+  describe("Clear button", () => {
+    it("does not show Clear button when no selections are made", () => {
+      render(<ChoiceList {...defaultProps} selected={[]} />);
+      expect(screen.queryByText("Clear")).not.toBeInTheDocument();
+    });
+
+    it("shows Clear button when selections are made", () => {
+      render(<ChoiceList {...defaultProps} selected={["option1"]} />);
+      expect(screen.getByText("Clear")).toBeInTheDocument();
+    });
+
+    it("clears all selections when Clear button is clicked", () => {
+      const onChange = vi.fn();
+      render(
+        <ChoiceList
+          {...defaultProps}
+          selected={["option1", "option2"]}
+          allowMultiple
+          onChange={onChange}
+        />
+      );
+
+      const clearButton = screen.getByText("Clear");
+      fireEvent.click(clearButton);
+
+      expect(onChange).toHaveBeenCalledWith([], "choiceList");
+    });
+
+    it("clears single selection when Clear button is clicked", () => {
+      const onChange = vi.fn();
+      render(
+        <ChoiceList
+          {...defaultProps}
+          selected={["option1"]}
+          onChange={onChange}
+        />
+      );
+
+      const clearButton = screen.getByText("Clear");
+      fireEvent.click(clearButton);
+
+      expect(onChange).toHaveBeenCalledWith([], "choiceList");
+    });
+
+    it("does not call onChange when Clear button is clicked and component is disabled", () => {
+      const onChange = vi.fn();
+      render(
+        <ChoiceList
+          {...defaultProps}
+          selected={["option1"]}
+          disabled
+          onChange={onChange}
+        />
+      );
+
+      const clearButton = screen.getByText("Clear");
+      fireEvent.click(clearButton);
+
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it("Clear button is disabled when component is disabled", () => {
+      render(<ChoiceList {...defaultProps} selected={["option1"]} disabled />);
+
+      const clearButton = screen.getByRole("button", { name: "Clear" });
+      expect(clearButton).toBeDisabled();
+    });
+
+    it("uses custom name prop when clearing selections", () => {
+      const onChange = vi.fn();
+      render(
+        <ChoiceList
+          {...defaultProps}
+          selected={["option1"]}
+          name="customName"
+          onChange={onChange}
+        />
+      );
+
+      const clearButton = screen.getByText("Clear");
+      fireEvent.click(clearButton);
+
+      expect(onChange).toHaveBeenCalledWith([], "customName");
+    });
   });
 });

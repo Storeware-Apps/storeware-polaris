@@ -10,6 +10,7 @@ import { cva } from "class-variance-authority";
 
 import { cn } from "../../lib/utils";
 import { Text } from "../Text/Text";
+import { Button } from "../Button/button";
 
 // Type definitions following Polaris ChoiceList component API
 export interface Choice {
@@ -61,7 +62,7 @@ export type PolarisChoiceListProps = ChoiceListProps;
 export type PolarisChoice = Choice;
 
 // Create Polaris-specific ChoiceList variants using CVA
-const polarisChoiceListVariants = cva("space-y-3", {
+const polarisChoiceListVariants = cva("space-y-1", {
   variants: {
     tone: {
       magic: "border-l-4 border-purple-500 pl-4",
@@ -79,7 +80,7 @@ const polarisChoiceListVariants = cva("space-y-3", {
 });
 
 const choiceVariants = cva(
-  "flex items-start gap-3 p-1 rounded-lg border border-transparent hover:bg-gray-50 transition-colors",
+  "flex items-start gap-1 p-1 rounded-lg transition-colors",
   {
     variants: {
       disabled: {
@@ -87,7 +88,7 @@ const choiceVariants = cva(
         false: "cursor-pointer",
       },
       selected: {
-        true: "bg-blue-50 border-blue-200",
+        true: "bg-black border-black",
         false: "",
       },
     },
@@ -140,6 +141,14 @@ export const ChoiceList = React.forwardRef<
       }
     };
 
+    const handleClear = () => {
+      if (disabled) return;
+
+      if (onChange) {
+        onChange([], name);
+      }
+    };
+
     // Build className using our Polaris variants
     const choiceListClassName = cn(
       polarisChoiceListVariants({
@@ -187,7 +196,7 @@ export const ChoiceList = React.forwardRef<
                   onChange={e =>
                     handleChoiceChange(choice.value, e.target.checked)
                   }
-                  className="mt-0.5 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                  className="mt-0.5 h-4 w-4 text-black rounded hover:bg-gray-400 accent-black"
                 />
                 <div className="flex-1 min-w-0">
                   <Text variant="bodyMd" as="span">
@@ -207,6 +216,10 @@ export const ChoiceList = React.forwardRef<
             );
           })}
         </div>
+
+        <Button variant="plain" onClick={handleClear} disabled={disabled}>
+          Clear
+        </Button>
 
         {error && (
           <Text variant="bodySm" tone="critical" as="p" className="mt-2">
