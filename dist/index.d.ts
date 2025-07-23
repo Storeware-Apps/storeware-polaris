@@ -1,8 +1,25 @@
 import { ClassProp } from 'class-variance-authority/types';
 import { ClassValue } from 'clsx';
+import { ColumnDef } from '@tanstack/react-table';
 import * as React_2 from 'react';
 import { ReactNode } from 'react';
 import { VariantProps } from 'class-variance-authority';
+
+export declare interface AccessibilityLabels {
+    /** Accessible label for the previous button */
+    previous?: string;
+    /** Accessible label for the next button */
+    next?: string;
+}
+
+export declare interface AppliedFilter {
+    /** Unique key for the filter */
+    key: string;
+    /** Label for the applied filter */
+    label: string;
+    /** Callback to remove the filter */
+    onRemove: () => void;
+}
 
 export declare const Badge: React_2.ForwardRefExoticComponent<EnhancedBadgeProps & React_2.RefAttributes<HTMLSpanElement>>;
 
@@ -38,6 +55,17 @@ export declare const boxVariants: (props?: ({
 export declare type BreakpointsAlias = "xs" | "sm" | "md" | "lg" | "xl";
 
 declare type BreakpointsAlias_2 = "xs" | "sm" | "md" | "lg" | "xl";
+
+export declare interface BulkAction {
+    /** Content for the bulk action */
+    content: string;
+    /** Callback when the bulk action is triggered */
+    onAction: () => void;
+    /** Whether the bulk action is disabled */
+    disabled?: boolean;
+    /** Whether the bulk action is destructive */
+    destructive?: boolean;
+}
 
 export declare const Button: React_2.ForwardRefExoticComponent<EnhancedButtonProps & React_2.RefAttributes<HTMLButtonElement | HTMLAnchorElement>>;
 
@@ -147,9 +175,28 @@ export declare interface EnhancedCardProps extends PolarisCardProps {
     className?: string;
 }
 
+export declare interface EnhancedIndexFiltersProps extends IndexFiltersProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
+}
+
+export declare interface EnhancedIndexTableProps<TData = any> extends IndexTableProps<TData> {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
+    /** Data for the table (TanStack Table integration) */
+    data?: TData[];
+    /** Column definitions (TanStack Table integration) */
+    columns?: ColumnDef<TData>[];
+}
+
 export declare interface EnhancedPageProps extends PolarisPageProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
     className?: string;
+}
+
+export declare interface EnhancedPaginationProps extends PaginationProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
 }
 
 export declare interface EnhancedPopoverProps extends PolarisPopoverProps {
@@ -166,6 +213,288 @@ export declare interface EnhancedTextProps extends PolarisTextProps {
     /** Additional CSS class name */
     className?: string;
 }
+
+export declare interface FilterDescriptor {
+    /** Unique key for the filter */
+    key: string;
+    /** Label for the filter */
+    label: string;
+    /** Filter component */
+    filter: React_2.ReactNode;
+    /** Whether the filter is a shortcut (pinned) */
+    shortcut?: boolean;
+}
+
+export declare const IndexFilters: React_2.ForwardRefExoticComponent<EnhancedIndexFiltersProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare interface IndexFiltersCancelAction {
+    /** Callback for the cancel action */
+    onAction: () => void;
+    /** Whether the action is disabled */
+    disabled?: boolean;
+    /** Whether the action is loading */
+    loading?: boolean;
+}
+
+export declare enum IndexFiltersMode {
+    Default = "DEFAULT",
+    Filtering = "FILTERING"
+}
+
+export declare interface IndexFiltersPrimaryAction {
+    /** Type of primary action */
+    type: "save" | "save-as";
+    /** Callback for the action */
+    onAction: (value?: string) => Promise<boolean> | void;
+    /** Whether the action is disabled */
+    disabled?: boolean;
+    /** Whether the action is loading */
+    loading?: boolean;
+}
+
+export declare interface IndexFiltersProps {
+    /** Available sorting choices */
+    sortOptions?: SortButtonChoice[];
+    /** Currently selected sort choice */
+    sortSelected?: string[];
+    /** Callback when sort is changed */
+    onSort?: (value: string[]) => void;
+    /** Callback when sort key is changed */
+    onSortKeyChange?: (value: string) => void;
+    /** Callback when sort direction is changed */
+    onSortDirectionChange?: (value: string) => void;
+    /** Callback when add filter button is clicked */
+    onAddFilterClick?: () => void;
+    /** Primary action to display */
+    primaryAction?: IndexFiltersPrimaryAction;
+    /** Cancel action to display */
+    cancelAction?: IndexFiltersCancelAction;
+    /** Callback when editing starts */
+    onEditStart?: (mode: Exclude<IndexFiltersMode, IndexFiltersMode.Default>) => void;
+    /** Current mode of the component */
+    mode: IndexFiltersMode;
+    /** Override z-index of popovers */
+    disclosureZIndexOverride?: number;
+    /** Callback to set the mode */
+    setMode: (mode: IndexFiltersMode) => void;
+    /** Whether the component is disabled */
+    disabled?: boolean;
+    /** Whether to disable just the query field */
+    disableQueryField?: boolean;
+    /** Whether to disable sticky mode on smaller devices */
+    disableStickyMode?: boolean;
+    /** Whether the component should go flush to the top when sticking */
+    isFlushWhenSticky?: boolean;
+    /** Whether the index supports creating new views */
+    canCreateNewView?: boolean;
+    /** Callback when a new view is created */
+    onCreateNewView?: (name: string) => Promise<boolean>;
+    /** Accessibility label for the filtering button */
+    filteringAccessibilityLabel?: string;
+    /** Accessibility tooltip for the filtering button */
+    filteringAccessibilityTooltip?: string;
+    /** Whether the filter should close when clicking inside another Popover */
+    closeOnChildOverlayClick?: boolean;
+    /** Whether to disable keyboard shortcuts */
+    disableKeyboardShortcuts?: boolean;
+    /** Whether to display the edit columns button */
+    showEditColumnsButton?: boolean;
+    /** Whether to auto-focus the search field */
+    autoFocusSearchField?: boolean;
+    /** Available tabs/views */
+    tabs?: TabProps[];
+    /** Currently selected tab index */
+    selected?: number;
+    /** Callback when tab is selected */
+    onSelect?: (index: number) => void;
+    /** Available filters */
+    filters?: FilterDescriptor[];
+    /** Applied filters */
+    appliedFilters?: AppliedFilter[];
+    /** Callback to clear all filters */
+    onClearAll?: () => void;
+    /** Current query value */
+    queryValue?: string;
+    /** Query placeholder text */
+    queryPlaceholder?: string;
+    /** Callback when query changes */
+    onQueryChange?: (value: string) => void;
+    /** Callback when query is cleared */
+    onQueryClear?: () => void;
+    /** Additional CSS class name */
+    className?: string;
+}
+
+export declare const indexFiltersVariants: (props?: ({
+    mode?: IndexFiltersMode | null | undefined;
+    disabled?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const IndexTable: IndexTableComponent;
+
+declare const IndexTableCell: React_2.ForwardRefExoticComponent<IndexTableCellProps & React_2.RefAttributes<HTMLTableCellElement>>;
+
+export declare interface IndexTableCellProps {
+    /** Cell element type */
+    as?: "th" | "td";
+    /** Unique ID for the cell */
+    id?: string;
+    /** Cell content */
+    children?: React_2.ReactNode;
+    /** Additional CSS class name */
+    className?: string;
+    /** Whether to remove cell padding */
+    flush?: boolean;
+    /** Column span */
+    colSpan?: number;
+    /** Scope for header cells */
+    scope?: "col" | "row" | "colgroup" | "rowgroup";
+    /** Headers that describe this cell */
+    headers?: string;
+}
+
+declare interface IndexTableComponent extends React_2.ForwardRefExoticComponent<EnhancedIndexTableProps & React_2.RefAttributes<HTMLTableElement>> {
+    Row: typeof IndexTableRow;
+    Cell: typeof IndexTableCell;
+}
+
+export declare type IndexTableHeading = IndexTableHeadingTitleString | IndexTableHeadingTitleNode;
+
+export declare interface IndexTableHeadingTitleNode {
+    /** The title of the heading as a React node */
+    title: React_2.ReactNode;
+    /** The alignment of the heading */
+    alignment?: "start" | "center" | "end";
+    /** Whether the heading is hidden */
+    hidden?: boolean;
+}
+
+export declare interface IndexTableHeadingTitleString {
+    /** The title of the heading */
+    title: string;
+    /** The alignment of the heading */
+    alignment?: "start" | "center" | "end";
+    /** Whether the heading is hidden */
+    hidden?: boolean;
+}
+
+export declare interface IndexTableMenuGroupDescriptor {
+    /** Title for the group */
+    title?: string;
+    /** Actions in the group */
+    actions: BulkAction[];
+}
+
+export declare interface IndexTableProps<TData = any> {
+    /** List of headings */
+    headings: IndexTableHeading[];
+    /** Promoted bulk actions */
+    promotedBulkActions?: (IndexTableMenuGroupDescriptor | BulkAction)[];
+    /** Bulk actions */
+    bulkActions?: (IndexTableMenuGroupDescriptor | BulkAction)[];
+    /** Children (table rows) */
+    children?: React_2.ReactNode;
+    /** Empty state */
+    emptyState?: React_2.ReactNode;
+    /** Sort component */
+    sort?: React_2.ReactNode;
+    /** Text for paginated select all action */
+    paginatedSelectAllActionText?: string;
+    /** Text for paginated select all */
+    paginatedSelectAllText?: string;
+    /** Whether the last column should be sticky */
+    lastColumnSticky?: boolean;
+    /** Whether the table is selectable */
+    selectable?: boolean;
+    /** List of sortable columns */
+    sortable?: boolean[];
+    /** Default sort direction */
+    defaultSortDirection?: "ascending" | "descending";
+    /** Current sort direction */
+    sortDirection?: "ascending" | "descending";
+    /** Index of the column being sorted */
+    sortColumnIndex?: number;
+    /** Callback when sort is triggered */
+    onSort?: (headingIndex: number, direction: "ascending" | "descending") => void;
+    /** Sort toggle labels */
+    sortToggleLabels?: IndexTableSortToggleLabels;
+    /** Whether to use zebra striping */
+    hasZebraStriping?: boolean;
+    /** Properties to enable pagination at the bottom of the table */
+    pagination?: Omit<PaginationProps, "type">;
+    /** Number of items */
+    itemCount: number;
+    /** Number of selected items */
+    selectedItemsCount?: number | "All";
+    /** Resource name */
+    resourceName?: {
+        singular: string;
+        plural: string;
+    };
+    /** Whether the table is loading */
+    loading?: boolean;
+    /** Whether there are more items */
+    hasMoreItems?: boolean;
+    /** Whether the table is condensed */
+    condensed?: boolean;
+    /** Callback when selection changes */
+    onSelectionChange?: (selectionType: SelectionType, toggleType: boolean, selection?: string | Range_2, position?: number) => void;
+    /** Additional CSS class name */
+    className?: string;
+}
+
+declare const IndexTableRow: React_2.ForwardRefExoticComponent<IndexTableRowProps & React_2.RefAttributes<HTMLTableRowElement>>;
+
+export declare interface IndexTableRowProps {
+    /** Table row content */
+    children?: React_2.ReactNode;
+    /** Unique identifier for the row */
+    id: string;
+    /** Whether the row is selected */
+    selected?: boolean | "indeterminate";
+    /** Position of the row (zero-indexed) */
+    position: number;
+    /** Visual tone of the row */
+    tone?: "subdued" | "success" | "warning" | "critical";
+    /** Whether the row is disabled */
+    disabled?: boolean;
+    /** Selection range for the row */
+    selectionRange?: [number, number];
+    /** Type of row */
+    rowType?: "data" | "subheader" | "child";
+    /** Accessibility label for the row */
+    accessibilityLabel?: string;
+    /** Click handler for the row */
+    onClick?: () => void;
+    /** Navigation handler for the row */
+    onNavigation?: (id: string) => void;
+    /** Additional CSS class name */
+    className?: string;
+    /** Whether the table is selectable (internal prop) */
+    selectable?: boolean;
+    /** Selection change handler (internal prop) */
+    onSelectionChange?: (selectionType: SelectionType, toggleType: boolean, selection?: string | Range_2, position?: number) => void;
+    /** Resource name for accessibility (internal prop) */
+    resourceName?: {
+        singular: string;
+        plural: string;
+    };
+}
+
+export declare interface IndexTableSortToggleLabels {
+    [key: number]: {
+        ascending: string;
+        descending: string;
+    };
+}
+
+export declare const indexTableVariants: (props?: ({
+    condensed?: boolean | null | undefined;
+    hasZebraStriping?: boolean | null | undefined;
+    loading?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare type Key = string;
 
 export declare interface LinkAction {
     /** Content the action displays */
@@ -184,17 +513,6 @@ export declare interface LinkAction {
     download?: string | boolean;
     /** A label for the action used by assistive technologies */
     accessibilityLabel?: string;
-}
-
-export declare interface MenuGroupDescriptor {
-    /** Title for the group */
-    title?: string;
-    /** List of actions */
-    actions: (CallbackAction | LinkAction)[];
-    /** Icon to display with the group */
-    icon?: React_2.ReactNode;
-    /** Whether the group should be disabled */
-    disabled?: boolean;
 }
 
 declare interface NonMutuallyExclusiveProps {
@@ -311,7 +629,18 @@ declare interface NonMutuallyExclusiveProps {
 
 export declare const Page: React_2.ForwardRefExoticComponent<EnhancedPageProps & React_2.RefAttributes<HTMLDivElement>>;
 
-export declare interface PaginationProps {
+export declare interface PageMenuGroupDescriptor {
+    /** Title for the group */
+    title?: string;
+    /** List of actions */
+    actions: (CallbackAction | LinkAction)[];
+    /** Icon to display with the group */
+    icon?: React_2.ReactNode;
+    /** Whether the group should be disabled */
+    disabled?: boolean;
+}
+
+export declare interface PagePaginationProps {
     /** Keyboard shortcuts for the next button */
     nextKeys?: string[];
     /** Keyboard shortcuts for the previous button */
@@ -340,6 +669,50 @@ export declare interface PaginationProps {
         previous?: string;
     };
 }
+
+export declare const Pagination: React_2.ForwardRefExoticComponent<EnhancedPaginationProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare interface PaginationProps {
+    /** Keyboard shortcuts for the next button */
+    nextKeys?: Key[];
+    /** Keyboard shortcuts for the previous button */
+    previousKeys?: Key[];
+    /** Tooltip for the next button */
+    nextTooltip?: string;
+    /** Tooltip for the previous button */
+    previousTooltip?: string;
+    /** The URL of the next page */
+    nextURL?: string;
+    /** The URL of the previous page */
+    previousURL?: string;
+    /** Whether there is a next page to show */
+    hasNext?: boolean;
+    /** Whether there is a previous page to show */
+    hasPrevious?: boolean;
+    /** Accessible label for the pagination */
+    accessibilityLabel?: string;
+    /** Accessible labels for the buttons and UnstyledLinks */
+    accessibilityLabels?: AccessibilityLabels;
+    /** Callback when next button is clicked */
+    onNext?: () => void;
+    /** Callback when previous button is clicked */
+    onPrevious?: () => void;
+    /** Text to provide more context in between the arrow buttons */
+    label?: React_2.ReactNode;
+    /** Layout structure of the component */
+    type?: "table" | "page";
+    /** Additional CSS class name */
+    className?: string;
+}
+
+export declare const paginationVariants: (props?: ({
+    type?: "table" | "page" | null | undefined;
+    hasLabel?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare type PolarisAccessibilityLabels = AccessibilityLabels;
+
+export declare type PolarisAppliedFilter = AppliedFilter;
 
 export declare interface PolarisBadgeProps {
     /** The content to display inside the badge */
@@ -469,6 +842,8 @@ export declare interface PolarisBoxProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
     className?: string;
 }
+
+export declare type PolarisBulkAction = BulkAction;
 
 export declare type PolarisButtonDisclosure = ButtonDisclosure;
 
@@ -601,6 +976,18 @@ export declare type PolarisEnhancedCardProps = EnhancedCardProps;
 
 export declare type PolarisEnhancedPopoverProps = EnhancedPopoverProps;
 
+export declare type PolarisFilterDescriptor = FilterDescriptor;
+
+export declare type PolarisIndexFiltersProps = IndexFiltersProps;
+
+export declare type PolarisIndexTableHeading = IndexTableHeading;
+
+export declare type PolarisIndexTableProps<TData = any> = IndexTableProps<TData>;
+
+export declare type PolarisKey = Key;
+
+export declare type PolarisMenuGroupDescriptor = IndexTableMenuGroupDescriptor;
+
 export declare interface PolarisPageProps {
     /** The contents of the page */
     children?: React_2.ReactNode;
@@ -623,11 +1010,11 @@ export declare interface PolarisPageProps {
     /** Collection of secondary page-level actions */
     secondaryActions?: (CallbackAction | LinkAction)[];
     /** Collection of page-level groups of secondary actions */
-    actionGroups?: MenuGroupDescriptor[];
+    actionGroups?: PageMenuGroupDescriptor[];
     /** A back action link */
     backAction?: LinkAction | CallbackAction;
     /** Page-level pagination */
-    pagination?: PaginationProps;
+    pagination?: PagePaginationProps;
     /** A label to use for the page when the page is ready, used by screen readers */
     pageReadyAccessibilityLabel?: string;
     /** Enables filtering action list items */
@@ -643,6 +1030,8 @@ export declare interface PolarisPageProps {
 export declare const polarisPageVariants: (props?: ({
     width?: "default" | "full" | "narrow" | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare type PolarisPaginationProps = PaginationProps;
 
 export declare type PolarisPopoverAutofocusTarget = PopoverAutofocusTarget;
 
@@ -703,6 +1092,10 @@ export declare const polarisPopoverVariants: (props?: ({
     hideOnPrint?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare type PolarisSortButtonChoice = SortButtonChoice;
+
+export declare type PolarisTabProps = TabProps;
+
 export declare type PolarisTextAlignment = TextAlignment;
 
 export declare type PolarisTextElement = TextElement;
@@ -758,6 +1151,12 @@ export declare type PopoverPreferredAlignment = "left" | "center" | "right";
 
 export declare type PopoverPreferredPosition = "above" | "below" | "mostSpace" | "cover";
 
+declare interface Range_2 {
+    start: number;
+    end: number;
+}
+export { Range_2 as Range }
+
 export declare type ResponsiveSpacing = SpaceScale | {
     [Breakpoint in BreakpointsAlias]?: SpaceScale;
 };
@@ -766,11 +1165,46 @@ declare type ResponsiveSpacing_2 = SpaceScale_2 | {
     [Breakpoint in BreakpointsAlias_2]?: SpaceScale_2;
 };
 
+export declare type SelectionType = "single" | "multiple" | "page" | "all";
+
 export declare type ShadowAliasOrScale = "0" | "100" | "200" | "300" | "400" | "500" | "600" | "bevel-100" | "inset-100" | "inset-200" | "button" | "button-hover" | "button-inset" | "button-primary" | "button-primary-hover" | "button-primary-inset" | "button-primary-critical" | "button-primary-critical-hover" | "button-primary-critical-inset" | "button-primary-success" | "button-primary-success-hover" | "button-primary-success-inset" | "border-inset";
+
+export declare interface SortButtonChoice {
+    /** Label for the sort option */
+    label: string;
+    /** Value for the sort option */
+    value: string;
+    /** Direction label for the sort option */
+    directionLabel: string;
+}
 
 export declare type SpaceScale = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
 
 declare type SpaceScale_2 = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
+
+export declare interface TabAction {
+    /** Type of action */
+    type: "rename" | "duplicate" | "edit" | "delete";
+    /** Callback for the action */
+    onAction?: () => void;
+    /** Primary action callback (for rename/duplicate) */
+    onPrimaryAction?: (value: string) => Promise<boolean>;
+}
+
+export declare interface TabProps {
+    /** Content for the tab */
+    content: string;
+    /** Index of the tab */
+    index: number;
+    /** Callback when tab is clicked */
+    onAction: () => void;
+    /** ID for the tab */
+    id: string;
+    /** Whether the tab is locked (cannot be deleted) */
+    isLocked?: boolean;
+    /** Actions available for the tab */
+    actions?: TabAction[];
+}
 
 declare const Text_2: React_2.ForwardRefExoticComponent<EnhancedTextProps & VariantProps<(props?: ({
     variant?: "headingXs" | "headingSm" | "headingMd" | "headingLg" | "headingXl" | "heading2xl" | "heading3xl" | "bodyXs" | "bodySm" | "bodyMd" | "bodyLg" | null | undefined;
@@ -842,5 +1276,22 @@ export declare const textVariants: (props?: ({
     visuallyHidden?: boolean | null | undefined;
     textDecorationLine?: "none" | "line-through" | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare const useIndexResourceState: <T extends {
+    id: string;
+}>(resources: T[], options?: {
+    selectedResources?: string[];
+    allResourcesSelected?: boolean;
+}) => {
+    selectedResources: string[];
+    allResourcesSelected: boolean;
+    handleSelectionChange: (selectionType: SelectionType, toggleType: boolean, selection?: string | Range_2, position?: number) => void;
+    clearSelection: () => void;
+};
+
+export declare const useSetIndexFiltersMode: () => {
+    mode: IndexFiltersMode;
+    setMode: React_2.Dispatch<React_2.SetStateAction<IndexFiltersMode>>;
+};
 
 export { }

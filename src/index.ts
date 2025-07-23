@@ -39,6 +39,26 @@ export { Page, polarisPageVariants } from "./components/Page/page.js";
 // Export Badge component
 export { Badge, badgeVariants } from "./components/Badge/badge.js";
 
+// Export Pagination component
+export {
+  Pagination,
+  paginationVariants,
+} from "./components/Pagination/pagination.js";
+
+// Export IndexFilters component
+export {
+  IndexFilters,
+  indexFiltersVariants,
+  useSetIndexFiltersMode,
+} from "./components/IndexFilters/indexFilters.js";
+
+// Export IndexTable component
+export {
+  IndexTable,
+  indexTableVariants,
+  useIndexResourceState,
+} from "./components/IndexTable/indexTable.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -158,8 +178,8 @@ export type {
   EnhancedPageProps,
   LinkAction,
   CallbackAction,
-  MenuGroupDescriptor,
-  PaginationProps,
+  MenuGroupDescriptor as PageMenuGroupDescriptor,
+  PaginationProps as PagePaginationProps,
 } from "./components/Page/page";
 
 // Export Badge types (consolidated in badge.tsx following shadcn/ui pattern)
@@ -171,6 +191,59 @@ export type {
   BadgeProgress,
   BadgeSize,
 } from "./components/Badge/badge";
+
+// Export Pagination types (consolidated in pagination.tsx following shadcn/ui pattern)
+export type {
+  PaginationProps,
+  EnhancedPaginationProps,
+  AccessibilityLabels,
+  Key,
+  // Backward compatibility aliases
+  PolarisPaginationProps,
+  PolarisAccessibilityLabels,
+  PolarisKey,
+} from "./components/Pagination/pagination";
+
+// Export IndexFilters types (consolidated in indexFilters.tsx following shadcn/ui pattern)
+export type {
+  IndexFiltersProps,
+  EnhancedIndexFiltersProps,
+  SortButtonChoice,
+  TabProps,
+  TabAction,
+  IndexFiltersPrimaryAction,
+  IndexFiltersCancelAction,
+  FilterDescriptor,
+  AppliedFilter,
+  IndexFiltersMode,
+  // Backward compatibility aliases
+  PolarisIndexFiltersProps,
+  PolarisTabProps,
+  PolarisSortButtonChoice,
+  PolarisFilterDescriptor,
+  PolarisAppliedFilter,
+} from "./components/IndexFilters/indexFilters";
+
+// Export IndexTable types (consolidated in indexTable.tsx following shadcn/ui pattern)
+export type {
+  IndexTableProps,
+  EnhancedIndexTableProps,
+  IndexTableHeading,
+  IndexTableHeadingTitleString,
+  IndexTableHeadingTitleNode,
+  IndexTableSortToggleLabels,
+  BulkAction,
+  MenuGroupDescriptor as IndexTableMenuGroupDescriptor,
+  SelectionType,
+  Range,
+  IndexTableRowProps,
+  IndexTableCellProps,
+  // Backward compatibility aliases
+  PolarisIndexTableProps,
+  PolarisIndexTableHeading,
+  PolarisBulkAction,
+  PolarisMenuGroupDescriptor,
+} from "./components/IndexTable/indexTable";
 
 // Export utilities
 export { cn } from "./lib/utils.js";
