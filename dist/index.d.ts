@@ -143,6 +143,46 @@ export declare type CardPadding = SpaceScale | {
 
 export declare type CardRoundedAbove = "xs" | "sm" | "md" | "lg" | "xl";
 
+export declare interface Choice {
+    /** Label for the choice */
+    label: string;
+    /** Value for the choice */
+    value: string;
+    /** Help text for the choice */
+    helpText?: string;
+    /** Whether the choice is disabled */
+    disabled?: boolean;
+    /** Additional description for the choice */
+    describedByError?: boolean;
+}
+
+export declare const ChoiceList: React_2.ForwardRefExoticComponent<EnhancedChoiceListProps & React_2.RefAttributes<HTMLFieldSetElement>>;
+
+export declare interface ChoiceListProps {
+    /** Label for list of choices */
+    title: React_2.ReactNode;
+    /** Collection of choices */
+    choices: Choice[];
+    /** Collection of selected choices */
+    selected: string[];
+    /** Name for form input */
+    name?: string;
+    /** Allow merchants to select multiple options at once */
+    allowMultiple?: boolean;
+    /** Toggles display of the title */
+    titleHidden?: boolean;
+    /** Display an error message */
+    error?: any;
+    /** Disable all choices */
+    disabled?: boolean;
+    /** Callback when the selected choices change */
+    onChange?: (selected: string[], name: string) => void;
+    /** Indicates the tone of the choice list */
+    tone?: "magic";
+    /** Additional CSS class name */
+    className?: string;
+}
+
 export declare function cn(...inputs: ClassValue[]): string;
 
 export declare type ColorBackgroundAlias = "bg" | "bg-inverse" | "bg-surface" | "bg-surface-hover" | "bg-surface-active" | "bg-surface-selected" | "bg-surface-disabled" | "bg-surface-secondary" | "bg-surface-secondary-hover" | "bg-surface-secondary-active" | "bg-surface-secondary-selected" | "bg-surface-tertiary" | "bg-surface-tertiary-hover" | "bg-surface-tertiary-active" | "bg-surface-brand" | "bg-surface-brand-hover" | "bg-surface-brand-active" | "bg-surface-brand-selected" | "bg-surface-info" | "bg-surface-info-hover" | "bg-surface-info-active" | "bg-surface-success" | "bg-surface-success-hover" | "bg-surface-success-active" | "bg-surface-caution" | "bg-surface-caution-hover" | "bg-surface-caution-active" | "bg-surface-warning" | "bg-surface-warning-hover" | "bg-surface-warning-active" | "bg-surface-critical" | "bg-surface-critical-hover" | "bg-surface-critical-active" | "bg-surface-emphasis" | "bg-surface-emphasis-hover" | "bg-surface-emphasis-active" | "bg-surface-magic" | "bg-surface-magic-hover" | "bg-surface-magic-active" | "bg-surface-inverse" | "bg-surface-transparent" | "bg-fill" | "bg-fill-hover" | "bg-fill-active" | "bg-fill-selected" | "bg-fill-disabled" | "bg-fill-secondary" | "bg-fill-secondary-hover" | "bg-fill-secondary-active" | "bg-fill-secondary-selected" | "bg-fill-tertiary" | "bg-fill-tertiary-hover" | "bg-fill-tertiary-active" | "bg-fill-brand" | "bg-fill-brand-hover" | "bg-fill-brand-active" | "bg-fill-brand-selected" | "bg-fill-brand-disabled" | "bg-fill-info" | "bg-fill-info-hover" | "bg-fill-info-active" | "bg-fill-info-secondary" | "bg-fill-success" | "bg-fill-success-hover" | "bg-fill-success-active" | "bg-fill-success-secondary" | "bg-fill-warning" | "bg-fill-warning-hover" | "bg-fill-warning-active" | "bg-fill-warning-secondary" | "bg-fill-caution" | "bg-fill-caution-hover" | "bg-fill-caution-active" | "bg-fill-caution-secondary" | "bg-fill-critical" | "bg-fill-critical-hover" | "bg-fill-critical-active" | "bg-fill-critical-selected" | "bg-fill-critical-secondary" | "bg-fill-emphasis" | "bg-fill-emphasis-hover" | "bg-fill-emphasis-active" | "bg-fill-magic" | "bg-fill-magic-secondary" | "bg-fill-magic-secondary-hover" | "bg-fill-magic-secondary-active" | "bg-fill-inverse" | "bg-fill-inverse-hover" | "bg-fill-inverse-active" | "bg-fill-transparent" | "bg-fill-transparent-hover" | "bg-fill-transparent-active" | "bg-fill-transparent-selected" | "bg-fill-transparent-secondary" | "bg-fill-transparent-secondary-hover" | "bg-fill-transparent-secondary-active";
@@ -173,6 +213,11 @@ export declare interface EnhancedButtonProps extends PolarisButtonProps {
 export declare interface EnhancedCardProps extends PolarisCardProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
     className?: string;
+}
+
+export declare interface EnhancedChoiceListProps extends ChoiceListProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
 }
 
 export declare interface EnhancedIndexFiltersProps extends IndexFiltersProps {
@@ -313,6 +358,8 @@ export declare interface IndexFiltersProps {
     appliedFilters?: AppliedFilter[];
     /** Callback to clear all filters */
     onClearAll?: () => void;
+    /** Pinned filters that appear as buttons under the search bar */
+    pinnedFilters?: PinnedFilter[];
     /** Current query value */
     queryValue?: string;
     /** Query placeholder text */
@@ -710,6 +757,32 @@ export declare const paginationVariants: (props?: ({
     hasLabel?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare interface PinnedFilter {
+    /** Unique key for the filter */
+    key: string;
+    /** Label for the filter button */
+    label: string;
+    /** Available choices for this filter */
+    choices: PinnedFilterChoice[];
+    /** Currently selected values */
+    selected: string[];
+    /** Whether to allow multiple selections */
+    allowMultiple?: boolean;
+    /** Callback when selection changes */
+    onChange: (selected: string[], key: string) => void;
+}
+
+export declare interface PinnedFilterChoice {
+    /** Label for the choice */
+    label: string;
+    /** Value for the choice */
+    value: string;
+    /** Help text for the choice */
+    helpText?: string;
+    /** Whether the choice is disabled */
+    disabled?: boolean;
+}
+
 export declare type PolarisAccessibilityLabels = AccessibilityLabels;
 
 export declare type PolarisAppliedFilter = AppliedFilter;
@@ -972,6 +1045,15 @@ export declare const polarisCardVariants: (props?: ({
     roundedAbove?: "xs" | "sm" | "md" | "lg" | "xl" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare type PolarisChoice = Choice;
+
+export declare type PolarisChoiceListProps = ChoiceListProps;
+
+export declare const polarisChoiceListVariants: (props?: ({
+    tone?: "default" | "magic" | null | undefined;
+    disabled?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare type PolarisEnhancedCardProps = EnhancedCardProps;
 
 export declare type PolarisEnhancedPopoverProps = EnhancedPopoverProps;
@@ -1032,6 +1114,10 @@ export declare const polarisPageVariants: (props?: ({
 } & ClassProp) | undefined) => string;
 
 export declare type PolarisPaginationProps = PaginationProps;
+
+export declare type PolarisPinnedFilter = PinnedFilter;
+
+export declare type PolarisPinnedFilterChoice = PinnedFilterChoice;
 
 export declare type PolarisPopoverAutofocusTarget = PopoverAutofocusTarget;
 
@@ -1285,7 +1371,7 @@ export declare const useIndexResourceState: <T extends {
 }) => {
     selectedResources: string[];
     allResourcesSelected: boolean;
-    handleSelectionChange: (selectionType: SelectionType, toggleType: boolean, selection?: string | Range_2, position?: number) => void;
+    handleSelectionChange: (selectionType: SelectionType, toggleType: boolean, selection?: string | Range_2, _position?: number) => void;
     clearSelection: () => void;
 };
 

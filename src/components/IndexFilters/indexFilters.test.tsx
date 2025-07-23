@@ -341,6 +341,76 @@ describe("IndexFilters", () => {
     const searchInput = screen.getByPlaceholderText("Search custom items");
     expect(searchInput).toBeInTheDocument();
   });
+
+  it("shows pinned filter buttons when pinnedFilters are provided", () => {
+    const setMode = vi.fn();
+    const pinnedFilters = [
+      {
+        key: "status",
+        label: "Status",
+        choices: [
+          { label: "Active", value: "active" },
+          { label: "Inactive", value: "inactive" },
+        ],
+        selected: [],
+        onChange: vi.fn(),
+      },
+      {
+        key: "category",
+        label: "Category",
+        choices: [
+          { label: "Electronics", value: "electronics" },
+          { label: "Clothing", value: "clothing" },
+        ],
+        selected: ["electronics"],
+        onChange: vi.fn(),
+      },
+    ];
+
+    render(
+      <IndexFilters
+        mode={IndexFiltersMode.Filtering}
+        setMode={setMode}
+        queryValue=""
+        onQueryChange={() => {}}
+        onQueryClear={() => {}}
+        pinnedFilters={pinnedFilters}
+      />
+    );
+
+    const statusButton = screen.getByRole("button", { name: /status/i });
+    const categoryButton = screen.getByRole("button", { name: /category/i });
+
+    expect(statusButton).toBeInTheDocument();
+    expect(categoryButton).toBeInTheDocument();
+
+    // Category button should show selection count
+    expect(categoryButton).toHaveTextContent("1");
+  });
+
+  it("does not show add filter button when onAddFilterClick is not provided", () => {
+    const setMode = vi.fn();
+    const tabs = [
+      { content: "All", index: 0, onAction: () => {}, id: "all-0" },
+    ];
+
+    render(
+      <IndexFilters
+        mode={IndexFiltersMode.Default}
+        setMode={setMode}
+        queryValue=""
+        onQueryChange={() => {}}
+        onQueryClear={() => {}}
+        tabs={tabs}
+        selected={0}
+      />
+    );
+
+    const addFilterButton = screen.queryByRole("button", {
+      name: /add filter/i,
+    });
+    expect(addFilterButton).not.toBeInTheDocument();
+  });
 });
 
 describe("useSetIndexFiltersMode", () => {

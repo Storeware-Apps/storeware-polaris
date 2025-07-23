@@ -27,6 +27,12 @@ export {
   polarisPopoverVariants,
 } from "./components/Popover/popover.js";
 
+// Export ChoiceList component
+export {
+  ChoiceList,
+  polarisChoiceListVariants,
+} from "./components/ChoiceList/choiceList.js";
+
 // Export Card component
 export { Card, polarisCardVariants } from "./components/Card/card.js";
 
@@ -222,7 +228,21 @@ export type {
   PolarisSortButtonChoice,
   PolarisFilterDescriptor,
   PolarisAppliedFilter,
+  PinnedFilter,
+  PinnedFilterChoice,
+  PolarisPinnedFilter,
+  PolarisPinnedFilterChoice,
 } from "./components/IndexFilters/indexFilters";
+
+// Export ChoiceList types (consolidated in choiceList.tsx following shadcn/ui pattern)
+export type {
+  ChoiceListProps,
+  EnhancedChoiceListProps,
+  Choice,
+  // Backward compatibility aliases
+  PolarisChoiceListProps,
+  PolarisChoice,
+} from "./components/ChoiceList/choiceList";
 
 // Export IndexTable types (consolidated in indexTable.tsx following shadcn/ui pattern)
 export type {

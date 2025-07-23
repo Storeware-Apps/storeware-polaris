@@ -296,6 +296,59 @@ export const WithIndexFilters: Story = {
       { label: "Total", value: "total desc", directionLabel: "Descending" },
     ];
 
+    // const { mode, setMode } = useSetIndexFiltersMode();
+    // const [queryValue, setQueryValue] = useState("");
+    const [selected, setSelected] = useState(0);
+    const [tabItems, setTabItems] = useState([
+      "All",
+      "Unpaid",
+      "Open",
+      "Closed",
+      "Local delivery",
+      "Local pickup",
+    ]);
+
+    const tabs = tabItems.map((item, index) => ({
+      content: item,
+      index,
+      onAction: () => {},
+      id: `${item}-${index}`,
+      isLocked: index === 0,
+      actions:
+        index === 0
+          ? []
+          : [
+              {
+                type: "rename" as const,
+                onAction: () => {},
+                onPrimaryAction: async (value: string) => {
+                  const newItems = [...tabItems];
+                  newItems[index] = value;
+                  setTabItems(newItems);
+                  return true;
+                },
+              },
+              {
+                type: "duplicate" as const,
+                onPrimaryAction: async (value: string) => {
+                  setTabItems([...tabItems, value]);
+                  setSelected(tabItems.length);
+                  return true;
+                },
+              },
+              {
+                type: "delete" as const,
+                onPrimaryAction: async () => {
+                  const newItems = [...tabItems];
+                  newItems.splice(index, 1);
+                  setTabItems(newItems);
+                  setSelected(0);
+                  return true;
+                },
+              },
+            ],
+    }));
+
     const rowMarkup = sampleOrders.map((order, index) => (
       <IndexTable.Row
         id={order.id}
@@ -331,15 +384,51 @@ export const WithIndexFilters: Story = {
     return (
       <>
         <IndexFilters
-          sortOptions={sortOptions}
-          sortSelected={sortSelected}
-          queryValue={queryValue}
-          queryPlaceholder="Searching in all"
-          onQueryChange={setQueryValue}
-          onQueryClear={() => setQueryValue("")}
-          onSort={setSortSelected}
           mode={mode}
           setMode={setMode}
+          queryValue={queryValue}
+          queryPlaceholder="Search in all orders"
+          onQueryChange={setQueryValue}
+          onQueryClear={() => setQueryValue("")}
+          tabs={tabs}
+          selected={selected}
+          onSelect={setSelected}
+          canCreateNewView
+          onCreateNewView={async name => {
+            // setTabItems([...tabItems, name]);
+            // setSelected(tabItems.length);
+            return true;
+          }}
+          pinnedFilters={[
+            {
+              key: "status",
+              label: "Status",
+              choices: [
+                { label: "Active", value: "active" },
+                { label: "Inactive", value: "inactive" },
+                { label: "Pending", value: "pending" },
+              ],
+              selected: [],
+              allowMultiple: true,
+              onChange: (selected, key) => {
+                console.log(`Filter ${key} changed:`, selected);
+              },
+            },
+            {
+              key: "category",
+              label: "Category",
+              choices: [
+                { label: "Electronics", value: "electronics" },
+                { label: "Clothing", value: "clothing" },
+                { label: "Books", value: "books" },
+              ],
+              selected: [],
+              allowMultiple: false,
+              onChange: (selected, key) => {
+                console.log(`Filter ${key} changed:`, selected);
+              },
+            },
+          ]}
         />
         <IndexTable
           resourceName={resourceName}

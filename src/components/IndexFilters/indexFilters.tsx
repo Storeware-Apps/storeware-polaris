@@ -12,6 +12,7 @@ import {
   FilterIcon,
   SortIcon,
   XIcon,
+  SettingsIcon,
 } from "@shopify/polaris-icons";
 
 import { cn } from "../../lib/utils";
@@ -19,6 +20,7 @@ import { Button } from "../Button/button";
 import { TextField } from "../TextField/TextField";
 import { Text } from "../Text/Text";
 import { Popover } from "../Popover/popover";
+import { ChoiceList } from "../ChoiceList/choiceList";
 
 // Type definitions following Polaris IndexFilters component API
 export interface SortButtonChoice {
@@ -94,6 +96,32 @@ export interface AppliedFilter {
   onRemove: () => void;
 }
 
+export interface PinnedFilterChoice {
+  /** Label for the choice */
+  label: string;
+  /** Value for the choice */
+  value: string;
+  /** Help text for the choice */
+  helpText?: string;
+  /** Whether the choice is disabled */
+  disabled?: boolean;
+}
+
+export interface PinnedFilter {
+  /** Unique key for the filter */
+  key: string;
+  /** Label for the filter button */
+  label: string;
+  /** Available choices for this filter */
+  choices: PinnedFilterChoice[];
+  /** Currently selected values */
+  selected: string[];
+  /** Whether to allow multiple selections */
+  allowMultiple?: boolean;
+  /** Callback when selection changes */
+  onChange: (selected: string[], key: string) => void;
+}
+
 export enum IndexFiltersMode {
   Default = "DEFAULT",
   Filtering = "FILTERING",
@@ -162,6 +190,8 @@ export interface IndexFiltersProps {
   appliedFilters?: AppliedFilter[];
   /** Callback to clear all filters */
   onClearAll?: () => void;
+  /** Pinned filters that appear as buttons under the search bar */
+  pinnedFilters?: PinnedFilter[];
   /** Current query value */
   queryValue?: string;
   /** Query placeholder text */
@@ -186,13 +216,15 @@ export type PolarisTabProps = TabProps;
 export type PolarisSortButtonChoice = SortButtonChoice;
 export type PolarisFilterDescriptor = FilterDescriptor;
 export type PolarisAppliedFilter = AppliedFilter;
+export type PolarisPinnedFilter = PinnedFilter;
+export type PolarisPinnedFilterChoice = PinnedFilterChoice;
 
 // Create Polaris-specific IndexFilters variants using CVA
 const polarisIndexFiltersVariants = cva("w-full", {
   variants: {
     mode: {
       [IndexFiltersMode.Default]: "",
-      [IndexFiltersMode.Filtering]: "shadow-sm",
+      [IndexFiltersMode.Filtering]: "",
     },
     disabled: {
       true: "opacity-50 pointer-events-none",
@@ -205,22 +237,6 @@ const polarisIndexFiltersVariants = cva("w-full", {
   },
 });
 
-const tabsVariants = cva(
-  "px-4 py-2 text-sm font-medium transition-colors border-b-2",
-  {
-    variants: {
-      selected: {
-        true: "bg-blue-50 border-blue-500 text-blue-700",
-        false:
-          "hover:bg-gray-50 border-transparent text-gray-600 hover:text-gray-900",
-      },
-    },
-    defaultVariants: {
-      selected: false,
-    },
-  }
-);
-
 // Hook for managing IndexFilters mode
 export const useSetIndexFiltersMode = () => {
   const [mode, setMode] = React.useState<IndexFiltersMode>(
@@ -228,6 +244,56 @@ export const useSetIndexFiltersMode = () => {
   );
 
   return { mode, setMode };
+};
+
+// PinnedFilterButton component for individual filter buttons
+interface PinnedFilterButtonProps {
+  filter: PinnedFilter;
+  disabled?: boolean;
+}
+
+const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
+  filter,
+  disabled = false,
+}) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleSelectionChange = (selected: string[]) => {
+    filter.onChange(selected, filter.key);
+  };
+
+  return (
+    <Popover
+      active={isOpen}
+      activator={
+        <Button
+          variant="tertiary"
+          onClick={() => setIsOpen(!isOpen)}
+          disabled={disabled}
+          pressed={isOpen}>
+          {filter.label}
+          {filter.selected.length > 0 && (
+            <span className="ml-1 px-1.5 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full">
+              {filter.selected.length}
+            </span>
+          )}
+        </Button>
+      }
+      onClose={() => setIsOpen(false)}
+      preferredPosition="below"
+      sectioned>
+      {/* <div className="p-4 min-w-[200px]"> */}
+      <ChoiceList
+        title={filter.label}
+        titleHidden
+        choices={filter.choices}
+        selected={filter.selected}
+        onChange={handleSelectionChange}
+        allowMultiple={filter.allowMultiple}
+      />
+      {/* </div> */}
+    </Popover>
+  );
 };
 
 // Internal SortPopover component
@@ -305,6 +371,7 @@ export const IndexFilters = React.forwardRef<
       filters: _filters,
       appliedFilters,
       onClearAll,
+      pinnedFilters,
       queryValue = "",
       queryPlaceholder = "Searching in all..",
       onQueryChange,
@@ -347,107 +414,6 @@ export const IndexFilters = React.forwardRef<
       }
     };
 
-    const renderTabs = () => {
-      if (!tabs || tabs.length === 0) return null;
-
-      return (
-        <div className="flex border-b border-gray-200">
-          {tabs.map((tab, index) => (
-            <button
-              key={tab.id}
-              className={cn(
-                tabsVariants({ selected: index === selected }),
-                "px-4 py-2 text-sm font-medium transition-colors"
-              )}
-              onClick={() => {
-                tab.onAction();
-                if (onSelect) onSelect(index);
-              }}>
-              {tab.content}
-            </button>
-          ))}
-        </div>
-      );
-    };
-
-    const renderSearchAndFilters = () => {
-      if (!isFilteringMode) return null;
-
-      return (
-        <div>
-          {/* Search Field */}
-          <TextField
-            label=""
-            labelHidden
-            value={queryValue}
-            onChange={handleQueryChange}
-            placeholder={queryPlaceholder}
-            clearButton={queryValue.length > 0}
-            onClearButtonClick={handleQueryClear}
-            disabled={disableQueryField || disabled}
-            autoFocus={autoFocusSearchField}
-            autoComplete="off"
-            className="flex justify-start w-full"
-          />
-
-          {/* Applied Filters */}
-          {appliedFilters && appliedFilters.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {appliedFilters.map(filter => (
-                <div
-                  key={filter.key}
-                  className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-black rounded-md text-sm">
-                  <Text variant="bodySm">{filter.label}</Text>
-                  <button
-                    onClick={filter.onRemove}
-                    className="p-0.5 hover:bg-blue-200 rounded">
-                    <XIcon className="size-3" />
-                  </button>
-                </div>
-              ))}
-              {onClearAll && (
-                <Button variant="plain" size="micro" onClick={onClearAll}>
-                  Clear all
-                </Button>
-              )}
-            </div>
-          )}
-
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-2">
-            {cancelAction && (
-              <Button
-                variant="secondary"
-                onClick={cancelAction.onAction}
-                disabled={cancelAction.disabled}
-                loading={cancelAction.loading}>
-                Cancel
-              </Button>
-            )}
-            {primaryAction && (
-              <Button
-                variant="primary"
-                onClick={() => {
-                  if (primaryAction.type === "save-as" && onCreateNewView) {
-                    // This would typically open a modal for naming the view
-                    const viewName = prompt("Enter view name:");
-                    if (viewName) {
-                      primaryAction.onAction(viewName);
-                    }
-                  } else {
-                    primaryAction.onAction();
-                  }
-                }}
-                disabled={primaryAction.disabled}
-                loading={primaryAction.loading}>
-                {primaryAction.type === "save" ? "Save" : "Save as"}
-              </Button>
-            )}
-          </div>
-        </div>
-      );
-    };
-
     return (
       <div
         ref={ref}
@@ -456,39 +422,180 @@ export const IndexFilters = React.forwardRef<
           className
         )}
         {...props}>
-        {renderTabs()}
-
         {/* Filter Controls */}
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-2">
-            {sortOptions && sortOptions.length > 0 && (
-              <SortPopover
-                sortOptions={sortOptions}
-                onSort={onSort}
-                disabled={disabled}
-              />
-            )}
-          </div>
-
-          {renderSearchAndFilters()}
+        <div className="p-1 border border-[#e3e3e3] rounded-md border-b-0 rounded-b-none">
           {isFilteringMode ? (
-            <Button onClick={handleFilterToggle} disabled={disabled}>
-              Cancel
-            </Button>
+            <div className="space-y-2">
+              {/* Search and Filter Row */}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
+                  {sortOptions && sortOptions.length > 0 && (
+                    <SortPopover
+                      sortOptions={sortOptions}
+                      onSort={onSort}
+                      disabled={disabled}
+                    />
+                  )}
+                </div>
+
+                {/* Search Field - extends from left to the cancel button */}
+                <div className="flex-1">
+                  <TextField
+                    label=""
+                    labelHidden
+                    value={queryValue}
+                    onChange={handleQueryChange}
+                    placeholder={queryPlaceholder}
+                    // prefix={<SearchIcon className="size-4 text-gray-500" />}
+                    clearButton={queryValue.length > 0}
+                    onClearButtonClick={handleQueryClear}
+                    disabled={disableQueryField || disabled}
+                    autoFocus={autoFocusSearchField}
+                    autoComplete="off"
+                    size="slim"
+                  />
+                </div>
+
+                <Button
+                  onClick={handleFilterToggle}
+                  disabled={disabled}
+                  size="medium">
+                  Cancel
+                </Button>
+              </div>
+
+              {/* Pinned Filters with light border */}
+              {pinnedFilters && pinnedFilters.length > 0 && (
+                <div className="border-t border-gray-200 pt-2">
+                  <div className="flex flex-wrap gap-2">
+                    {pinnedFilters.map(filter => (
+                      <PinnedFilterButton
+                        key={filter.key}
+                        filter={filter}
+                        disabled={disabled}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Applied Filters */}
+              {appliedFilters && appliedFilters.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {appliedFilters.map(filter => (
+                    <div
+                      key={filter.key}
+                      className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-black rounded-md text-sm">
+                      <Text variant="bodySm">{filter.label}</Text>
+                      <button
+                        onClick={filter.onRemove}
+                        className="p-0.5 hover:bg-black rounded">
+                        <XIcon className="size-3" />
+                      </button>
+                    </div>
+                  ))}
+                  {onClearAll && (
+                    <Button variant="plain" size="micro" onClick={onClearAll}>
+                      Clear all
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              {(primaryAction || cancelAction) && (
+                <div className="flex justify-end gap-2">
+                  {cancelAction && (
+                    <Button
+                      variant="secondary"
+                      onClick={cancelAction.onAction}
+                      disabled={cancelAction.disabled}
+                      loading={cancelAction.loading}>
+                      Cancel
+                    </Button>
+                  )}
+                  {primaryAction && (
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        if (
+                          primaryAction.type === "save-as" &&
+                          onCreateNewView
+                        ) {
+                          // This would typically open a modal for naming the view
+                          const viewName = prompt("Enter view name:");
+                          if (viewName) {
+                            primaryAction.onAction(viewName);
+                          }
+                        } else {
+                          primaryAction.onAction();
+                        }
+                      }}
+                      disabled={primaryAction.disabled}
+                      loading={primaryAction.loading}>
+                      {primaryAction.type === "save" ? "Save" : "Save as"}
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
           ) : (
-            <Button
-              variant="tertiary"
-              className="flex w-12 justify-items-end"
-              icon={
-                <>
-                  <SearchIcon className="size-5" />
-                  <FilterIcon className="size-5" />
-                </>
-              }
-              onClick={handleFilterToggle}
-              pressed={false}
-              accessibilityLabel={filteringAccessibilityLabel}
-              disabled={disabled}></Button>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {sortOptions && sortOptions.length > 0 && (
+                  <SortPopover
+                    sortOptions={sortOptions}
+                    onSort={onSort}
+                    disabled={disabled}
+                  />
+                )}
+
+                {/* Individual Tab Buttons */}
+                {tabs && tabs.length > 0 && (
+                  <>
+                    {tabs.map((tab, index) => (
+                      <Button
+                        key={tab.id}
+                        variant="tertiary"
+                        pressed={index === selected}
+                        onClick={() => {
+                          tab.onAction();
+                          if (onSelect) onSelect(index);
+                        }}
+                        disabled={disabled}>
+                        {tab.content}
+                      </Button>
+                    ))}
+                  </>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                {showEditColumnsButton && (
+                  <Button
+                    variant="tertiary"
+                    icon={<SettingsIcon className="size-4" />}
+                    accessibilityLabel="Edit columns"
+                    disabled={disabled}>
+                    Edit columns
+                  </Button>
+                )}
+
+                <Button
+                  variant="tertiary"
+                  className="flex w-12 justify-items-end"
+                  icon={
+                    <>
+                      <SearchIcon className="size-5" />
+                      <FilterIcon className="size-5" />
+                    </>
+                  }
+                  onClick={handleFilterToggle}
+                  pressed={false}
+                  accessibilityLabel={filteringAccessibilityLabel}
+                  disabled={disabled}></Button>
+              </div>
+            </div>
           )}
         </div>
       </div>

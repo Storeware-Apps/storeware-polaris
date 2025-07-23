@@ -210,6 +210,36 @@ export const WithTabs: Story = {
           setSelected(tabItems.length);
           return true;
         }}
+        pinnedFilters={[
+          {
+            key: "status",
+            label: "Status",
+            choices: [
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+              { label: "Pending", value: "pending" },
+            ],
+            selected: [],
+            allowMultiple: true,
+            onChange: (selected, key) => {
+              console.log(`Filter ${key} changed:`, selected);
+            },
+          },
+          {
+            key: "category",
+            label: "Category",
+            choices: [
+              { label: "Electronics", value: "electronics" },
+              { label: "Clothing", value: "clothing" },
+              { label: "Books", value: "books" },
+            ],
+            selected: [],
+            allowMultiple: false,
+            onChange: (selected, key) => {
+              console.log(`Filter ${key} changed:`, selected);
+            },
+          },
+        ]}
       />
       // </Card>
     );
@@ -218,6 +248,63 @@ export const WithTabs: Story = {
     docs: {
       description: {
         story: "IndexFilters with tabs for saved views and view management.",
+      },
+    },
+  },
+};
+
+// With pinned filters
+export const WithPinnedFilters: Story = {
+  render: () => {
+    const { mode, setMode } = useSetIndexFiltersMode();
+    const [queryValue, setQueryValue] = useState("");
+    const [statusFilter, setStatusFilter] = useState<string[]>([]);
+    const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
+
+    return (
+      // <Card>
+      <IndexFilters
+        mode={mode}
+        setMode={setMode}
+        queryValue={queryValue}
+        queryPlaceholder="Search products"
+        onQueryChange={setQueryValue}
+        onQueryClear={() => setQueryValue("")}
+        pinnedFilters={[
+          {
+            key: "status",
+            label: "Status",
+            choices: [
+              { label: "Active", value: "active" },
+              { label: "Inactive", value: "inactive" },
+              { label: "Pending", value: "pending" },
+            ],
+            selected: statusFilter,
+            allowMultiple: true,
+            onChange: selected => setStatusFilter(selected),
+          },
+          {
+            key: "category",
+            label: "Category",
+            choices: [
+              { label: "Electronics", value: "electronics" },
+              { label: "Clothing", value: "clothing" },
+              { label: "Books", value: "books" },
+            ],
+            selected: categoryFilter,
+            allowMultiple: false,
+            onChange: selected => setCategoryFilter(selected),
+          },
+        ]}
+      />
+      // </Card>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "IndexFilters with pinned filter buttons that show dropdown menus with ChoiceList components.",
       },
     },
   },
