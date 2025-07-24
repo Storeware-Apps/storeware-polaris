@@ -41,6 +41,24 @@ export declare const Bleed: React_2.ForwardRefExoticComponent<EnhancedBleedProps
 
 export declare const bleedVariants: (props?: ({} & ClassProp) | undefined) => string;
 
+export declare const BlockStack: React_2.ForwardRefExoticComponent<EnhancedBlockStackProps & React_2.RefAttributes<any>>;
+
+export declare type BlockStackAlign = "start" | "center" | "end" | "space-around" | "space-between" | "space-evenly";
+
+export declare type BlockStackAs = "div" | "span" | "ul" | "ol" | "li" | "fieldset";
+
+export declare type BlockStackInlineAlign = "start" | "center" | "end" | "baseline" | "stretch";
+
+export declare type BlockStackResponsiveGap = SpaceScale | {
+    [Breakpoint in BreakpointsAlias]?: SpaceScale;
+};
+
+export declare const blockStackVariants: (props?: ({
+    align?: "start" | "center" | "end" | "space-around" | "space-between" | "space-evenly" | null | undefined;
+    inlineAlign?: "start" | "center" | "end" | "stretch" | "baseline" | null | undefined;
+    reverseOrder?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare type BorderRadiusAliasOrScale = "0" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "750" | "full";
 
 export declare type BorderWidthScale = "0" | "0165" | "025" | "050" | "100";
@@ -199,6 +217,9 @@ export declare interface EnhancedBadgeProps extends PolarisBadgeProps {
 export declare interface EnhancedBleedProps extends PolarisBleedProps {
 }
 
+export declare interface EnhancedBlockStackProps extends PolarisBlockStackProps {
+}
+
 export declare interface EnhancedBoxProps extends PolarisBoxProps {
 }
 
@@ -234,6 +255,9 @@ export declare interface EnhancedIndexTableProps<TData = any> extends IndexTable
     columns?: ColumnDef<TData>[];
     /** Whether IndexFilters is present above this table (affects border-radius styling) */
     hasIndexFilters?: boolean;
+}
+
+export declare interface EnhancedInlineStackProps extends PolarisInlineStackProps {
 }
 
 export declare interface EnhancedPageProps extends PolarisPageProps {
@@ -544,6 +568,23 @@ export declare const indexTableVariants: (props?: ({
     hasIndexFilters?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const InlineStack: React_2.ForwardRefExoticComponent<EnhancedInlineStackProps & React_2.RefAttributes<any>>;
+
+export declare type InlineStackAlign = "start" | "center" | "end" | "space-around" | "space-between" | "space-evenly";
+
+export declare type InlineStackAs = "div" | "span" | "li" | "ol" | "ul";
+
+export declare type InlineStackBlockAlign = "start" | "center" | "end" | "baseline" | "stretch";
+
+export declare type InlineStackDirection = "row" | "row-reverse";
+
+export declare const inlineStackVariants: (props?: ({
+    align?: "start" | "center" | "end" | "space-around" | "space-between" | "space-evenly" | null | undefined;
+    direction?: "row" | "row-reverse" | null | undefined;
+    blockAlign?: "start" | "center" | "end" | "stretch" | "baseline" | null | undefined;
+    wrap?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare type Key = string;
 
 export declare interface LinkAction {
@@ -824,6 +865,27 @@ export declare interface PolarisBleedProps {
     className?: string;
 }
 
+export declare interface PolarisBlockStackProps {
+    /** Content to display inside the block stack */
+    children?: React_2.ReactNode;
+    /** HTML Element type. Defaults to 'div' */
+    as?: BlockStackAs;
+    /** Vertical alignment of children */
+    align?: BlockStackAlign;
+    /** Horizontal alignment of children */
+    inlineAlign?: BlockStackInlineAlign;
+    /** The spacing between children. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    gap?: BlockStackResponsiveGap;
+    /** HTML id attribute */
+    id?: string;
+    /** Reverse the render order of child items. Defaults to false */
+    reverseOrder?: boolean;
+    /** Aria role */
+    role?: string;
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
 export declare interface PolarisBoxProps {
     /** Content to display inside the box */
     children?: React_2.ReactNode;
@@ -1069,6 +1131,25 @@ export declare type PolarisIndexTableHeading = IndexTableHeading;
 
 export declare type PolarisIndexTableProps<TData = any> = IndexTableProps<TData>;
 
+export declare interface PolarisInlineStackProps {
+    /** Content to display inside the inline stack */
+    children?: React_2.ReactNode;
+    /** HTML Element type. Defaults to 'div' */
+    as?: InlineStackAs;
+    /** Horizontal alignment of children */
+    align?: InlineStackAlign;
+    /** Horizontal direction in which children are laid out */
+    direction?: InlineStackDirection;
+    /** Vertical alignment of children */
+    blockAlign?: InlineStackBlockAlign;
+    /** The spacing between elements. Accepts a spacing token or an object of spacing tokens for different screen sizes */
+    gap?: ResponsiveGap;
+    /** Wrap stack elements to additional rows as needed on small screens. Defaults to true */
+    wrap?: boolean;
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
 export declare type PolarisKey = Key;
 
 export declare type PolarisMenuGroupDescriptor = IndexTableMenuGroupDescriptor;
@@ -1245,6 +1326,10 @@ declare interface Range_2 {
     end: number;
 }
 export { Range_2 as Range }
+
+export declare type ResponsiveGap = SpaceScale | {
+    [Breakpoint in BreakpointsAlias]?: SpaceScale;
+};
 
 export declare type ResponsiveSpacing = SpaceScale | {
     [Breakpoint in BreakpointsAlias]?: SpaceScale;

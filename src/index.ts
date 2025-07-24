@@ -45,6 +45,18 @@ export { Page, polarisPageVariants } from "./components/Page/page.js";
 // Export Badge component
 export { Badge, badgeVariants } from "./components/Badge/badge.js";
 
+// Export InlineStack component
+export {
+  InlineStack,
+  inlineStackVariants,
+} from "./components/InlineStack/inlineStack.js";
+
+// Export BlockStack component
+export {
+  BlockStack,
+  blockStackVariants,
+} from "./components/BlockStack/blockStack.js";
+
 // Export Pagination component
 export {
   Pagination,
@@ -197,6 +209,27 @@ export type {
   BadgeProgress,
   BadgeSize,
 } from "./components/Badge/badge";
+
+// Export InlineStack types (consolidated in inlineStack.tsx following shadcn/ui pattern)
+export type {
+  PolarisInlineStackProps,
+  EnhancedInlineStackProps,
+  InlineStackAlign,
+  InlineStackDirection,
+  InlineStackBlockAlign,
+  InlineStackAs,
+  ResponsiveGap,
+} from "./components/InlineStack/inlineStack";
+
+// Export BlockStack types (consolidated in blockStack.tsx following shadcn/ui pattern)
+export type {
+  PolarisBlockStackProps,
+  EnhancedBlockStackProps,
+  BlockStackAlign,
+  BlockStackInlineAlign,
+  BlockStackAs,
+  ResponsiveGap as BlockStackResponsiveGap,
+} from "./components/BlockStack/blockStack";
 
 // Export Pagination types (consolidated in pagination.tsx following shadcn/ui pattern)
 export type {
