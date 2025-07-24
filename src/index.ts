@@ -36,6 +36,12 @@ export {
 // Export Card component
 export { Card, polarisCardVariants } from "./components/Card/card.js";
 
+// Export Modal component
+export { Modal, modalVariants } from "./components/Modal/modal.js";
+
+// Export TitleBar component
+export { TitleBar, titleBarVariants } from "./components/Modal/titleBar.js";
+
 // Export Bleed component
 export { Bleed, bleedVariants } from "./components/Bleed/bleed.js";
 
@@ -183,6 +189,19 @@ export type {
   PolarisCardRoundedAbove,
   PolarisEnhancedCardProps,
 } from "./components/Card/card";
+
+// Export Modal types (consolidated in modal.tsx following shadcn/ui pattern)
+export type {
+  AppBridgeModalProps,
+  EnhancedModalProps,
+  ModalVariant,
+} from "./components/Modal/modal";
+
+// Export TitleBar types (consolidated in titleBar.tsx following shadcn/ui pattern)
+export type {
+  AppBridgeTitleBarProps,
+  EnhancedTitleBarProps,
+} from "./components/Modal/titleBar";
 
 // Export Bleed types (consolidated in bleed.tsx following shadcn/ui pattern)
 export type {

@@ -12,6 +12,38 @@ export declare interface AccessibilityLabels {
     next?: string;
 }
 
+export declare interface AppBridgeModalProps {
+    /** A unique identifier for the Modal */
+    id: string;
+    /** The content to display within a Modal */
+    children?: React_2.ReactNode;
+    /** The URL of the content to display within a Modal (optional) */
+    src?: string;
+    /** The size of the modal */
+    variant?: ModalVariant;
+    /** Controls whether the modal is open (controlled mode) */
+    open?: boolean;
+    /** Callback when modal is showing */
+    onShow?: () => void;
+    /** Callback when modal is hiding */
+    onHide?: () => void;
+    /** Standard React callback for open state changes */
+    onOpenChange?: (open: boolean) => void;
+    /** Additional CSS class name */
+    className?: string;
+    /** Action buttons to display at the bottom of the modal */
+    actions?: React_2.ReactNode;
+}
+
+export declare interface AppBridgeTitleBarProps {
+    /** The title of the title bar */
+    title?: string;
+    /** The children of the title bar (typically buttons) */
+    children?: React_2.ReactNode;
+    /** Additional CSS class name */
+    className?: string;
+}
+
 export declare interface AppliedFilter {
     /** Unique key for the filter */
     key: string;
@@ -260,6 +292,11 @@ export declare interface EnhancedIndexTableProps<TData = any> extends IndexTable
 export declare interface EnhancedInlineStackProps extends PolarisInlineStackProps {
 }
 
+export declare interface EnhancedModalProps extends AppBridgeModalProps {
+    /** Whether to show the close button (default: true) */
+    showCloseButton?: boolean;
+}
+
 export declare interface EnhancedPageProps extends PolarisPageProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
     className?: string;
@@ -283,6 +320,11 @@ export declare interface EnhancedTextFieldProps extends NonMutuallyExclusiveProp
 export declare interface EnhancedTextProps extends PolarisTextProps {
     /** Additional CSS class name */
     className?: string;
+}
+
+export declare interface EnhancedTitleBarProps extends AppBridgeTitleBarProps {
+    /** Whether to show a border at the bottom (default: true) */
+    showBorder?: boolean;
 }
 
 export declare interface FilterDescriptor {
@@ -605,6 +647,14 @@ export declare interface LinkAction {
     /** A label for the action used by assistive technologies */
     accessibilityLabel?: string;
 }
+
+export declare const Modal: React_2.ForwardRefExoticComponent<EnhancedModalProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare type ModalVariant = "small" | "base" | "large" | "max";
+
+export declare const modalVariants: (props?: ({
+    variant?: "large" | "small" | "base" | "max" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 declare interface NonMutuallyExclusiveProps {
     /** Text to display before value */
@@ -1449,6 +1499,12 @@ export declare const textVariants: (props?: ({
     numeric?: boolean | null | undefined;
     visuallyHidden?: boolean | null | undefined;
     textDecorationLine?: "none" | "line-through" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const TitleBar: React_2.ForwardRefExoticComponent<EnhancedTitleBarProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const titleBarVariants: (props?: ({
+    showBorder?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const useIndexResourceState: <T extends {
