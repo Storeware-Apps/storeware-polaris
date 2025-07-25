@@ -35,6 +35,19 @@ export declare interface AppBridgeModalProps {
     actions?: React_2.ReactNode;
 }
 
+export declare interface AppBridgeSaveBarProps {
+    /** A unique identifier for the save bar */
+    id: string;
+    /** HTML button elements to hook into the Save and Discard buttons */
+    children?: React_2.ReactNode;
+    /** Whether to show a confirmation dialog when the discard button is clicked */
+    discardConfirmation?: boolean;
+    /** Controls whether the save bar is open (controlled mode) */
+    open?: boolean;
+    /** Additional CSS class name */
+    className?: string;
+}
+
 export declare interface AppBridgeTitleBarProps {
     /** The title of the title bar */
     title?: string;
@@ -241,6 +254,8 @@ export declare type ColorBorderAlias = "border" | "border-hover" | "border-disab
 
 export declare type ColorTextAlias = "text" | "text-secondary" | "text-disabled" | "text-link" | "text-link-hover" | "text-link-active" | "text-brand" | "text-brand-hover" | "text-brand-on-bg-fill" | "text-brand-on-bg-fill-hover" | "text-brand-on-bg-fill-active" | "text-brand-on-bg-fill-disabled" | "text-info" | "text-info-hover" | "text-info-active" | "text-info-secondary" | "text-info-on-bg-fill" | "text-success" | "text-success-hover" | "text-success-active" | "text-success-secondary" | "text-success-on-bg-fill" | "text-caution" | "text-caution-hover" | "text-caution-active" | "text-caution-secondary" | "text-caution-on-bg-fill" | "text-warning" | "text-warning-hover" | "text-warning-active" | "text-warning-secondary" | "text-warning-on-bg-fill" | "text-critical" | "text-critical-hover" | "text-critical-active" | "text-critical-secondary" | "text-critical-on-bg-fill" | "text-emphasis" | "text-emphasis-hover" | "text-emphasis-active" | "text-emphasis-on-bg-fill" | "text-emphasis-on-bg-fill-hover" | "text-emphasis-on-bg-fill-active" | "text-magic" | "text-magic-secondary" | "text-magic-on-bg-fill" | "text-inverse" | "text-inverse-secondary" | "text-link-inverse";
 
+export declare const ContextualSaveBar: React_2.ForwardRefExoticComponent<EnhancedContextualSaveBarProps & React_2.RefAttributes<HTMLDivElement>>;
+
 export declare interface EnhancedBadgeProps extends PolarisBadgeProps {
     /** Use the Slot component for composition (shadcn/ui feature) */
     asChild?: boolean;
@@ -271,6 +286,14 @@ export declare interface EnhancedCardProps extends PolarisCardProps {
 export declare interface EnhancedChoiceListProps extends ChoiceListProps {
     /** Use the Slot component for composition (shadcn/ui feature) */
     asChild?: boolean;
+}
+
+export declare interface EnhancedContextualSaveBarProps extends AppBridgeSaveBarProps {
+}
+
+export declare interface EnhancedIconProps extends PolarisIconProps {
+    /** Additional CSS class name (inherited from shadcn/ui patterns) */
+    className?: string;
 }
 
 export declare interface EnhancedIndexFiltersProps extends IndexFiltersProps {
@@ -337,6 +360,17 @@ export declare interface FilterDescriptor {
     /** Whether the filter is a shortcut (pinned) */
     shortcut?: boolean;
 }
+
+export declare const Icon: React_2.ForwardRefExoticComponent<IconProps & React_2.RefAttributes<HTMLSpanElement>>;
+
+export declare interface IconProps extends EnhancedIconProps {
+}
+
+export declare type IconTone = "base" | "inherit" | "subdued" | "caution" | "warning" | "critical" | "interactive" | "info" | "success" | "primary" | "emphasis" | "magic" | "textCaution" | "textWarning" | "textCritical" | "textInfo" | "textSuccess" | "textPrimary" | "textMagic";
+
+export declare const iconVariants: (props?: ({
+    tone?: "success" | "critical" | "primary" | "inherit" | "base" | "caution" | "subdued" | "magic" | "warning" | "info" | "interactive" | "emphasis" | "textCaution" | "textWarning" | "textCritical" | "textInfo" | "textSuccess" | "textPrimary" | "textMagic" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const IndexFilters: React_2.ForwardRefExoticComponent<EnhancedIndexFiltersProps & React_2.RefAttributes<HTMLDivElement>>;
 
@@ -1175,6 +1209,17 @@ export declare type PolarisEnhancedPopoverProps = EnhancedPopoverProps;
 
 export declare type PolarisFilterDescriptor = FilterDescriptor;
 
+export declare interface PolarisIconProps {
+    /** The SVG contents to display in the icon (icons should fit in a 20 × 20 pixel viewBox) */
+    source: any;
+    /** Set the color for the SVG fill */
+    tone?: IconTone;
+    /** Descriptive text to be read to screenreaders */
+    accessibilityLabel?: string;
+}
+
+export declare type PolarisIconTone = IconTone;
+
 export declare type PolarisIndexFiltersProps = IndexFiltersProps;
 
 export declare type PolarisIndexTableHeading = IndexTableHeading;
@@ -1388,6 +1433,10 @@ export declare type ResponsiveSpacing = SpaceScale | {
 declare type ResponsiveSpacing_2 = SpaceScale_2 | {
     [Breakpoint in BreakpointsAlias_2]?: SpaceScale_2;
 };
+
+export declare const saveBarVariants: (props?: ({
+    open?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare type SelectionType = "single" | "multiple" | "page" | "all";
 

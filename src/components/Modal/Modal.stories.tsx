@@ -112,7 +112,11 @@ export const Basic: Story = {
     return (
       <>
         <Button onClick={() => setOpen(true)}>Open Modal</Button>
-        <Modal id="basic-modal" open={open} onOpenChange={setOpen}>
+        <Modal
+          id="basic-modal"
+          variant="small"
+          open={open}
+          onOpenChange={setOpen}>
           <TitleBar title="My Modal" />
           <div className="p-6">
             <p>Hello, World!</p>

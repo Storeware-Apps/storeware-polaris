@@ -83,6 +83,15 @@ export {
   useIndexResourceState,
 } from "./components/IndexTable/indexTable.js";
 
+// Export ContextualSaveBar component
+export {
+  ContextualSaveBar,
+  saveBarVariants,
+} from "./components/ContextualSaveBar/contextualSaveBar.js";
+
+// Export Icon component
+export { Icon, iconVariants } from "./components/Icon/icon.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -316,6 +325,22 @@ export type {
   PolarisBulkAction,
   PolarisMenuGroupDescriptor,
 } from "./components/IndexTable/indexTable";
+
+// Export ContextualSaveBar types (consolidated in contextualSaveBar.tsx following shadcn/ui pattern)
+export type {
+  AppBridgeSaveBarProps,
+  EnhancedContextualSaveBarProps,
+} from "./components/ContextualSaveBar/contextualSaveBar";
+
+// Export Icon types (consolidated in icon.tsx following shadcn/ui pattern)
+export type {
+  PolarisIconProps,
+  EnhancedIconProps,
+  IconProps,
+  IconTone,
+  // Backward compatibility aliases
+  PolarisIconTone,
+} from "./components/Icon/icon";
 
 // Export utilities
 export { cn } from "./lib/utils.js";
