@@ -18,7 +18,7 @@ export interface AppBridgeSaveBarProps {
   /** A unique identifier for the save bar */
   id: string;
 
-  /** HTML button elements to hook into the Save and Discard buttons */
+  /** HTML button elements to hook into the Save and Discard buttons (legacy API) */
   children?: React.ReactNode;
 
   /** Whether to show a confirmation dialog when the discard button is clicked */
@@ -29,6 +29,24 @@ export interface AppBridgeSaveBarProps {
 
   /** Additional CSS class name */
   className?: string;
+
+  /** Callback when the save button is clicked (new internalized API) */
+  onSave?: () => void;
+
+  /** Callback when the discard button is clicked (new internalized API) */
+  onDiscard?: () => void;
+
+  /** Text for the save button (defaults to "Save") */
+  saveText?: string;
+
+  /** Text for the discard button (defaults to "Discard") */
+  discardText?: string;
+
+  /** Whether the save button is in a loading state */
+  saveLoading?: boolean;
+
+  /** Whether the discard button is in a loading state */
+  discardLoading?: boolean;
 }
 
 // Enhanced ContextualSaveBar interface
@@ -126,6 +144,12 @@ export const ContextualSaveBar = React.forwardRef<
       discardConfirmation = false,
       open = false,
       className,
+      onSave,
+      onDiscard,
+      saveText = "Save",
+      discardText = "Discard",
+      saveLoading = false,
+      discardLoading = false,
       ...props
     },
     ref
@@ -135,36 +159,93 @@ export const ContextualSaveBar = React.forwardRef<
       (() => void) | null
     >(null);
 
-    // Process children to identify Save and Discard buttons
+    // Determine if we're using the new internalized API or legacy children API
+    const useInternalizedButtons = Boolean(onSave || onDiscard);
+
+    // Handle discard action with optional confirmation
+    const handleDiscardAction = React.useCallback(
+      (discardHandler: () => void) => {
+        if (discardConfirmation) {
+          setPendingDiscardHandler(() => discardHandler);
+          setShowConfirmation(true);
+        } else {
+          discardHandler();
+        }
+      },
+      [discardConfirmation]
+    );
+
+    // Process children to identify Save and Discard buttons (legacy API)
     const processedChildren = React.useMemo(() => {
-      if (!children) return null;
+      if (useInternalizedButtons || !children) return null;
 
       return React.Children.map(children, child => {
         if (
           React.isValidElement(child) &&
           (child.type === "button" || child.type === Button)
         ) {
-          const buttonProps = child.props as any;
+          const buttonProps = child.props as Record<string, unknown>;
 
           // Check if this is the discard button (primary variant = discard, default/no variant = save)
           if (buttonProps.variant === "primary") {
             // If discardConfirmation is enabled, intercept the onClick
-            if (discardConfirmation) {
-              return React.cloneElement(child, {
-                ...buttonProps,
-                onClick: (e: React.MouseEvent) => {
-                  e.preventDefault();
-                  // Store the original handler for this specific button
-                  setPendingDiscardHandler(() => buttonProps.onClick);
-                  setShowConfirmation(true);
-                },
-              });
+            if (
+              discardConfirmation &&
+              typeof buttonProps.onClick === "function"
+            ) {
+              return React.cloneElement(
+                child as React.ReactElement<Record<string, unknown>>,
+                {
+                  ...buttonProps,
+                  onClick: (e: React.MouseEvent) => {
+                    e.preventDefault();
+                    handleDiscardAction(buttonProps.onClick as () => void);
+                  },
+                }
+              );
             }
           }
         }
         return child;
       });
-    }, [children, discardConfirmation]);
+    }, [
+      children,
+      discardConfirmation,
+      useInternalizedButtons,
+      handleDiscardAction,
+    ]);
+
+    // Render internalized buttons (new API)
+    const internalizedButtons = React.useMemo(() => {
+      if (!useInternalizedButtons) return null;
+
+      return (
+        <>
+          {onDiscard && (
+            <Button
+              variant="primary"
+              loading={discardLoading}
+              onClick={() => handleDiscardAction(onDiscard)}>
+              {discardText}
+            </Button>
+          )}
+          {onSave && (
+            <Button loading={saveLoading} onClick={onSave}>
+              {saveText}
+            </Button>
+          )}
+        </>
+      );
+    }, [
+      useInternalizedButtons,
+      onDiscard,
+      onSave,
+      discardLoading,
+      saveLoading,
+      discardText,
+      saveText,
+      handleDiscardAction,
+    ]);
 
     // Handle confirmation dialog actions
     const handleConfirmDiscard = React.useCallback(() => {
@@ -190,10 +271,11 @@ export const ContextualSaveBar = React.forwardRef<
           <div className="flex items-center justify-between p-2">
             <div className="flex items-center gap-2">
               <Icon source={AlertBubbleIcon} tone="base" />
-              {/* <AlertBubbleIcon className="w-4 h-4 text-white" /> */}
               <span className="text-sm font-medium">Unsaved changes</span>
             </div>
-            <div className="flex items-center gap-3">{processedChildren}</div>
+            <div className="flex items-center gap-3">
+              {useInternalizedButtons ? internalizedButtons : processedChildren}
+            </div>
           </div>
         </div>
 

@@ -82,6 +82,9 @@ export interface IconProps extends EnhancedIconProps {}
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
   ({ source, tone = "base", accessibilityLabel, className, ...props }, ref) => {
+    // Build className using our Icon variants
+    const iconClassName = cn(iconVariants({ tone }), className);
+
     // Handle different types of icon sources
     const renderIcon = React.useMemo(() => {
       if (!source) return null;
@@ -89,13 +92,14 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       // Handle React component (function)
       if (typeof source === "function") {
         const IconComponent = source;
-        return <IconComponent className="w-5 h-5" />;
+        // Pass the tone-based color classes to the icon component
+        return <IconComponent className={iconClassName} />;
       }
 
       // Handle React element (already rendered)
       if (React.isValidElement(source)) {
         return React.cloneElement(source as React.ReactElement, {
-          className: cn("w-5 h-5", (source as any).props?.className),
+          className: cn(iconClassName, (source as any).props?.className),
         });
       }
 
@@ -103,7 +107,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       if (typeof source === "string") {
         return (
           <div
-            className="w-5 h-5"
+            className={iconClassName}
             dangerouslySetInnerHTML={{ __html: source }}
           />
         );
@@ -111,10 +115,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
 
       // Fallback for other types
       return source;
-    }, [source]);
-
-    // Build className using our Icon variants
-    const iconClassName = cn(iconVariants({ tone }), className);
+    }, [source, iconClassName]);
 
     // Determine accessibility attributes
     const accessibilityProps = accessibilityLabel
@@ -124,7 +125,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
     return (
       <span
         ref={ref}
-        className={iconClassName}
+        className="inline-block shrink-0 w-5 h-5"
         {...accessibilityProps}
         {...props}>
         {renderIcon}

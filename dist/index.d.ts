@@ -38,7 +38,7 @@ export declare interface AppBridgeModalProps {
 export declare interface AppBridgeSaveBarProps {
     /** A unique identifier for the save bar */
     id: string;
-    /** HTML button elements to hook into the Save and Discard buttons */
+    /** HTML button elements to hook into the Save and Discard buttons (legacy API) */
     children?: React_2.ReactNode;
     /** Whether to show a confirmation dialog when the discard button is clicked */
     discardConfirmation?: boolean;
@@ -46,6 +46,18 @@ export declare interface AppBridgeSaveBarProps {
     open?: boolean;
     /** Additional CSS class name */
     className?: string;
+    /** Callback when the save button is clicked (new internalized API) */
+    onSave?: () => void;
+    /** Callback when the discard button is clicked (new internalized API) */
+    onDiscard?: () => void;
+    /** Text for the save button (defaults to "Save") */
+    saveText?: string;
+    /** Text for the discard button (defaults to "Discard") */
+    discardText?: string;
+    /** Whether the save button is in a loading state */
+    saveLoading?: boolean;
+    /** Whether the discard button is in a loading state */
+    discardLoading?: boolean;
 }
 
 export declare interface AppBridgeTitleBarProps {

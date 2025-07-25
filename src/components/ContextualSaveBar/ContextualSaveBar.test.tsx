@@ -272,4 +272,156 @@ describe("ContextualSaveBar", () => {
     });
     expect(handleDiscard2).not.toHaveBeenCalled();
   });
+
+  // Tests for new internalized buttons API
+  describe("Internalized Buttons API", () => {
+    it("renders internalized save and discard buttons", () => {
+      const handleSave = vi.fn();
+      const handleDiscard = vi.fn();
+
+      render(
+        <ContextualSaveBar
+          id="test-save-bar"
+          open
+          onSave={handleSave}
+          onDiscard={handleDiscard}
+        />
+      );
+
+      expect(screen.getByText("Save")).toBeInTheDocument();
+      expect(screen.getByText("Discard")).toBeInTheDocument();
+    });
+
+    it("calls onSave when save button is clicked", () => {
+      const handleSave = vi.fn();
+      const handleDiscard = vi.fn();
+
+      render(
+        <ContextualSaveBar
+          id="test-save-bar"
+          open
+          onSave={handleSave}
+          onDiscard={handleDiscard}
+        />
+      );
+
+      const saveButton = screen.getByText("Save");
+      fireEvent.click(saveButton);
+
+      expect(handleSave).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls onDiscard when discard button is clicked without confirmation", () => {
+      const handleSave = vi.fn();
+      const handleDiscard = vi.fn();
+
+      render(
+        <ContextualSaveBar
+          id="test-save-bar"
+          open
+          onSave={handleSave}
+          onDiscard={handleDiscard}
+        />
+      );
+
+      const discardButton = screen.getByText("Discard");
+      fireEvent.click(discardButton);
+
+      expect(handleDiscard).toHaveBeenCalledTimes(1);
+    });
+
+    it("shows confirmation dialog for internalized discard button when discardConfirmation is true", async () => {
+      const handleSave = vi.fn();
+      const handleDiscard = vi.fn();
+
+      render(
+        <ContextualSaveBar
+          id="test-save-bar"
+          open
+          onSave={handleSave}
+          onDiscard={handleDiscard}
+          discardConfirmation
+        />
+      );
+
+      const discardButton = screen.getByText("Discard");
+      fireEvent.click(discardButton);
+
+      await waitFor(() => {
+        expect(screen.getByRole("dialog")).toBeInTheDocument();
+      });
+      expect(handleDiscard).not.toHaveBeenCalled();
+
+      // Confirm discard
+      const confirmButtons = screen.getAllByText("Discard changes");
+      const confirmButton = confirmButtons
+        .find(button => button.tagName === "SPAN")
+        ?.closest("button");
+      fireEvent.click(confirmButton!);
+
+      await waitFor(() => {
+        expect(handleDiscard).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it("renders custom button text", () => {
+      const handleSave = vi.fn();
+      const handleDiscard = vi.fn();
+
+      render(
+        <ContextualSaveBar
+          id="test-save-bar"
+          open
+          onSave={handleSave}
+          onDiscard={handleDiscard}
+          saveText="Save Changes"
+          discardText="Cancel Changes"
+        />
+      );
+
+      expect(screen.getByText("Save Changes")).toBeInTheDocument();
+      expect(screen.getByText("Cancel Changes")).toBeInTheDocument();
+    });
+
+    it("renders only save button when only onSave is provided", () => {
+      const handleSave = vi.fn();
+
+      render(<ContextualSaveBar id="test-save-bar" open onSave={handleSave} />);
+
+      expect(screen.getByText("Save")).toBeInTheDocument();
+      expect(screen.queryByText("Discard")).not.toBeInTheDocument();
+    });
+
+    it("renders only discard button when only onDiscard is provided", () => {
+      const handleDiscard = vi.fn();
+
+      render(
+        <ContextualSaveBar id="test-save-bar" open onDiscard={handleDiscard} />
+      );
+
+      expect(screen.getByText("Discard")).toBeInTheDocument();
+      expect(screen.queryByText("Save")).not.toBeInTheDocument();
+    });
+
+    it("prefers internalized buttons over children when both are provided", () => {
+      const handleSave = vi.fn();
+      const handleDiscard = vi.fn();
+      const childSave = vi.fn();
+
+      render(
+        <ContextualSaveBar
+          id="test-save-bar"
+          open
+          onSave={handleSave}
+          onDiscard={handleDiscard}>
+          <Button onClick={childSave}>Child Save</Button>
+        </ContextualSaveBar>
+      );
+
+      // Should render internalized buttons, not children
+      expect(screen.getByText("Save")).toBeInTheDocument();
+      expect(screen.getByText("Discard")).toBeInTheDocument();
+      expect(screen.queryByText("Child Save")).not.toBeInTheDocument();
+    });
+  });
 });

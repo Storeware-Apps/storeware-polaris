@@ -71,7 +71,8 @@ Using icons can be a great help to merchants who have difficulties with reading,
   tags: ["autodocs"],
   argTypes: {
     source: {
-      description: "The SVG contents to display in the icon (icons should fit in a 20 × 20 pixel viewBox)",
+      description:
+        "The SVG contents to display in the icon (icons should fit in a 20 × 20 pixel viewBox)",
       control: false,
     },
     tone: {
@@ -124,7 +125,7 @@ export const Default: Story = {
 export const Colored: Story = {
   args: {
     source: AlertTriangleIcon,
-    tone: "critical",
+    tone: "info",
   },
 };
 

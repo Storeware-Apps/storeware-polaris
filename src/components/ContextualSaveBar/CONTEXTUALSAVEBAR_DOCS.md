@@ -14,8 +14,56 @@ pnpm install @storeware/polaris
 
 ## Basic Usage
 
+### New Internalized Buttons API (Recommended)
+
 ```tsx
 import { ContextualSaveBar } from "@storeware/polaris";
+import { useState } from "react";
+
+function MyComponent() {
+  const [saveBarOpen, setSaveBarOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [discarding, setDiscarding] = useState(false);
+
+  const handleSave = async () => {
+    setSaving(true);
+    console.log("Saving");
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setSaving(false);
+    setSaveBarOpen(false);
+  };
+
+  const handleDiscard = async () => {
+    setDiscarding(true);
+    console.log("Discarding");
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setDiscarding(false);
+    setSaveBarOpen(false);
+  };
+
+  return (
+    <>
+      <button onClick={() => setSaveBarOpen(true)}>Show Save Bar</button>
+      <ContextualSaveBar
+        id="my-save-bar"
+        open={saveBarOpen}
+        onSave={handleSave}
+        onDiscard={handleDiscard}
+        saveLoading={saving}
+        discardLoading={discarding}
+        discardConfirmation={true}
+      />
+    </>
+  );
+}
+```
+
+### Legacy Children API (Still Supported)
+
+```tsx
+import { ContextualSaveBar, Button } from "@storeware/polaris";
 import { useState } from "react";
 
 function MyComponent() {
@@ -61,11 +109,6 @@ import "@storeware/polaris/styles";
   - A unique identifier for the save bar
   - Used for accessibility and programmatic control
 
-- **children**: `ReactNode`
-  - HTML button elements to hook into the Save and Discard buttons
-  - The button with `variant="primary"` becomes the Save button
-  - The button without a variant becomes the Discard button
-
 - **open**: `boolean`
   - Controls whether the save bar is visible
   - Default: `false`
@@ -81,6 +124,42 @@ import "@storeware/polaris/styles";
 - **className**: `string`
   - Additional CSS class name for custom styling
   - Applied to the save bar container
+
+### Internalized Buttons API (New)
+
+- **onSave**: `() => void`
+  - Callback function when the save button is clicked
+  - When provided, the save button is rendered internally
+
+- **onDiscard**: `() => void`
+  - Callback function when the discard button is clicked
+  - When provided, the discard button is rendered internally
+
+- **saveText**: `string`
+  - Text for the save button
+  - Default: `"Save"`
+
+- **discardText**: `string`
+  - Text for the discard button
+  - Default: `"Discard"`
+
+- **saveLoading**: `boolean`
+  - Whether the save button is in a loading state
+  - Default: `false`
+  - Shows a spinner and disables the button when `true`
+
+- **discardLoading**: `boolean`
+  - Whether the discard button is in a loading state
+  - Default: `false`
+  - Shows a spinner and disables the button when `true`
+
+### Legacy Children API (Still Supported)
+
+- **children**: `ReactNode`
+  - HTML button elements to hook into the Save and Discard buttons
+  - The button with `variant="primary"` becomes the Discard button
+  - The button without a variant becomes the Save button
+  - Only used when `onSave` and `onDiscard` are not provided
 
 ## Button Identification
 

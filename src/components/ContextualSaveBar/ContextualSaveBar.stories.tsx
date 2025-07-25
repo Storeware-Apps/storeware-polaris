@@ -109,17 +109,83 @@ import { ContextualSaveBar } from "@storeware/polaris";
 export default meta;
 type Story = StoryObj<typeof ContextualSaveBar>;
 
-// Basic SaveBar Example
+// Basic SaveBar Example with Internalized Buttons (New API)
+export const InternalizedButtons: Story = {
+  render: function InternalizedButtonsExample() {
+    const [saveBarOpen, setSaveBarOpen] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [discarding, setDiscarding] = useState(false);
+
+    const handleSave = async () => {
+      setSaving(true);
+      // eslint-disable-next-line no-console
+      console.log("Saving");
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setSaving(false);
+      setSaveBarOpen(false);
+    };
+
+    const handleDiscard = async () => {
+      setDiscarding(true);
+      // eslint-disable-next-line no-console
+      console.log("Discarding");
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setDiscarding(false);
+      setSaveBarOpen(false);
+    };
+
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <Box padding="400">
+          <Text as="h1" variant="headingLg">
+            SaveBar with Internalized Buttons
+          </Text>
+          <Text as="p" variant="bodyMd" tone="subdued">
+            This example uses the new internalized buttons API where save and
+            discard actions are handled via props instead of children.
+          </Text>
+          <div className="mt-4">
+            <Button onClick={() => setSaveBarOpen(true)}>Show Save Bar</Button>
+          </div>
+        </Box>
+
+        <ContextualSaveBar
+          id="internalized-save-bar"
+          open={saveBarOpen}
+          onSave={handleSave}
+          onDiscard={handleDiscard}
+          saveLoading={saving}
+          discardLoading={discarding}
+          discardConfirmation={true}
+        />
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "SaveBar using the new internalized buttons API with onSave/onDiscard props, loading states, and confirmation dialog.",
+      },
+    },
+  },
+};
+
+// Basic SaveBar Example with Legacy Children API
 export const Basic: Story = {
-  render: () => {
+  render: function BasicExample() {
     const [saveBarOpen, setSaveBarOpen] = useState(false);
 
     const handleSave = () => {
+      // eslint-disable-next-line no-console
       console.log("Saving");
       setSaveBarOpen(false);
     };
 
     const handleDiscard = () => {
+      // eslint-disable-next-line no-console
       console.log("Discarding");
       setSaveBarOpen(false);
     };
@@ -160,7 +226,7 @@ export const Basic: Story = {
 
 // SaveBar with Loading States
 export const WithLoadingStates: Story = {
-  render: () => {
+  render: function WithLoadingStatesExample() {
     const [saveBarOpen, setSaveBarOpen] = useState(false);
     const [saving, setSaving] = useState(false);
     const [discarding, setDiscarding] = useState(false);
@@ -221,15 +287,17 @@ export const WithLoadingStates: Story = {
 
 // SaveBar with Discard Confirmation
 export const WithDiscardConfirmation: Story = {
-  render: () => {
+  render: function WithDiscardConfirmationExample() {
     const [saveBarOpen, setSaveBarOpen] = useState(false);
 
     const handleSave = () => {
+      // eslint-disable-next-line no-console
       console.log("Saving");
       setSaveBarOpen(false);
     };
 
     const handleDiscard = () => {
+      // eslint-disable-next-line no-console
       console.log("Discarding");
       setSaveBarOpen(false);
     };
@@ -273,7 +341,7 @@ export const WithDiscardConfirmation: Story = {
 
 // SaveBar Controls Example
 export const SaveBarControls: Story = {
-  render: () => {
+  render: function SaveBarControlsExample() {
     const [saveBarOpen, setSaveBarOpen] = useState(false);
 
     return (
@@ -310,7 +378,7 @@ export const SaveBarControls: Story = {
 
 // Complete Form Example
 export const CompleteFormExample: Story = {
-  render: () => {
+  render: function CompleteFormExampleComponent() {
     const [saveBarOpen, setSaveBarOpen] = useState(false);
     const [formData, setFormData] = useState({
       title: "",
@@ -329,12 +397,14 @@ export const CompleteFormExample: Story = {
     }, [hasChanges]);
 
     const handleSave = () => {
+      // eslint-disable-next-line no-console
       console.log("Saving form data:", formData);
       setOriginalData({ ...formData });
       setSaveBarOpen(false);
     };
 
     const handleDiscard = () => {
+      // eslint-disable-next-line no-console
       console.log("Discarding changes");
       setFormData({ ...originalData });
       setSaveBarOpen(false);
@@ -408,7 +478,7 @@ export const CompleteFormExample: Story = {
 
 // SaveBar with Disabled States
 export const WithDisabledStates: Story = {
-  render: () => {
+  render: function WithDisabledStatesExample() {
     const [saveBarOpen, setSaveBarOpen] = useState(false);
 
     return (
