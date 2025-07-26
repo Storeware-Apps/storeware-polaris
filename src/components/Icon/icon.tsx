@@ -35,10 +35,10 @@ export type IconTone =
 const iconVariants = cva("inline-block shrink-0 w-5 h-5", {
   variants: {
     tone: {
-      base: "text-foreground",
-      inherit: "text-inherit",
-      subdued: "text-muted-foreground",
-      caution: "text-amber-600",
+      base: "!text-white",
+      inherit: "!text-inherit",
+      subdued: "!text-muted-foreground",
+      caution: "!text-amber-600",
       warning: "text-orange-600",
       critical: "text-destructive",
       interactive: "text-primary",

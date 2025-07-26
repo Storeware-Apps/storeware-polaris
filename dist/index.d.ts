@@ -69,6 +69,13 @@ export declare interface AppBridgeTitleBarProps {
     className?: string;
 }
 
+export declare interface AppBridgeToastAPI {
+    /** Show a toast notification */
+    show: (message: string, options?: ToastOptions) => string;
+    /** Hide a specific toast notification */
+    hide: (id: string) => void;
+}
+
 export declare interface AppliedFilter {
     /** Unique key for the filter */
     key: string;
@@ -360,6 +367,27 @@ export declare interface EnhancedTextProps extends PolarisTextProps {
 export declare interface EnhancedTitleBarProps extends AppBridgeTitleBarProps {
     /** Whether to show a border at the bottom (default: true) */
     showBorder?: boolean;
+}
+
+export declare interface EnhancedToastProps {
+    /** Additional CSS class name */
+    className?: string;
+    /** Custom theme configuration */
+    theme?: "light" | "dark" | "system";
+    /** Position of the toaster */
+    position?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
+    /** Maximum number of toasts to show at once */
+    visibleToasts?: number;
+    /** Whether to show close button */
+    closeButton?: boolean;
+    /** Rich colors for different toast types */
+    richColors?: boolean;
+    /** Expand toasts by default */
+    expand?: boolean;
+    /** Gap between toasts */
+    gap?: number;
+    /** Offset from the edge of the screen */
+    offset?: string | number;
 }
 
 export declare interface FilterDescriptor {
@@ -1566,6 +1594,32 @@ export declare const TitleBar: React_2.ForwardRefExoticComponent<EnhancedTitleBa
 
 export declare const titleBarVariants: (props?: ({
     showBorder?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const toast: AppBridgeToastAPI;
+
+export declare interface ToastAction {
+    /** Label for the action button */
+    label: string;
+    /** Callback when action is clicked */
+    onClick: () => void;
+}
+
+export declare const Toaster: React_2.ForwardRefExoticComponent<EnhancedToastProps & React_2.RefAttributes<HTMLElement>>;
+
+export declare interface ToastOptions {
+    /** Duration in milliseconds before the toast auto-dismisses (default: 4000) */
+    duration?: number;
+    /** Action button configuration */
+    action?: ToastAction;
+    /** Callback when toast is dismissed */
+    onDismiss?: () => void;
+    /** Whether the toast can be dismissed by clicking (default: true) */
+    dismissible?: boolean;
+}
+
+export declare const toastVariants: (props?: ({
+    variant?: "success" | "default" | "error" | "warning" | "info" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const useIndexResourceState: <T extends {

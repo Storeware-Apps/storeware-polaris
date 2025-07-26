@@ -177,13 +177,13 @@ export interface EnhancedModalProps extends AppBridgeModalProps {
 // Modal size variants using cva
 const modalVariants = cva(
   // Base styles for all modals
-  "bg-white data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid !w-full translate-x-[-50%] translate-y-[-50%] gap-0 rounded-lg border border-gray-200 shadow-lg duration-200 font-inter",
+  "bg-white data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] gap-0 rounded-lg border border-gray-200 shadow-lg duration-200 font-inter",
   {
     variants: {
       variant: {
-        small: "w-[384px]",
-        base: "w-[512px]",
-        large: "w-[672px]",
+        small: "!max-w-sm",
+        base: "!max-w-lg",
+        large: "!max-w-2xl",
         max: "max-w-[90vw] max-h-[90vh]",
       },
     },

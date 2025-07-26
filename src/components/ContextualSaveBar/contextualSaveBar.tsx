@@ -281,7 +281,7 @@ export const ContextualSaveBar = React.forwardRef<
 
         {/* Confirmation Dialog */}
         <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
-          <DialogContent className="p-0 overflow-hidden">
+          <DialogContent className="p-0 overflow-hidden bg-white">
             {/* Header with grayish background */}
             <div className="px-6 py-4 bg-[#e3e3e3] border-b border-gray-200">
               <DialogTitle className="text-lg font-semibold text-gray-900 leading-6">

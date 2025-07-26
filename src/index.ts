@@ -92,6 +92,9 @@ export {
 // Export Icon component
 export { Icon, iconVariants } from "./components/Icon/icon.js";
 
+// Export Toast component
+export { Toaster, toast, toastVariants } from "./components/Toast/toast.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -341,6 +344,14 @@ export type {
   // Backward compatibility aliases
   PolarisIconTone,
 } from "./components/Icon/icon";
+
+// Export Toast types (consolidated in toast.tsx following shadcn/ui pattern)
+export type {
+  ToastAction,
+  ToastOptions,
+  AppBridgeToastAPI,
+  EnhancedToastProps,
+} from "./components/Toast/toast";
 
 // Export utilities
 export { cn } from "./lib/utils.js";
