@@ -559,7 +559,7 @@ const IndexTableBase = React.forwardRef<
                 )}>
                 <Checkbox
                   checked={
-                    selectedItemsCount === "All"
+                    (selectedItemsCount as number | "All" | undefined) === "All"
                       ? true
                       : selectedItemsCount === itemCount && itemCount > 0
                         ? true
