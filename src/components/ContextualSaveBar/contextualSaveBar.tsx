@@ -269,7 +269,7 @@ export const ContextualSaveBar = React.forwardRef<
           className={cn(saveBarVariants({ open }), className)}
           {...props}>
           <div className="flex items-center justify-between p-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center !justify-center gap-1">
               <Icon source={AlertBubbleIcon} tone="base" />
               <span className="text-sm font-medium">Unsaved changes</span>
             </div>

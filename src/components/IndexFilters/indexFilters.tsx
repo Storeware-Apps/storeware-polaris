@@ -250,40 +250,32 @@ export const useSetIndexFiltersMode = () => {
 interface PinnedFilterButtonProps {
   filter: PinnedFilter;
   disabled?: boolean;
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
 }
 
 const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
   filter,
   disabled = false,
+  isOpen,
+  onToggle,
+  onClose,
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-
   const handleSelectionChange = (selected: string[]) => {
     filter.onChange(selected, filter.key);
   };
 
-  const handleButtonClick = () => {
-    if (isOpen) {
-      // If popover is open, close it
-      setIsOpen(false);
-    } else {
-      // If popover is closed, open it
-      setIsOpen(true);
-    }
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
+    // Sorting Popover buttons
     <Popover
       active={isOpen}
       activator={
         <Button
           size="micro"
           variant="tertiary"
-          onClick={handleButtonClick}
+          className="border-dashed ml-2"
+          onClick={onToggle}
           disabled={disabled}
           pressed={isOpen}>
           {filter.label}
@@ -294,7 +286,7 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
           )}
         </Button>
       }
-      onClose={handleClose}
+      onClose={() => {}}
       preferredPosition="below"
       sectioned>
       <ChoiceList
@@ -314,23 +306,24 @@ const SortPopover: React.FC<{
   sortOptions: SortButtonChoice[];
   onSort?: (value: string[]) => void;
   disabled?: boolean;
-}> = ({ sortOptions, onSort, disabled }) => {
-  const [active, setActive] = React.useState(false);
-
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}> = ({ sortOptions, onSort, disabled, isOpen, onToggle, onClose }) => {
   return (
     <Popover
-      active={active}
+      active={isOpen}
       activator={
         <Button
           variant="tertiary"
           icon={<SortIcon className="size-4" />}
           disclosure
           disabled={disabled}
-          onClick={() => setActive(!active)}>
+          onClick={onToggle}>
           Sort
         </Button>
       }
-      onClose={() => setActive(false)}>
+      onClose={onClose}>
       <div className="p-2 min-w-48">
         {sortOptions.map(option => (
           <button
@@ -338,7 +331,7 @@ const SortPopover: React.FC<{
             className="w-full text-left px-3 py-2 hover:bg-[#f6f6f6] rounded text-sm"
             onClick={() => {
               if (onSort) onSort([option.value]);
-              setActive(false);
+              onClose();
             }}>
             {option.label} ({option.directionLabel})
           </button>
@@ -399,9 +392,21 @@ export const IndexFilters = React.forwardRef<
       mode === IndexFiltersMode.Filtering
     );
 
+    // State to manage which popover is currently open
+    const [openPopover, setOpenPopover] = React.useState<string | null>(null);
+
     React.useEffect(() => {
       setIsFilteringMode(mode === IndexFiltersMode.Filtering);
     }, [mode]);
+
+    // Helper functions for popover management
+    const handlePopoverToggle = (popoverId: string) => {
+      setOpenPopover(current => (current === popoverId ? null : popoverId));
+    };
+
+    const handlePopoverClose = () => {
+      setOpenPopover(null);
+    };
 
     const handleFilterToggle = () => {
       const newMode = isFilteringMode
@@ -447,6 +452,9 @@ export const IndexFilters = React.forwardRef<
                       sortOptions={sortOptions}
                       onSort={onSort}
                       disabled={disabled}
+                      isOpen={openPopover === "sort"}
+                      onToggle={() => handlePopoverToggle("sort")}
+                      onClose={handlePopoverClose}
                     />
                   )}
                 </div>
@@ -466,6 +474,7 @@ export const IndexFilters = React.forwardRef<
                     autoFocus={autoFocusSearchField}
                     autoComplete="off"
                     size="slim"
+                    className="border border-[#e3e3e3] hover:border-[#e3e3e3] bg-white"
                   />
                 </div>
 
@@ -486,6 +495,11 @@ export const IndexFilters = React.forwardRef<
                         key={filter.key}
                         filter={filter}
                         disabled={disabled}
+                        isOpen={openPopover === `filter-${filter.key}`}
+                        onToggle={() =>
+                          handlePopoverToggle(`filter-${filter.key}`)
+                        }
+                        onClose={handlePopoverClose}
                       />
                     ))}
                   </div>
@@ -560,6 +574,9 @@ export const IndexFilters = React.forwardRef<
                     sortOptions={sortOptions}
                     onSort={onSort}
                     disabled={disabled}
+                    isOpen={openPopover === "sort"}
+                    onToggle={() => handlePopoverToggle("sort")}
+                    onClose={handlePopoverClose}
                   />
                 )}
 

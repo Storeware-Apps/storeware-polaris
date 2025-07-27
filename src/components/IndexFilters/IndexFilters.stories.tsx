@@ -142,6 +142,8 @@ export const WithTabs: Story = {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
     const [selected, setSelected] = useState(0);
+    const [statusFilter, setStatusFilter] = useState<string[]>([]);
+    const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
     const [tabItems, setTabItems] = useState([
       "All",
       "Unpaid",
@@ -219,11 +221,9 @@ export const WithTabs: Story = {
               { label: "Inactive", value: "inactive" },
               { label: "Pending", value: "pending" },
             ],
-            selected: [],
+            selected: statusFilter,
             allowMultiple: true,
-            onChange: (selected, key) => {
-              console.log(`Filter ${key} changed:`, selected);
-            },
+            onChange: selected => setStatusFilter(selected),
           },
           {
             key: "category",
@@ -233,11 +233,9 @@ export const WithTabs: Story = {
               { label: "Clothing", value: "clothing" },
               { label: "Books", value: "books" },
             ],
-            selected: [],
+            selected: categoryFilter,
             allowMultiple: false,
-            onChange: (selected, key) => {
-              console.log(`Filter ${key} changed:`, selected);
-            },
+            onChange: selected => setCategoryFilter(selected),
           },
         ]}
       />

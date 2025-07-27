@@ -85,7 +85,7 @@ const polarisPaginationVariants = cva("flex items-center", {
 });
 
 const paginationButtonVariants = cva(
-  "inline-flex items-center justify-center cursor-pointer gap-1 p-1 text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white first:rounded-l-md last:rounded-r-md",
+  "inline-flex items-center h-6 justify-center cursor-pointer gap-1 p-1 text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white first:rounded-l-md last:rounded-r-md",
   {
     variants: {
       position: {
@@ -163,7 +163,7 @@ export const Pagination = React.forwardRef<
             disabled: !hasPrevious,
           })
         )}>
-        <ChevronLeftIcon className="size-6" />
+        <ChevronLeftIcon className="size-5" />
         {/* {label} */}
         {/* {!label && <span className="ml-1">Previous</span>} */}
       </button>
@@ -183,7 +183,7 @@ export const Pagination = React.forwardRef<
         )}>
         {/* {!label && <span className="mr-1">Next</span>} */}
         {/* {label} */}
-        <ChevronRightIcon className="size-6" />
+        <ChevronRightIcon className="size-5" />
       </button>
     );
 
@@ -200,9 +200,9 @@ export const Pagination = React.forwardRef<
           // With label: Previous - Label - Next (spaced apart)
           <>
             <PreviousButton />
-            <div className="flex-1 flex justify-center">
+            <div className="flex-1 flex justify-center gap-2">
               {typeof label === "string" ? (
-                <Text variant="bodySm" tone="subdued">
+                <Text className="mx-1" variant="bodySm" tone="subdued">
                   {label}
                 </Text>
               ) : (

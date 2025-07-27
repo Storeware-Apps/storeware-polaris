@@ -13,6 +13,7 @@ import {
   useReactTable,
   type ColumnDef,
 } from "@tanstack/react-table";
+import { ChevronUpIcon, ChevronDownIcon } from "@shopify/polaris-icons";
 
 import { cn } from "../../lib/utils";
 import { Text } from "../Text/Text";
@@ -492,8 +493,64 @@ const IndexTableBase = React.forwardRef<
       // Polaris-style headers
       return (
         <thead>
+          {/* Selection/Bulk Actions Row - shown when items are selected */}
+          {hasSelectedItems && (
+            <tr>
+              {selectable && (
+                <th
+                  className={cn(
+                    tableHeaderVariants({
+                      isSelectionColumn: true,
+                    })
+                  )}>
+                  <Checkbox
+                    checked={
+                      selectedItemsCount === "All"
+                        ? true
+                        : selectedItemsCount === itemCount && itemCount > 0
+                          ? true
+                          : typeof selectedItemsCount === "number" &&
+                              selectedItemsCount > 0
+                            ? "indeterminate"
+                            : false
+                    }
+                    onChange={checked => {
+                      if (onSelectionChange) {
+                        onSelectionChange(
+                          checked ? "page" : "page",
+                          checked,
+                          undefined,
+                          undefined
+                        );
+                      }
+                    }}
+                    aria-label={`Select all ${resourceName?.plural || "items"}`}
+                  />
+                </th>
+              )}
+              <th
+                colSpan={headings.length}
+                className={cn(
+                  tableHeaderVariants({
+                    alignment: "start",
+                  }),
+                  "text-left"
+                )}>
+                <div className="flex items-center justify-between w-full">
+                  <Text variant="bodyMd" as="span">
+                    {selectedItemsCount === "All"
+                      ? `All ${resourceName?.plural || "items"} selected`
+                      : `${selectedItemsCount} ${selectedItemsCount === 1 ? resourceName?.singular || "item" : resourceName?.plural || "items"} selected`}
+                  </Text>
+                  {renderBulkActionButtons()}
+                </div>
+              </th>
+            </tr>
+          )}
+
+          {/* Column Headers Row - always shown for sorting */}
           <tr>
-            {selectable && (
+            {selectable && !hasSelectedItems && (
               <th
                 className={cn(
                   tableHeaderVariants({
@@ -525,43 +582,78 @@ const IndexTableBase = React.forwardRef<
                 />
               </th>
             )}
-            {hasSelectedItems ? (
+            {hasSelectedItems && selectable && (
               <th
-                colSpan={headings.length}
-                className={cn(
-                  tableHeaderVariants({
-                    alignment: "start",
-                  }),
-                  "text-left"
-                )}>
-                <div className="flex items-center justify-between w-full">
-                  <Text variant="bodyMd" as="span">
-                    {selectedItemsCount === "All"
-                      ? `All ${resourceName?.plural || "items"} selected`
-                      : `${selectedItemsCount} ${selectedItemsCount === 1 ? resourceName?.singular || "item" : resourceName?.plural || "items"} selected`}
-                  </Text>
-                  {renderBulkActionButtons()}
-                </div>
-              </th>
-            ) : (
-              headings.map((heading, index) => (
+                className={cn(tableHeaderVariants({ isSelectionColumn: true }))}
+              />
+            )}
+            {headings.map((heading, index) => {
+              const isSortable = sortable?.[index] || false;
+              const isCurrentSortColumn = _sortColumnIndex === index;
+              const currentSortDirection = isCurrentSortColumn
+                ? _sortDirection
+                : undefined;
+
+              // Helper function to get the next sort direction
+              const getNextSortDirection = (): "ascending" | "descending" => {
+                if (!isCurrentSortColumn) {
+                  // First click on a new column - start with descending
+                  return "descending";
+                }
+                // Toggle between ascending and descending
+                return currentSortDirection === "ascending"
+                  ? "descending"
+                  : "ascending";
+              };
+
+              // Helper function to get the sort icon
+              const getSortIcon = () => {
+                if (
+                  !isSortable ||
+                  !isCurrentSortColumn ||
+                  !currentSortDirection
+                ) {
+                  return null;
+                }
+
+                if (currentSortDirection === "descending") {
+                  return <ChevronUpIcon className="ml-1 h-4 w-4" />;
+                } else {
+                  return <ChevronDownIcon className="ml-1 h-4 w-4" />;
+                }
+              };
+
+              // Handle sort click
+              const handleSortClick = () => {
+                if (!isSortable || !_onSort) return;
+
+                const nextDirection = getNextSortDirection();
+                _onSort(index, nextDirection);
+              };
+
+              return (
                 <th
                   key={index}
                   className={cn(
                     tableHeaderVariants({
                       alignment: heading.alignment || "start",
-                      sortable: sortable?.[index] || false,
+                      sortable: isSortable,
                       sticky: lastColumnSticky && index === headings.length - 1,
-                    })
-                  )}>
-                  <Text variant="bodyMd" fontWeight="semibold">
-                    {typeof heading.title === "string"
-                      ? heading.title
-                      : heading.title}
-                  </Text>
+                    }),
+                    isSortable && "cursor-pointer hover:bg-gray-50"
+                  )}
+                  onClick={handleSortClick}>
+                  <div className="flex items-center">
+                    <Text variant="bodyMd" fontWeight="semibold">
+                      {typeof heading.title === "string"
+                        ? heading.title
+                        : heading.title}
+                    </Text>
+                    {getSortIcon()}
+                  </div>
                 </th>
-              ))
-            )}
+              );
+            })}
           </tr>
         </thead>
       );
@@ -652,7 +744,7 @@ const IndexTableBase = React.forwardRef<
           {renderTableBody()}
         </table>
         {pagination && (
-          <div className="">
+          <div className="flex justify-center py-4">
             <Pagination type="table" {...pagination} />
           </div>
         )}
@@ -771,7 +863,7 @@ const IndexTableRow = React.forwardRef<HTMLTableRowElement, IndexTableRowProps>(
 
       // Trigger selection when clicking on the row
       if (selectable && onSelectionChange && !disabled) {
-        onSelectionChange("single", !selected, id, position);
+        onSelectionChange("single", true, id, position);
       }
 
       // Call the original onClick handler if provided
