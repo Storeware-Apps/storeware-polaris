@@ -1,15 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "verbatimModuleSyntax": false
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false
   },
   "include": ["src/**/*"],
   "exclude": [
@@ -17,6 +11,7 @@
     "dist",
     "**/*.stories.*",
     "**/*.test.*",
-    "src/examples/**/*"
+    "src/examples/**/*",
+    "src/test/**/*"
   ]
 }

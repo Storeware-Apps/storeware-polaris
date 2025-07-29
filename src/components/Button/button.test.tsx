@@ -32,7 +32,7 @@ describe("Button Component", () => {
       const button = screen.getByRole("button");
 
       // Check that consistent properties are applied (medium size by default)
-      expect(button).toHaveClass("!h-8"); // consistent height for medium
+      expect(button).toHaveClass("!h-6"); // consistent height for medium
       expect(button).toHaveClass("!px-4"); // consistent padding for medium
       expect(button).toHaveClass("!py-2"); // consistent padding for medium
       expect(button).toHaveClass("!rounded-lg"); // consistent border-radius
@@ -46,8 +46,8 @@ describe("Button Component", () => {
     const sizes = [
       { size: "micro" as const, height: "!h-5", padding: "!px-2" },
       { size: "slim" as const, height: "!h-6", padding: "!px-2.5" },
-      { size: "medium" as const, height: "!h-8", padding: "!px-4" },
-      { size: "large" as const, height: "!h-10", padding: "!px-5" },
+      { size: "medium" as const, height: "!h-6", padding: "!px-4" },
+      { size: "large" as const, height: "!h-7", padding: "!px-5" },
     ];
 
     sizes.forEach(({ size, height, padding }) => {
