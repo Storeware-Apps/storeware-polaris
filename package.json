@@ -1,8 +1,8 @@
 {
   "name": "@storeware/polaris",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
-  "description": "A React component library that matches Shopify's Polaris design system using shadcn/ui and Tailwind CSS",
+  "description": "A custom component library that matches Shopify's Polaris design system using shadcn/ui and Tailwind CSS",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,9 +10,16 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "require": "./dist/index.cjs"
     },
-    "./styles": "./dist/styles/globals.css",
+    "./styles": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    },
+    "./styles/globals.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -21,17 +28,18 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node fix-imports.js",
-    "dev": "tsc --watch",
+    "build": "vite build",
+    "dev": "vite build --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "prepublishOnly": "pnpm run clean && pnpm run build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix"
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
   "keywords": [
     "react",
@@ -50,11 +58,16 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.6",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
     "@shopify/polaris-icons": "^9.3.1",
+    "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "sonner": "^2.0.6",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@shadcn/ui": "^0.0.4",
@@ -67,6 +80,9 @@
     "@storybook/react-vite": "^8.6.14",
     "@storybook/test": "^8.6.14",
     "@storybook/testing-library": "^0.2.2",
+    "@tailwindcss/cli": "^4.1.11",
+    "@tailwindcss/postcss": "^4.1.11",
+    "@tailwindcss/vite": "^4.1.11",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -77,21 +93,26 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.0",
     "@vitest/ui": "^1.0.0",
-    "autoprefixer": "^10.4.0",
     "eslint": "^8.0.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.15",
     "jsdom": "^26.1.0",
     "postcss": "^8.4.0",
+    "prettier": "^3.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^8.6.14",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^4.1.11",
     "tailwindcss-animate": "^1.0.7",
-    "tsc-alias": "^1.8.8",
     "typescript": "^5.0.0",
     "vite": "^5.0.0",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Storeware-Apps/storeware-polaris"
   }
 }

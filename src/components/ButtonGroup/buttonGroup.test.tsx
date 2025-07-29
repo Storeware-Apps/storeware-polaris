@@ -78,9 +78,11 @@ describe("ButtonGroup Component", () => {
 
     const buttonGroup = screen.getByTestId("button-group");
     expect(buttonGroup).toHaveClass("gap-0"); // No gaps between segmented buttons
-    expect(buttonGroup).toHaveClass("[&>*:not(:first-child)]:rounded-l-none");
-    expect(buttonGroup).toHaveClass("[&>*:not(:last-child)]:rounded-r-none");
-    expect(buttonGroup).toHaveClass("[&>*:not(:first-child)]:border-l-0");
+    expect(buttonGroup).toHaveClass("[&>button]:!rounded-none");
+    expect(buttonGroup).toHaveClass("[&>button:first-child]:!rounded-tl-md");
+    expect(buttonGroup).toHaveClass("[&>button:first-child]:!rounded-bl-md");
+    expect(buttonGroup).toHaveClass("[&>button:last-child]:!rounded-tr-md");
+    expect(buttonGroup).toHaveClass("[&>button:last-child]:!rounded-br-md");
   });
 
   it("applies fullWidth styling", () => {
