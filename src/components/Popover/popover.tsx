@@ -104,16 +104,16 @@ export interface EnhancedPopoverProps extends PolarisPopoverProps {
 
 // Create Polaris-specific popover variants using CVA
 const polarisPopoverVariants = cva(
-  "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+  "z-50 w-auto rounded-md border bg-white mt-2 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
   {
     variants: {
       sectioned: {
         true: "p-0",
-        false: "p-4",
+        false: "p-0",
       },
       fullWidth: {
         true: "w-full",
-        false: "w-72",
+        false: "w-48",
       },
       fullHeight: {
         true: "h-full",
@@ -252,8 +252,7 @@ export const Popover = React.forwardRef<
             style={{ zIndex: zIndexOverride }}
             onEscapeKeyDown={handleEscapeKeyDown}
             onInteractOutside={handleInteractOutside}
-            {...props}
-          >
+            {...props}>
             {sectioned ? <div className="p-4">{children}</div> : children}
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>
