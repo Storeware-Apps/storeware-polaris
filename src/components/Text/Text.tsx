@@ -167,6 +167,7 @@ export interface EnhancedTextProps extends PolarisTextProps {
 
 export type TextProps = EnhancedTextProps & VariantProps<typeof textVariants>;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Text = React.forwardRef<any, TextProps>(
   (
     {
@@ -227,8 +228,7 @@ const Text = React.forwardRef<any, TextProps>(
           }),
           className
         )}
-        {...props}
-      >
+        {...props}>
         {children}
       </Component>
     );

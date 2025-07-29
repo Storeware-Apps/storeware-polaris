@@ -83,7 +83,16 @@ A comprehensive TextField component that provides 100% API compatibility with Sh
     },
     inputMode: {
       control: "select",
-      options: ["none", "text", "decimal", "numeric", "tel", "search", "email", "url"],
+      options: [
+        "none",
+        "text",
+        "decimal",
+        "numeric",
+        "tel",
+        "search",
+        "email",
+        "url",
+      ],
     },
   },
   tags: ["autodocs"],
@@ -93,13 +102,19 @@ export default meta;
 type Story = StoryObj<typeof TextField>;
 
 // Template for interactive stories
-const InteractiveTemplate = (args: any) => {
+const InteractiveTemplate = (args: {
+  value?: string;
+  [key: string]: unknown;
+}) => {
   const [value, setValue] = useState(args.value || "");
 
-  const handleChange = useCallback((newValue: string) => {
-    setValue(newValue);
-    args.onChange?.(newValue, args.id || "textfield");
-  }, [args]);
+  const handleChange = useCallback(
+    (newValue: string) => {
+      setValue(newValue);
+      args.onChange?.(newValue, args.id || "textfield");
+    },
+    [args]
+  );
 
   return <TextField {...args} value={value} onChange={handleChange} />;
 };

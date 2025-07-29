@@ -103,7 +103,7 @@ type Story = StoryObj<typeof meta>;
 
 // Default single choice
 export const Default: Story = {
-  render: () => {
+  render: function DefaultStory() {
     const [selected, setSelected] = useState<string[]>(["hidden"]);
 
     const handleChange = (value: string[]) => setSelected(value);
@@ -124,7 +124,8 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Allows merchants to select one option from a list. Make sure all options are an either/or choice.",
+        story:
+          "Allows merchants to select one option from a list. Make sure all options are an either/or choice.",
       },
     },
   },
@@ -132,7 +133,7 @@ export const Default: Story = {
 
 // With error
 export const WithError: Story = {
-  render: () => {
+  render: function WithErrorStory() {
     const [selected, setSelected] = useState<string[]>([]);
 
     const handleChange = (value: string[]) => setSelected(value);
@@ -154,7 +155,8 @@ export const WithError: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Use to let merchants know if there's a problem with their choice.",
+        story:
+          "Use to let merchants know if there's a problem with their choice.",
       },
     },
   },
@@ -162,7 +164,7 @@ export const WithError: Story = {
 
 // With multi-choice
 export const WithMultiChoice: Story = {
-  render: () => {
+  render: function WithMultiChoiceStory() {
     const [selected, setSelected] = useState<string[]>(["hidden"]);
 
     const handleChange = (value: string[]) => setSelected(value);
@@ -172,7 +174,10 @@ export const WithMultiChoice: Story = {
         title="While the customer is checking out"
         allowMultiple
         choices={[
-          { label: "Use the shipping address as the billing address", value: "shipping" },
+          {
+            label: "Use the shipping address as the billing address",
+            value: "shipping",
+          },
           { label: "Require a confirmation step", value: "confirmation" },
         ]}
         selected={selected}
@@ -183,7 +188,8 @@ export const WithMultiChoice: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Allows merchants to select multiple options from a list. Make sure the options are not mutually exclusive.",
+        story:
+          "Allows merchants to select multiple options from a list. Make sure the options are not mutually exclusive.",
       },
     },
   },
@@ -191,7 +197,7 @@ export const WithMultiChoice: Story = {
 
 // With children content
 export const WithChildrenContent: Story = {
-  render: () => {
+  render: function WithChildrenContentStory() {
     const [selected, setSelected] = useState<string[]>(["hidden"]);
 
     const handleChange = (value: string[]) => setSelected(value);
@@ -224,7 +230,8 @@ export const WithChildrenContent: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Use when you need to provide additional context or explanation for each choice.",
+        story:
+          "Use when you need to provide additional context or explanation for each choice.",
       },
     },
   },

@@ -74,7 +74,7 @@ type Story = StoryObj<typeof meta>;
 
 // Default story - basic IndexFilters
 export const Default: Story = {
-  render: () => {
+  render: function DefaultStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
 
@@ -95,7 +95,7 @@ export const Default: Story = {
 
 // With sorting options
 export const WithSorting: Story = {
-  render: () => {
+  render: function WithSortingStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
     const [sortSelected, setSortSelected] = useState(["order asc"]);
@@ -138,10 +138,12 @@ export const WithSorting: Story = {
 
 // With tabs/views
 export const WithTabs: Story = {
-  render: () => {
+  render: function WithTabsStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
     const [selected, setSelected] = useState(0);
+    const [statusFilter, setStatusFilter] = useState<string[]>([]);
+    const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
     const [tabItems, setTabItems] = useState([
       "All",
       "Unpaid",
@@ -219,11 +221,9 @@ export const WithTabs: Story = {
               { label: "Inactive", value: "inactive" },
               { label: "Pending", value: "pending" },
             ],
-            selected: [],
+            selected: statusFilter,
             allowMultiple: true,
-            onChange: (selected, key) => {
-              console.log(`Filter ${key} changed:`, selected);
-            },
+            onChange: selected => setStatusFilter(selected),
           },
           {
             key: "category",
@@ -233,11 +233,9 @@ export const WithTabs: Story = {
               { label: "Clothing", value: "clothing" },
               { label: "Books", value: "books" },
             ],
-            selected: [],
+            selected: categoryFilter,
             allowMultiple: false,
-            onChange: (selected, key) => {
-              console.log(`Filter ${key} changed:`, selected);
-            },
+            onChange: selected => setCategoryFilter(selected),
           },
         ]}
       />
@@ -255,7 +253,7 @@ export const WithTabs: Story = {
 
 // With pinned filters
 export const WithPinnedFilters: Story = {
-  render: () => {
+  render: function WithPinnedFiltersStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
     const [statusFilter, setStatusFilter] = useState<string[]>([]);
@@ -312,7 +310,7 @@ export const WithPinnedFilters: Story = {
 
 // With applied filters
 export const WithAppliedFilters: Story = {
-  render: () => {
+  render: function WithAppliedFiltersStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("test query");
     const [appliedFilters, setAppliedFilters] = useState([
@@ -362,7 +360,7 @@ export const WithAppliedFilters: Story = {
 
 // Disabled state
 export const Disabled: Story = {
-  render: () => {
+  render: function DisabledStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
 
@@ -397,7 +395,7 @@ export const Disabled: Story = {
 
 // With edit columns button
 export const WithEditColumns: Story = {
-  render: () => {
+  render: function WithEditColumnsStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
 

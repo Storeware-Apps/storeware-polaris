@@ -36,6 +36,12 @@ export {
 // Export Card component
 export { Card, polarisCardVariants } from "./components/Card/card.js";
 
+// Export Modal component
+export { Modal, modalVariants } from "./components/Modal/modal.js";
+
+// Export TitleBar component
+export { TitleBar, titleBarVariants } from "./components/Modal/titleBar.js";
+
 // Export Bleed component
 export { Bleed, bleedVariants } from "./components/Bleed/bleed.js";
 
@@ -44,6 +50,18 @@ export { Page, polarisPageVariants } from "./components/Page/page.js";
 
 // Export Badge component
 export { Badge, badgeVariants } from "./components/Badge/badge.js";
+
+// Export InlineStack component
+export {
+  InlineStack,
+  inlineStackVariants,
+} from "./components/InlineStack/inlineStack.js";
+
+// Export BlockStack component
+export {
+  BlockStack,
+  blockStackVariants,
+} from "./components/BlockStack/blockStack.js";
 
 // Export Pagination component
 export {
@@ -64,6 +82,18 @@ export {
   indexTableVariants,
   useIndexResourceState,
 } from "./components/IndexTable/indexTable.js";
+
+// Export ContextualSaveBar component
+export {
+  ContextualSaveBar,
+  saveBarVariants,
+} from "./components/ContextualSaveBar/contextualSaveBar.js";
+
+// Export Icon component
+export { Icon, iconVariants } from "./components/Icon/icon.js";
+
+// Export Toast component
+export { Toaster, toast, toastVariants } from "./components/Toast/toast.js";
 
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
@@ -172,6 +202,19 @@ export type {
   PolarisEnhancedCardProps,
 } from "./components/Card/card";
 
+// Export Modal types (consolidated in modal.tsx following shadcn/ui pattern)
+export type {
+  AppBridgeModalProps,
+  EnhancedModalProps,
+  ModalVariant,
+} from "./components/Modal/modal";
+
+// Export TitleBar types (consolidated in titleBar.tsx following shadcn/ui pattern)
+export type {
+  AppBridgeTitleBarProps,
+  EnhancedTitleBarProps,
+} from "./components/Modal/titleBar";
+
 // Export Bleed types (consolidated in bleed.tsx following shadcn/ui pattern)
 export type {
   PolarisBleedProps,
@@ -197,6 +240,27 @@ export type {
   BadgeProgress,
   BadgeSize,
 } from "./components/Badge/badge";
+
+// Export InlineStack types (consolidated in inlineStack.tsx following shadcn/ui pattern)
+export type {
+  PolarisInlineStackProps,
+  EnhancedInlineStackProps,
+  InlineStackAlign,
+  InlineStackDirection,
+  InlineStackBlockAlign,
+  InlineStackAs,
+  ResponsiveGap,
+} from "./components/InlineStack/inlineStack";
+
+// Export BlockStack types (consolidated in blockStack.tsx following shadcn/ui pattern)
+export type {
+  PolarisBlockStackProps,
+  EnhancedBlockStackProps,
+  BlockStackAlign,
+  BlockStackInlineAlign,
+  BlockStackAs,
+  ResponsiveGap as BlockStackResponsiveGap,
+} from "./components/BlockStack/blockStack";
 
 // Export Pagination types (consolidated in pagination.tsx following shadcn/ui pattern)
 export type {
@@ -264,6 +328,30 @@ export type {
   PolarisBulkAction,
   PolarisMenuGroupDescriptor,
 } from "./components/IndexTable/indexTable";
+
+// Export ContextualSaveBar types (consolidated in contextualSaveBar.tsx following shadcn/ui pattern)
+export type {
+  AppBridgeSaveBarProps,
+  EnhancedContextualSaveBarProps,
+} from "./components/ContextualSaveBar/contextualSaveBar";
+
+// Export Icon types (consolidated in icon.tsx following shadcn/ui pattern)
+export type {
+  PolarisIconProps,
+  EnhancedIconProps,
+  IconProps,
+  IconTone,
+  // Backward compatibility aliases
+  PolarisIconTone,
+} from "./components/Icon/icon";
+
+// Export Toast types (consolidated in toast.tsx following shadcn/ui pattern)
+export type {
+  ToastAction,
+  ToastOptions,
+  AppBridgeToastAPI,
+  EnhancedToastProps,
+} from "./components/Toast/toast";
 
 // Export utilities
 export { cn } from "./lib/utils.js";
