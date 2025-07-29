@@ -45,17 +45,19 @@ import "@storeware/polaris/styles";
 
 ### 2. Configure Tailwind CSS
 
-Add the package to your `tailwind.config.js`:
+This package uses Tailwind CSS v4. Add the package to your Tailwind CSS configuration:
 
-```js
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@storeware/polaris/dist/**/*.{js,ts,jsx,tsx}",
-  ],
-  // ... rest of your config
-};
+```css
+/* In your main CSS file */
+@import "tailwindcss";
+
+@theme {
+  /* Add any custom theme configuration here */
+}
+
+/* Add content paths for scanning */
+@source "./src/**/*.{js,ts,jsx,tsx}";
+@source "./node_modules/@storeware/polaris/dist/**/*.{js,ts,jsx,tsx}";
 ```
 
 ## 🔧 Usage
