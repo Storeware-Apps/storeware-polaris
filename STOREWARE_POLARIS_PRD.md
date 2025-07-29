@@ -26,7 +26,7 @@
 ### For Consuming Projects
 
 ```bash
-npm install @storeware/polaris
+npm install @storeware/polaris@github:Storeware-Apps/storeware-polaris
 ```
 
 ### Peer Dependencies
@@ -44,7 +44,7 @@ npm install react react-dom
 1. **Install the package**:
 
 ```bash
-npm install @storeware/polaris
+npm install @storeware/polaris@github:Storeware-Apps/storeware-polaris
 ```
 
 2. **Import styles** in your application root:
@@ -99,9 +99,9 @@ import { CartIcon } from "@shopify/polaris-icons";
 
 ## Available Components
 
-### Button Component
+### Button Component ✅
 
-The primary component currently available with full Polaris compatibility.
+The primary action component with full Polaris compatibility.
 
 **Variants**: `default`, `primary`, `secondary`, `tertiary`, `plain`, `monochromePlain`
 **Sizes**: `micro`, `slim`, `medium`, `large`
@@ -109,6 +109,89 @@ The primary component currently available with full Polaris compatibility.
 **Tones**: `success`, `critical`
 
 For detailed documentation, see: `src/components/Button/BUTTON_DOCS.md`
+
+### ButtonGroup Component ✅
+
+Component for grouping related buttons with proper spacing and layout.
+
+**Variants**: `segmented`
+**Gap Options**: `extraTight`, `tight`, `loose`
+**Features**: `fullWidth`, `connectedTop`, `noWrap`
+
+For detailed documentation, see: `src/components/ButtonGroup/BUTTONGROUP_DOCS.md`
+
+### Box Component ✅
+
+The most primitive layout component providing access to Polaris design tokens.
+
+**Features**:
+
+- Complete Polaris color token support (background, border, text)
+- Comprehensive spacing system with responsive support
+- Border properties (width, radius, style, individual sides)
+- Layout properties (position, overflow, dimensions)
+- Shadow system with all Polaris shadow tokens
+- Accessibility features (visual/print hiding, ARIA support)
+- Semantic HTML element support
+
+For detailed documentation, see: `src/components/Box/BOX_DOCS.md`
+
+### Text Component ✅
+
+Typography component for establishing hierarchy and communicating important content.
+
+**Variants**: `headingXs`, `headingSm`, `headingMd`, `headingLg`, `headingXl`, `heading2xl`, `heading3xl`, `bodyXs`, `bodySm`, `bodyMd`, `bodyLg`
+**Alignment**: `start`, `center`, `end`
+**Tones**: `base`, `subdued`, `success`, `critical`, `caution`, `warning`, `magic`
+**Font Weights**: `regular`, `medium`, `semibold`, `bold`
+
+For detailed documentation, see: `src/components/Text/TEXT_DOCS.md`
+
+### TextField Component ✅
+
+Input field component for collecting text input from merchants.
+
+**Types**: `text`, `email`, `number`, `password`, `search`, `tel`, `url`
+**Variants**: `default`, `borderless`
+**Sizes**: `slim`, `medium`
+**States**: `disabled`, `readOnly`, `error`
+**Features**: `multiline`, `autoComplete`, `spellCheck`, `prefix`, `suffix`, `connectedLeft`, `connectedRight`
+
+For detailed documentation, see: `src/components/TextField/TEXTFIELD_DOCS.md`
+
+### Popover Component ✅
+
+Small overlay component that opens on demand for additional content and actions.
+
+**Positioning**: `above`, `below`, `mostSpace`, `cover`
+**Alignment**: `left`, `center`, `right`
+**Features**: `sectioned`, `fullWidth`, `fullHeight`, `fluidContent`, `fixed`
+**Accessibility**: `autofocusTarget`, `ariaHaspopup`, keyboard navigation support
+**Advanced**: `preventFocusOnClose`, `preventCloseOnChildOverlayClick`, `captureOverscroll`
+
+For detailed documentation, see: `src/components/Popover/POPOVER_DOCS.md`
+
+### Card Component ✅
+
+Layout component for grouping related concepts and tasks in a familiar, recognizable style.
+
+**Background Colors**: All Polaris color tokens including surface, state, brand, and interactive colors
+**Padding**: Polaris space scale values (0-3200) with responsive object support
+**Border Radius**: Responsive border radius control (`xs`, `sm`, `md`, `lg`, `xl`)
+**Features**: Semantic HTML structure, accessibility support, customizable styling
+
+For detailed documentation, see: `src/components/Card/CARD_DOCS.md`
+
+### Badge Component ✅
+
+Component for informing merchants of the tone of an object or of an action that's been taken.
+
+**Tones**: `default`, `success`, `critical`, `warning`, `attention`, `info`, `new`, `read-only`, `enabled`, `subdued`
+**Progress States**: `incomplete`, `partiallyComplete`, `complete`
+**Sizes**: `small`, `medium`
+**Features**: Icon support, accessibility compliant, customizable styling
+
+For detailed documentation, see: `src/components/Badge/BADGE_DOCS.md`
 
 ## Development Setup
 
@@ -162,22 +245,22 @@ pnpm run storybook
 
 ## Build Process
 
-The library uses a TypeScript-first build process:
+The library uses a modern TypeScript-first build process:
 
-1. **TypeScript Compilation**: Uses `tsc` with `tsconfig.build.json`
-2. **Path Alias Resolution**: Uses `tsc-alias` to resolve path aliases
-3. **Import Fixing**: Custom script to fix ES module imports
-4. **CSS Processing**: Tailwind CSS compilation for styles
+1. **Vite Build System**: Uses Vite for fast bundling and development
+2. **TypeScript Compilation**: Full type safety with declaration file generation
+3. **Tailwind CSS v4**: Integrated via @tailwindcss/vite plugin for optimal performance
+4. **Dual Format Output**: Generates both ESM and CommonJS builds
 
 ### Build Output Structure
 
 ```
 dist/
-├── index.js              # Main entry point
+├── index.js              # ESM entry point
+├── index.cjs             # CommonJS entry point
 ├── index.d.ts           # TypeScript declarations
-├── components/          # Individual component files
-├── lib/                # Utility functions
-└── styles/             # CSS files
+├── style.css            # Compiled Tailwind CSS
+└── *.map                # Source maps for debugging
 ```
 
 ## Testing
@@ -254,7 +337,7 @@ The package is configured with:
 
 - **React 18+**: Modern React with hooks and concurrent features
 - **TypeScript**: Full type safety and excellent developer experience
-- **Tailwind CSS**: Utility-first CSS framework
+- **Tailwind CSS v4**: Latest utility-first CSS framework with improved performance
 - **shadcn/ui**: Component architecture patterns
 - **Radix UI**: Accessible component primitives
 - **Class Variance Authority**: Type-safe variant management
@@ -290,17 +373,32 @@ src/
 
 ## Roadmap
 
-### Phase 1 (Current)
+### Phase 1 (Completed) ✅
 
 - ✅ Button component with full Polaris compatibility
+- ✅ ButtonGroup component with segmented styling
+- ✅ Box component with complete design token support
+- ✅ Text component for typography
+- ✅ TextField component for form inputs
+- ✅ Popover component for overlays and menus
+- ✅ Card component for content containers
+- ✅ Bleed component for negative margin layouts
+- ✅ Badge component for status indicators
 - ✅ TypeScript support and type definitions
-- ✅ Comprehensive testing setup
-- ✅ Storybook integration
+- ✅ Comprehensive testing setup with Vitest
+- ✅ Storybook integration for all components
 - ✅ Build and publishing workflow
 
-### Phase 2 (Planned)
+### Phase 2 (Current)
 
-- [ ] Additional core components (Card, TextField, Select)
+- 🚧 Page component (next priority)
+- [ ] Index Table component for data display
+- [ ] Select component for dropdowns
+- [ ] Modal component for dialogs
+- [ ] Banner component for notifications
+
+### Phase 3 (Planned)
+
 - [ ] Theme customization system
 - [ ] Advanced accessibility features
 - [ ] Performance optimizations

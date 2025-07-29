@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { ButtonGroup } from "./buttonGroup";
 import { Button } from "../Button/button";
 import {
@@ -78,7 +77,7 @@ export const Default: Story = {
   args: {
     gap: "tight",
   },
-  render: (args) => (
+  render: args => (
     <ButtonGroup {...args}>
       <Button>Cancel</Button>
       <Button variant="primary">Save</Button>
@@ -90,7 +89,7 @@ export const WithSegmentedButtons: Story = {
   args: {
     variant: "segmented",
   },
-  render: (args) => (
+  render: args => (
     <ButtonGroup {...args}>
       <Button pressed>Day</Button>
       <Button>Week</Button>
@@ -103,7 +102,7 @@ export const PressedWithSegmentedButtons: Story = {
   args: {
     variant: "segmented",
   },
-  render: (args) => (
+  render: args => (
     <ButtonGroup {...args}>
       <Button>Day</Button>
       <Button pressed>Week</Button>
@@ -186,8 +185,12 @@ export const WithIcons: Story = {
   render: () => (
     <ButtonGroup>
       <Button icon={<PlusIcon />}>Add</Button>
-      <Button icon={<EditIcon />} variant="secondary">Edit</Button>
-      <Button icon={<DeleteIcon />} tone="critical">Delete</Button>
+      <Button icon={<EditIcon />} variant="secondary">
+        Edit
+      </Button>
+      <Button icon={<DeleteIcon />} tone="critical">
+        Delete
+      </Button>
     </ButtonGroup>
   ),
 };
@@ -234,16 +237,20 @@ export const ComplexExample: Story = {
     <div className="space-y-6 p-6 bg-gray-50 rounded-lg">
       <div>
         <h3 className="text-lg font-semibold mb-4">Product Management</h3>
-        
+
         <div className="space-y-4">
           <div>
             <h4 className="text-sm font-medium mb-2">Primary Actions</h4>
             <ButtonGroup>
-              <Button icon={<PlusIcon />} variant="primary">Add Product</Button>
-              <Button icon={<ExportIcon />} variant="secondary">Export</Button>
+              <Button icon={<PlusIcon />} variant="primary">
+                Add Product
+              </Button>
+              <Button icon={<ExportIcon />} variant="secondary">
+                Export
+              </Button>
             </ButtonGroup>
           </div>
-          
+
           <div>
             <h4 className="text-sm font-medium mb-2">View Toggle</h4>
             <ButtonGroup variant="segmented">
@@ -253,7 +260,7 @@ export const ComplexExample: Story = {
               <Button>Archived</Button>
             </ButtonGroup>
           </div>
-          
+
           <div>
             <h4 className="text-sm font-medium mb-2">Bulk Actions</h4>
             <ButtonGroup gap="loose" fullWidth>
