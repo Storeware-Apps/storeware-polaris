@@ -3,7 +3,7 @@
  *
  * This component provides 100% API compatibility with Shopify's Polaris BlockStack component
  * while being built on shadcn/ui foundation with Tailwind CSS for maximum flexibility.
- * 
+ *
  * Use to display children vertically and horizontally with full width by default. Based on CSS Flexbox.
  */
 
@@ -16,26 +16,26 @@ import { cn } from "../../lib/utils";
 import type { SpaceScale, BreakpointsAlias } from "../Box/box";
 
 // Type definitions following Polaris design tokens
-export type BlockStackAlign = 
-  | "start" 
-  | "center" 
-  | "end" 
-  | "space-around" 
-  | "space-between" 
+export type BlockStackAlign =
+  | "start"
+  | "center"
+  | "end"
+  | "space-around"
+  | "space-between"
   | "space-evenly";
 
-export type BlockStackInlineAlign = 
-  | "start" 
-  | "center" 
-  | "end" 
-  | "baseline" 
+export type BlockStackInlineAlign =
+  | "start"
+  | "center"
+  | "end"
+  | "baseline"
   | "stretch";
 
 export type BlockStackAs = "div" | "span" | "ul" | "ol" | "li" | "fieldset";
 
 // Responsive type for gap spacing
-export type ResponsiveGap = 
-  | SpaceScale 
+export type ResponsiveGap =
+  | SpaceScale
   | { [Breakpoint in BreakpointsAlias]?: SpaceScale };
 
 // Polaris BlockStack Props interface - matches Shopify Polaris BlockStack component exactly
@@ -156,7 +156,10 @@ export const blockStackVariants = cva(
   }
 );
 
-export const BlockStack = React.forwardRef<any, EnhancedBlockStackProps>(
+export const BlockStack = React.forwardRef<
+  HTMLElement,
+  EnhancedBlockStackProps
+>(
   (
     {
       children,
@@ -194,8 +197,7 @@ export const BlockStack = React.forwardRef<any, EnhancedBlockStackProps>(
         className={blockStackClassName}
         id={id}
         role={role}
-        {...props}
-      >
+        {...props}>
         {children}
       </Component>
     );

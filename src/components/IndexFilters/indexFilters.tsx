@@ -252,7 +252,6 @@ interface PinnedFilterButtonProps {
   disabled?: boolean;
   isOpen: boolean;
   onToggle: () => void;
-  onClose: () => void;
 }
 
 const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
@@ -260,7 +259,6 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
   disabled = false,
   isOpen,
   onToggle,
-  onClose,
 }) => {
   const handleSelectionChange = (selected: string[]) => {
     filter.onChange(selected, filter.key);
@@ -383,7 +381,6 @@ export const IndexFilters = React.forwardRef<
       onQueryChange,
       onQueryClear,
       className,
-      asChild = false,
       ...props
     },
     ref
@@ -499,7 +496,6 @@ export const IndexFilters = React.forwardRef<
                         onToggle={() =>
                           handlePopoverToggle(`filter-${filter.key}`)
                         }
-                        onClose={handlePopoverClose}
                       />
                     ))}
                   </div>

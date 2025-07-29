@@ -35,10 +35,10 @@ export type IconTone =
 const iconVariants = cva("inline-block shrink-0 w-5 h-5", {
   variants: {
     tone: {
-      base: "!text-white",
-      inherit: "!text-inherit",
-      subdued: "!text-muted-foreground",
-      caution: "!text-amber-600",
+      base: "text-white",
+      inherit: "text-inherit",
+      subdued: "text-muted-foreground",
+      caution: "text-amber-600",
       warning: "text-orange-600",
       critical: "text-destructive",
       interactive: "text-primary",
@@ -64,7 +64,10 @@ const iconVariants = cva("inline-block shrink-0 w-5 h-5", {
 // Polaris Icon Props interface - matches Shopify Polaris Icon component exactly
 export interface PolarisIconProps {
   /** The SVG contents to display in the icon (icons should fit in a 20 × 20 pixel viewBox) */
-  source: any;
+  source:
+    | React.ComponentType<{ className?: string }>
+    | React.ReactElement
+    | string;
   /** Set the color for the SVG fill */
   tone?: IconTone;
   /** Descriptive text to be read to screenreaders */
@@ -99,7 +102,11 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       // Handle React element (already rendered)
       if (React.isValidElement(source)) {
         return React.cloneElement(source as React.ReactElement, {
-          className: cn(iconClassName, (source as any).props?.className),
+          className: cn(
+            iconClassName,
+            (source as React.ReactElement<{ className?: string }>).props
+              ?.className
+          ),
         });
       }
 

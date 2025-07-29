@@ -5,7 +5,13 @@ import { Toaster, toast } from "./toast";
 
 // Mock sonner to avoid actual toast rendering in tests
 vi.mock("sonner", () => ({
-  Toaster: ({ children, ...props }: any) => (
+  Toaster: ({
+    children,
+    ...props
+  }: {
+    children?: React.ReactNode;
+    [key: string]: unknown;
+  }) => (
     <div data-testid="sonner-toaster" {...props}>
       {children}
     </div>
@@ -167,7 +173,9 @@ describe("Toast Component", () => {
     });
 
     it("handles invalid options gracefully", () => {
-      expect(() => toast.show("Test", {} as any)).not.toThrow();
+      expect(() =>
+        toast.show("Test", {} as Record<string, unknown>)
+      ).not.toThrow();
     });
   });
 });

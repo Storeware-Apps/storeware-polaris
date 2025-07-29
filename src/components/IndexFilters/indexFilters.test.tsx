@@ -1,4 +1,3 @@
-import * as React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import {
@@ -6,30 +5,6 @@ import {
   useSetIndexFiltersMode,
   IndexFiltersMode,
 } from "./indexFilters";
-
-// Test component that uses the hook
-const TestIndexFilters = ({
-  initialMode = IndexFiltersMode.Default,
-  ...props
-}) => {
-  const { mode, setMode } = useSetIndexFiltersMode();
-
-  // Override initial mode for testing
-  React.useEffect(() => {
-    setMode(initialMode);
-  }, [initialMode, setMode]);
-
-  return (
-    <IndexFilters
-      mode={mode}
-      setMode={setMode}
-      queryValue=""
-      onQueryChange={() => {}}
-      onQueryClear={() => {}}
-      {...props}
-    />
-  );
-};
 
 describe("IndexFilters", () => {
   it("renders with basic props", () => {

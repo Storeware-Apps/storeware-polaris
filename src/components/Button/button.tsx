@@ -347,6 +347,7 @@ export const Button = React.forwardRef<
       onMouseEnter,
       onTouchStart,
       onPointerDown,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ref: ref as any,
       ...props,
     };

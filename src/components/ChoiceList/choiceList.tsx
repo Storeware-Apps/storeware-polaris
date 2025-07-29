@@ -40,7 +40,7 @@ export interface ChoiceListProps {
   /** Toggles display of the title */
   titleHidden?: boolean;
   /** Display an error message */
-  error?: any;
+  error?: string | React.ReactNode;
   /** Disable all choices */
   disabled?: boolean;
   /** Callback when the selected choices change */
@@ -116,7 +116,6 @@ export const ChoiceList = React.forwardRef<
       onChange,
       tone,
       className,
-      asChild = false,
       ...props
     },
     ref

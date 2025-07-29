@@ -155,7 +155,7 @@ export const WithAction: Story = {
           toast.show("Product archived", {
             action: {
               label: "Undo",
-              onClick: () => console.log("Undo clicked"),
+              onClick: () => {},
             },
           })
         }>
@@ -172,7 +172,7 @@ export const WithDismissCallback: Story = {
       <Button
         onClick={() =>
           toast.show("Settings updated", {
-            onDismiss: () => console.log("Toast dismissed"),
+            onDismiss: () => {},
           })
         }>
         Show Toast with Dismiss Callback

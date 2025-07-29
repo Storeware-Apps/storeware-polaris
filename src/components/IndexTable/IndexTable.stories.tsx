@@ -103,7 +103,7 @@ function MyComponent() {
 
 // With pagination
 export const WithPagination: Story = {
-  render: () => {
+  render: function WithPaginationStory() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
     const totalPages = Math.ceil(sampleOrders.length / itemsPerPage);
@@ -180,7 +180,7 @@ export const WithPagination: Story = {
 
 // With bulk actions
 export const WithBulkActions: Story = {
-  render: () => {
+  render: function WithBulkActionsStory() {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
@@ -189,21 +189,18 @@ export const WithBulkActions: Story = {
       {
         content: "Mark as fulfilled",
         onAction: () => {
-          console.log("Mark as fulfilled clicked for:", selectedResources);
           alert(`Marking ${selectedResources.length} orders as fulfilled`);
         },
       },
       {
         content: "Archive orders",
         onAction: () => {
-          console.log("Archive orders clicked for:", selectedResources);
           alert(`Archiving ${selectedResources.length} orders`);
         },
       },
       {
         content: "Delete",
         onAction: () => {
-          console.log("Delete clicked for:", selectedResources);
           alert(`Deleting ${selectedResources.length} orders`);
         },
         destructive: true,
@@ -311,7 +308,7 @@ const sampleOrders = [
 
 // Default story - basic IndexTable
 export const Default: Story = {
-  render: () => {
+  render: function DefaultStory() {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
@@ -374,7 +371,7 @@ export const Default: Story = {
 
 // With IndexFilters integration
 export const WithSorting: Story = {
-  render: () => {
+  render: function WithSortingStory() {
     const sampleOrders = [
       {
         id: "1020",
@@ -542,10 +539,9 @@ export const WithSorting: Story = {
 };
 
 export const WithIndexFilters: Story = {
-  render: () => {
+  render: function WithIndexFiltersStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
-    const [sortSelected, setSortSelected] = useState(["order asc"]);
     const [statusFilter, setStatusFilter] = useState<string[]>([]);
     const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
 
@@ -553,19 +549,6 @@ export const WithIndexFilters: Story = {
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
 
-    const sortOptions = [
-      { label: "Order", value: "order asc", directionLabel: "Ascending" },
-      { label: "Order", value: "order desc", directionLabel: "Descending" },
-      { label: "Customer", value: "customer asc", directionLabel: "A-Z" },
-      { label: "Customer", value: "customer desc", directionLabel: "Z-A" },
-      { label: "Date", value: "date asc", directionLabel: "A-Z" },
-      { label: "Date", value: "date desc", directionLabel: "Z-A" },
-      { label: "Total", value: "total asc", directionLabel: "Ascending" },
-      { label: "Total", value: "total desc", directionLabel: "Descending" },
-    ];
-
-    // const { mode, setMode } = useSetIndexFiltersMode();
-    // const [queryValue, setQueryValue] = useState("");
     const [selected, setSelected] = useState(0);
     const [tabItems, setTabItems] = useState([
       "All",
@@ -704,23 +687,20 @@ export const WithIndexFilters: Story = {
             {
               content: "Mark as fulfilled",
               onAction: () => {
-                console.log(
-                  "Mark as fulfilled clicked for:",
-                  selectedResources
+                alert(
+                  `Marking ${selectedResources.length} orders as fulfilled`
                 );
               },
             },
             {
               content: "Archive orders",
               onAction: () => {
-                console.log("Archive orders clicked for:", selectedResources);
                 alert(`Archiving ${selectedResources.length} orders`);
               },
             },
             {
               content: "Delete",
               onAction: () => {
-                console.log("Delete clicked for:", selectedResources);
                 alert(`Deleting ${selectedResources.length} orders`);
               },
               destructive: true,
@@ -950,7 +930,7 @@ export const WithZebraStriping: Story = {
   args: {
     hasZebraStriping: true,
   },
-  render: args => {
+  render: function ZebraStripingStory(args) {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
@@ -1001,7 +981,7 @@ export const WithZebraStriping: Story = {
 
 // Conditional styling demonstration
 export const ConditionalStyling: Story = {
-  render: () => {
+  render: function ConditionalStylingStory() {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);

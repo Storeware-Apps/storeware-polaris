@@ -106,7 +106,7 @@ type Story = StoryObj<typeof Modal>;
 
 // Basic Modal Example
 export const Basic: Story = {
-  render: () => {
+  render: function BasicStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -129,7 +129,7 @@ export const Basic: Story = {
 
 // Modal with Actions
 export const WithActions: Story = {
-  render: () => {
+  render: function WithActionsStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -169,7 +169,7 @@ export const WithActions: Story = {
 
 // Small Modal
 export const SmallModal: Story = {
-  render: () => {
+  render: function SmallModalStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -198,7 +198,7 @@ export const SmallModal: Story = {
 
 // Large Modal
 export const LargeModal: Story = {
-  render: () => {
+  render: function LargeModalStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -227,7 +227,7 @@ export const LargeModal: Story = {
 
 // Max Modal
 export const MaxModal: Story = {
-  render: () => {
+  render: function MaxModalStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -265,7 +265,7 @@ export const MaxModal: Story = {
 
 // Critical Action Modal
 export const CriticalAction: Story = {
-  render: () => {
+  render: function CriticalActionStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -301,7 +301,7 @@ export const CriticalAction: Story = {
 
 // Modal with Events
 export const WithEvents: Story = {
-  render: () => {
+  render: function WithEventsStory() {
     const [open, setOpen] = useState(false);
     const [eventLog, setEventLog] = useState<string[]>([]);
 

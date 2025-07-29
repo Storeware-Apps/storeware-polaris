@@ -14,7 +14,6 @@ import {
   type ColumnDef,
 } from "@tanstack/react-table";
 import { ChevronUpIcon, ChevronDownIcon } from "@shopify/polaris-icons";
-
 import { cn } from "../../lib/utils";
 import { Text } from "../Text/Text";
 import { Button } from "../Button/button";
@@ -130,6 +129,7 @@ export interface Range {
   end: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 export interface IndexTableProps<TData = any> {
   /** List of headings */
   headings: IndexTableHeading[];
@@ -194,6 +194,7 @@ export interface IndexTableProps<TData = any> {
 }
 
 // Enhanced IndexTable interface that extends Polaris with shadcn/ui features
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface EnhancedIndexTableProps<TData = any>
   extends IndexTableProps<TData> {
   /** Use the Slot component for composition (shadcn/ui feature) */
@@ -207,6 +208,7 @@ export interface EnhancedIndexTableProps<TData = any>
 }
 
 // Re-export types for convenience (maintaining backward compatibility)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PolarisIndexTableProps<TData = any> = IndexTableProps<TData>;
 export type PolarisIndexTableHeading = IndexTableHeading;
 export type PolarisBulkAction = BulkAction;
@@ -323,7 +325,6 @@ const IndexTableBase = React.forwardRef<
       lastColumnSticky = false,
       selectable = true,
       sortable,
-      defaultSortDirection = "descending",
       sortDirection: _sortDirection,
       sortColumnIndex: _sortColumnIndex,
       onSort: _onSort,
@@ -338,7 +339,6 @@ const IndexTableBase = React.forwardRef<
       condensed = false,
       onSelectionChange,
       className,
-      asChild = false,
       data,
       columns,
       hasIndexFilters = false,
@@ -349,6 +349,7 @@ const IndexTableBase = React.forwardRef<
     // If using TanStack Table integration
     const table = React.useMemo(() => {
       if (data && columns) {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         return useReactTable({
           data,
           columns,
@@ -409,7 +410,7 @@ const IndexTableBase = React.forwardRef<
       if (table) {
         // TanStack Table headers
         return (
-          <thead>
+          <thead className="sticky top-0 z-10">
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {selectable && (
@@ -492,7 +493,7 @@ const IndexTableBase = React.forwardRef<
 
       // Polaris-style headers
       return (
-        <thead>
+        <thead className="sticky top-0 z-10">
           {/* Selection/Bulk Actions Row - shown when items are selected */}
           {hasSelectedItems && (
             <tr>
@@ -548,113 +549,112 @@ const IndexTableBase = React.forwardRef<
             </tr>
           )}
 
-          {/* Column Headers Row - always shown for sorting */}
-          <tr>
-            {selectable && !hasSelectedItems && (
-              <th
-                className={cn(
-                  tableHeaderVariants({
-                    isSelectionColumn: true,
-                  })
-                )}>
-                <Checkbox
-                  checked={
-                    (selectedItemsCount as number | "All" | undefined) === "All"
-                      ? true
-                      : selectedItemsCount === itemCount && itemCount > 0
-                        ? true
-                        : typeof selectedItemsCount === "number" &&
-                            selectedItemsCount > 0
-                          ? "indeterminate"
-                          : false
-                  }
-                  onChange={checked => {
-                    if (onSelectionChange) {
-                      onSelectionChange(
-                        checked ? "page" : "page",
-                        checked,
-                        undefined,
-                        undefined
-                      );
-                    }
-                  }}
-                  aria-label={`Select all ${resourceName?.plural || "items"}`}
-                />
-              </th>
-            )}
-            {hasSelectedItems && selectable && (
-              <th
-                className={cn(tableHeaderVariants({ isSelectionColumn: true }))}
-              />
-            )}
-            {headings.map((heading, index) => {
-              const isSortable = sortable?.[index] || false;
-              const isCurrentSortColumn = _sortColumnIndex === index;
-              const currentSortDirection = isCurrentSortColumn
-                ? _sortDirection
-                : undefined;
-
-              // Helper function to get the next sort direction
-              const getNextSortDirection = (): "ascending" | "descending" => {
-                if (!isCurrentSortColumn) {
-                  // First click on a new column - start with descending
-                  return "descending";
-                }
-                // Toggle between ascending and descending
-                return currentSortDirection === "ascending"
-                  ? "descending"
-                  : "ascending";
-              };
-
-              // Helper function to get the sort icon
-              const getSortIcon = () => {
-                if (
-                  !isSortable ||
-                  !isCurrentSortColumn ||
-                  !currentSortDirection
-                ) {
-                  return null;
-                }
-
-                if (currentSortDirection === "descending") {
-                  return <ChevronUpIcon className="ml-1 h-4 w-4" />;
-                } else {
-                  return <ChevronDownIcon className="ml-1 h-4 w-4" />;
-                }
-              };
-
-              // Handle sort click
-              const handleSortClick = () => {
-                if (!isSortable || !_onSort) return;
-
-                const nextDirection = getNextSortDirection();
-                _onSort(index, nextDirection);
-              };
-
-              return (
+          {/* Column Headers Row - only shown when no items are selected */}
+          {!hasSelectedItems && (
+            <tr>
+              {selectable && (
                 <th
-                  key={index}
                   className={cn(
                     tableHeaderVariants({
-                      alignment: heading.alignment || "start",
-                      sortable: isSortable,
-                      sticky: lastColumnSticky && index === headings.length - 1,
-                    }),
-                    isSortable && "cursor-pointer hover:bg-gray-50"
-                  )}
-                  onClick={handleSortClick}>
-                  <div className="flex items-center">
-                    <Text variant="bodyMd" fontWeight="semibold">
-                      {typeof heading.title === "string"
-                        ? heading.title
-                        : heading.title}
-                    </Text>
-                    {getSortIcon()}
-                  </div>
+                      isSelectionColumn: true,
+                    })
+                  )}>
+                  <Checkbox
+                    checked={
+                      (selectedItemsCount as number | "All" | undefined) ===
+                      "All"
+                        ? true
+                        : selectedItemsCount === itemCount && itemCount > 0
+                          ? true
+                          : typeof selectedItemsCount === "number" &&
+                              selectedItemsCount > 0
+                            ? "indeterminate"
+                            : false
+                    }
+                    onChange={checked => {
+                      if (onSelectionChange) {
+                        onSelectionChange(
+                          checked ? "page" : "page",
+                          checked,
+                          undefined,
+                          undefined
+                        );
+                      }
+                    }}
+                    aria-label={`Select all ${resourceName?.plural || "items"}`}
+                  />
                 </th>
-              );
-            })}
-          </tr>
+              )}
+              {headings.map((heading, index) => {
+                const isSortable = sortable?.[index] || false;
+                const isCurrentSortColumn = _sortColumnIndex === index;
+                const currentSortDirection = isCurrentSortColumn
+                  ? _sortDirection
+                  : undefined;
+
+                // Helper function to get the next sort direction
+                const getNextSortDirection = (): "ascending" | "descending" => {
+                  if (!isCurrentSortColumn) {
+                    // First click on a new column - start with descending
+                    return "descending";
+                  }
+                  // Toggle between ascending and descending
+                  return currentSortDirection === "ascending"
+                    ? "descending"
+                    : "ascending";
+                };
+
+                // Helper function to get the sort icon
+                const getSortIcon = () => {
+                  if (
+                    !isSortable ||
+                    !isCurrentSortColumn ||
+                    !currentSortDirection
+                  ) {
+                    return null;
+                  }
+
+                  if (currentSortDirection === "descending") {
+                    return <ChevronUpIcon className="ml-1 h-4 w-4" />;
+                  } else {
+                    return <ChevronDownIcon className="ml-1 h-4 w-4" />;
+                  }
+                };
+
+                // Handle sort click
+                const handleSortClick = () => {
+                  if (!isSortable || !_onSort) return;
+
+                  const nextDirection = getNextSortDirection();
+                  _onSort(index, nextDirection);
+                };
+
+                return (
+                  <th
+                    key={index}
+                    className={cn(
+                      tableHeaderVariants({
+                        alignment: heading.alignment || "start",
+                        sortable: isSortable,
+                        sticky:
+                          lastColumnSticky && index === headings.length - 1,
+                      }),
+                      isSortable && "cursor-pointer hover:bg-gray-50"
+                    )}
+                    onClick={handleSortClick}>
+                    <div className="flex items-center">
+                      <Text variant="bodyMd" fontWeight="semibold">
+                        {typeof heading.title === "string"
+                          ? heading.title
+                          : heading.title}
+                      </Text>
+                      {getSortIcon()}
+                    </div>
+                  </th>
+                );
+              })}
+            </tr>
+          )}
         </thead>
       );
     };

@@ -67,7 +67,7 @@ export type PolarisAccessibilityLabels = AccessibilityLabels;
 export type PolarisKey = Key;
 
 // Create Polaris-specific pagination variants using CVA
-const polarisPaginationVariants = cva("flex items-center", {
+const polarisPaginationVariants = cva("flex items-center !text-red-200", {
   variants: {
     type: {
       page: "w-full",
@@ -85,17 +85,17 @@ const polarisPaginationVariants = cva("flex items-center", {
 });
 
 const paginationButtonVariants = cva(
-  "inline-flex items-center h-6 justify-center cursor-pointer gap-1 p-1 text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white first:rounded-l-md last:rounded-r-md",
+  "inline-flex items-center h-6 justify-center gap-1 p-1 text-sm font-medium transition-colors",
   {
     variants: {
       position: {
         previous: "rounded-l-md border-r-0",
         next: "rounded-r-md",
-        single: "",
+        single: "rounded-md",
       },
       disabled: {
-        true: "text-gray-400 bg-gray-50",
-        false: "",
+        true: "bg-gray-100 cursor-not-allowed",
+        false: "bg-gray-100 cursor-pointer hover:bg-gray-200",
       },
     },
     defaultVariants: {
@@ -155,7 +155,7 @@ export const Pagination = React.forwardRef<
       <button
         type="button"
         disabled={!hasPrevious}
-        onClick={onPrevious}
+        onClick={hasPrevious ? onPrevious : undefined}
         aria-label={previousLabel || "Previous"}
         className={cn(
           paginationButtonVariants({
@@ -163,9 +163,11 @@ export const Pagination = React.forwardRef<
             disabled: !hasPrevious,
           })
         )}>
-        <ChevronLeftIcon className="size-5" />
-        {/* {label} */}
-        {/* {!label && <span className="ml-1">Previous</span>} */}
+        {/* <Icon source={ChevronLeftIcon} tone="subdued" /> */}
+        <ChevronLeftIcon
+          className="size-5"
+          fill={!hasPrevious ? "#b0b0bc" : "black"}
+        />
       </button>
     );
 
@@ -173,7 +175,7 @@ export const Pagination = React.forwardRef<
       <button
         type="button"
         disabled={!hasNext}
-        onClick={onNext}
+        onClick={hasNext ? onNext : undefined}
         aria-label={nextLabel || "Next"}
         className={cn(
           paginationButtonVariants({
@@ -181,9 +183,10 @@ export const Pagination = React.forwardRef<
             disabled: !hasNext,
           })
         )}>
-        {/* {!label && <span className="mr-1">Next</span>} */}
-        {/* {label} */}
-        <ChevronRightIcon className="size-5" />
+        <ChevronRightIcon
+          className="size-5"
+          fill={!hasNext ? "#b0b0bc" : "black"}
+        />
       </button>
     );
 
