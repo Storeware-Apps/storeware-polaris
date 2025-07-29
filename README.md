@@ -15,13 +15,13 @@ A React component library that matches Shopify's Polaris design system using sha
 
 ```bash
 # Using pnpm (recommended)
-pnpm add @storeware/polaris
+pnpm add @storeware/polaris@github:Storeware-Apps/storeware-polaris
 
 # Using npm
-npm install @storeware/polaris
+npm install @storeware/polaris@github:Storeware-Apps/storeware-polaris
 
 # Using yarn
-yarn add @storeware/polaris
+yarn add @storeware/polaris@github:Storeware-Apps/storeware-polaris
 ```
 
 ### Peer Dependencies

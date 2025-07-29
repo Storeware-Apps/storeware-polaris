@@ -1,6 +1,6 @@
 {
   "name": "@storeware/polaris",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "A custom component library that matches Shopify's Polaris design system using shadcn/ui and Tailwind CSS",
   "main": "dist/index.js",
