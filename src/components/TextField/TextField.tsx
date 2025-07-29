@@ -6,7 +6,7 @@
  */
 
 import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { XCircleIcon } from "@shopify/polaris-icons";
 import { cn } from "../../lib/utils";
 
@@ -382,7 +382,7 @@ export const TextField = React.forwardRef<
       id: idProp,
       role,
       step,
-      largeStep,
+      largeStep: _largeStep,
       autoComplete,
       max,
       maxLength,
@@ -410,7 +410,7 @@ export const TextField = React.forwardRef<
       loading = false,
       onClearButtonClick,
       onChange,
-      onSpinnerChange,
+      onSpinnerChange: _onSpinnerChange,
       onFocus,
       onBlur,
       className,
