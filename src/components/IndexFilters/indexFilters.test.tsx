@@ -1,35 +1,10 @@
-import * as React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import {
   IndexFilters,
   useSetIndexFiltersMode,
   IndexFiltersMode,
 } from "./indexFilters";
-
-// Test component that uses the hook
-const TestIndexFilters = ({
-  initialMode = IndexFiltersMode.Default,
-  ...props
-}) => {
-  const { mode, setMode } = useSetIndexFiltersMode();
-
-  // Override initial mode for testing
-  React.useEffect(() => {
-    setMode(initialMode);
-  }, [initialMode, setMode]);
-
-  return (
-    <IndexFilters
-      mode={mode}
-      setMode={setMode}
-      queryValue=""
-      onQueryChange={() => {}}
-      onQueryClear={() => {}}
-      {...props}
-    />
-  );
-};
 
 describe("IndexFilters", () => {
   it("renders with basic props", () => {
@@ -386,6 +361,54 @@ describe("IndexFilters", () => {
 
     // Category button should show selection count
     expect(categoryButton).toHaveTextContent("1");
+  });
+
+  it("toggles pinned filter popover correctly when button is clicked", async () => {
+    const setMode = vi.fn();
+    const onChange = vi.fn();
+    const pinnedFilters = [
+      {
+        key: "status",
+        label: "Status",
+        choices: [
+          { label: "Active", value: "active" },
+          { label: "Inactive", value: "inactive" },
+        ],
+        selected: [],
+        onChange,
+      },
+    ];
+
+    render(
+      <IndexFilters
+        mode={IndexFiltersMode.Filtering}
+        setMode={setMode}
+        queryValue=""
+        onQueryChange={() => {}}
+        onQueryClear={() => {}}
+        pinnedFilters={pinnedFilters}
+      />
+    );
+
+    const statusButton = screen.getByRole("button", { name: /status/i });
+
+    // Initially, popover should not be visible
+    expect(screen.queryByText("Active")).not.toBeInTheDocument();
+
+    // Click button to open popover
+    fireEvent.click(statusButton);
+
+    // Popover should now be visible
+    expect(screen.getByText("Active")).toBeInTheDocument();
+    expect(screen.getByText("Inactive")).toBeInTheDocument();
+
+    // Click button again to close popover
+    fireEvent.click(statusButton);
+
+    // Popover should be closed (choices should not be visible)
+    await waitFor(() => {
+      expect(screen.queryByText("Active")).not.toBeInTheDocument();
+    });
   });
 
   it("does not show add filter button when onAddFilterClick is not provided", () => {

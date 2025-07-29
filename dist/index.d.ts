@@ -12,6 +12,70 @@ export declare interface AccessibilityLabels {
     next?: string;
 }
 
+export declare interface AppBridgeModalProps {
+    /** A unique identifier for the Modal */
+    id: string;
+    /** The content to display within a Modal */
+    children?: React_2.ReactNode;
+    /** The URL of the content to display within a Modal (optional) */
+    src?: string;
+    /** The size of the modal */
+    variant?: ModalVariant;
+    /** Controls whether the modal is open (controlled mode) */
+    open?: boolean;
+    /** Callback when modal is showing */
+    onShow?: () => void;
+    /** Callback when modal is hiding */
+    onHide?: () => void;
+    /** Standard React callback for open state changes */
+    onOpenChange?: (open: boolean) => void;
+    /** Additional CSS class name */
+    className?: string;
+    /** Action buttons to display at the bottom of the modal */
+    actions?: React_2.ReactNode;
+}
+
+export declare interface AppBridgeSaveBarProps {
+    /** A unique identifier for the save bar */
+    id: string;
+    /** HTML button elements to hook into the Save and Discard buttons (legacy API) */
+    children?: React_2.ReactNode;
+    /** Whether to show a confirmation dialog when the discard button is clicked */
+    discardConfirmation?: boolean;
+    /** Controls whether the save bar is open (controlled mode) */
+    open?: boolean;
+    /** Additional CSS class name */
+    className?: string;
+    /** Callback when the save button is clicked (new internalized API) */
+    onSave?: () => void;
+    /** Callback when the discard button is clicked (new internalized API) */
+    onDiscard?: () => void;
+    /** Text for the save button (defaults to "Save") */
+    saveText?: string;
+    /** Text for the discard button (defaults to "Discard") */
+    discardText?: string;
+    /** Whether the save button is in a loading state */
+    saveLoading?: boolean;
+    /** Whether the discard button is in a loading state */
+    discardLoading?: boolean;
+}
+
+export declare interface AppBridgeTitleBarProps {
+    /** The title of the title bar */
+    title?: string;
+    /** The children of the title bar (typically buttons) */
+    children?: React_2.ReactNode;
+    /** Additional CSS class name */
+    className?: string;
+}
+
+export declare interface AppBridgeToastAPI {
+    /** Show a toast notification */
+    show: (message: string, options?: ToastOptions) => string;
+    /** Hide a specific toast notification */
+    hide: (id: string) => void;
+}
+
 export declare interface AppliedFilter {
     /** Unique key for the filter */
     key: string;
@@ -209,6 +273,8 @@ export declare type ColorBorderAlias = "border" | "border-hover" | "border-disab
 
 export declare type ColorTextAlias = "text" | "text-secondary" | "text-disabled" | "text-link" | "text-link-hover" | "text-link-active" | "text-brand" | "text-brand-hover" | "text-brand-on-bg-fill" | "text-brand-on-bg-fill-hover" | "text-brand-on-bg-fill-active" | "text-brand-on-bg-fill-disabled" | "text-info" | "text-info-hover" | "text-info-active" | "text-info-secondary" | "text-info-on-bg-fill" | "text-success" | "text-success-hover" | "text-success-active" | "text-success-secondary" | "text-success-on-bg-fill" | "text-caution" | "text-caution-hover" | "text-caution-active" | "text-caution-secondary" | "text-caution-on-bg-fill" | "text-warning" | "text-warning-hover" | "text-warning-active" | "text-warning-secondary" | "text-warning-on-bg-fill" | "text-critical" | "text-critical-hover" | "text-critical-active" | "text-critical-secondary" | "text-critical-on-bg-fill" | "text-emphasis" | "text-emphasis-hover" | "text-emphasis-active" | "text-emphasis-on-bg-fill" | "text-emphasis-on-bg-fill-hover" | "text-emphasis-on-bg-fill-active" | "text-magic" | "text-magic-secondary" | "text-magic-on-bg-fill" | "text-inverse" | "text-inverse-secondary" | "text-link-inverse";
 
+export declare const ContextualSaveBar: React_2.ForwardRefExoticComponent<EnhancedContextualSaveBarProps & React_2.RefAttributes<HTMLDivElement>>;
+
 export declare interface EnhancedBadgeProps extends PolarisBadgeProps {
     /** Use the Slot component for composition (shadcn/ui feature) */
     asChild?: boolean;
@@ -241,6 +307,14 @@ export declare interface EnhancedChoiceListProps extends ChoiceListProps {
     asChild?: boolean;
 }
 
+export declare interface EnhancedContextualSaveBarProps extends AppBridgeSaveBarProps {
+}
+
+export declare interface EnhancedIconProps extends PolarisIconProps {
+    /** Additional CSS class name (inherited from shadcn/ui patterns) */
+    className?: string;
+}
+
 export declare interface EnhancedIndexFiltersProps extends IndexFiltersProps {
     /** Use the Slot component for composition (shadcn/ui feature) */
     asChild?: boolean;
@@ -258,6 +332,11 @@ export declare interface EnhancedIndexTableProps<TData = any> extends IndexTable
 }
 
 export declare interface EnhancedInlineStackProps extends PolarisInlineStackProps {
+}
+
+export declare interface EnhancedModalProps extends AppBridgeModalProps {
+    /** Whether to show the close button (default: true) */
+    showCloseButton?: boolean;
 }
 
 export declare interface EnhancedPageProps extends PolarisPageProps {
@@ -285,6 +364,32 @@ export declare interface EnhancedTextProps extends PolarisTextProps {
     className?: string;
 }
 
+export declare interface EnhancedTitleBarProps extends AppBridgeTitleBarProps {
+    /** Whether to show a border at the bottom (default: true) */
+    showBorder?: boolean;
+}
+
+export declare interface EnhancedToastProps {
+    /** Additional CSS class name */
+    className?: string;
+    /** Custom theme configuration */
+    theme?: "light" | "dark" | "system";
+    /** Position of the toaster */
+    position?: "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
+    /** Maximum number of toasts to show at once */
+    visibleToasts?: number;
+    /** Whether to show close button */
+    closeButton?: boolean;
+    /** Rich colors for different toast types */
+    richColors?: boolean;
+    /** Expand toasts by default */
+    expand?: boolean;
+    /** Gap between toasts */
+    gap?: number;
+    /** Offset from the edge of the screen */
+    offset?: string | number;
+}
+
 export declare interface FilterDescriptor {
     /** Unique key for the filter */
     key: string;
@@ -295,6 +400,17 @@ export declare interface FilterDescriptor {
     /** Whether the filter is a shortcut (pinned) */
     shortcut?: boolean;
 }
+
+export declare const Icon: React_2.ForwardRefExoticComponent<IconProps & React_2.RefAttributes<HTMLSpanElement>>;
+
+export declare interface IconProps extends EnhancedIconProps {
+}
+
+export declare type IconTone = "base" | "inherit" | "subdued" | "caution" | "warning" | "critical" | "interactive" | "info" | "success" | "primary" | "emphasis" | "magic" | "textCaution" | "textWarning" | "textCritical" | "textInfo" | "textSuccess" | "textPrimary" | "textMagic";
+
+export declare const iconVariants: (props?: ({
+    tone?: "success" | "critical" | "primary" | "inherit" | "base" | "caution" | "subdued" | "magic" | "warning" | "info" | "interactive" | "emphasis" | "textCaution" | "textWarning" | "textCritical" | "textInfo" | "textSuccess" | "textPrimary" | "textMagic" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const IndexFilters: React_2.ForwardRefExoticComponent<EnhancedIndexFiltersProps & React_2.RefAttributes<HTMLDivElement>>;
 
@@ -605,6 +721,14 @@ export declare interface LinkAction {
     /** A label for the action used by assistive technologies */
     accessibilityLabel?: string;
 }
+
+export declare const Modal: React_2.ForwardRefExoticComponent<EnhancedModalProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare type ModalVariant = "small" | "base" | "large" | "max";
+
+export declare const modalVariants: (props?: ({
+    variant?: "large" | "small" | "base" | "max" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 declare interface NonMutuallyExclusiveProps {
     /** Text to display before value */
@@ -1125,6 +1249,17 @@ export declare type PolarisEnhancedPopoverProps = EnhancedPopoverProps;
 
 export declare type PolarisFilterDescriptor = FilterDescriptor;
 
+export declare interface PolarisIconProps {
+    /** The SVG contents to display in the icon (icons should fit in a 20 × 20 pixel viewBox) */
+    source: any;
+    /** Set the color for the SVG fill */
+    tone?: IconTone;
+    /** Descriptive text to be read to screenreaders */
+    accessibilityLabel?: string;
+}
+
+export declare type PolarisIconTone = IconTone;
+
 export declare type PolarisIndexFiltersProps = IndexFiltersProps;
 
 export declare type PolarisIndexTableHeading = IndexTableHeading;
@@ -1339,6 +1474,10 @@ declare type ResponsiveSpacing_2 = SpaceScale_2 | {
     [Breakpoint in BreakpointsAlias_2]?: SpaceScale_2;
 };
 
+export declare const saveBarVariants: (props?: ({
+    open?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare type SelectionType = "single" | "multiple" | "page" | "all";
 
 export declare type ShadowAliasOrScale = "0" | "100" | "200" | "300" | "400" | "500" | "600" | "bevel-100" | "inset-100" | "inset-200" | "button" | "button-hover" | "button-inset" | "button-primary" | "button-primary-hover" | "button-primary-inset" | "button-primary-critical" | "button-primary-critical-hover" | "button-primary-critical-inset" | "button-primary-success" | "button-primary-success-hover" | "button-primary-success-inset" | "border-inset";
@@ -1449,6 +1588,38 @@ export declare const textVariants: (props?: ({
     numeric?: boolean | null | undefined;
     visuallyHidden?: boolean | null | undefined;
     textDecorationLine?: "none" | "line-through" | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const TitleBar: React_2.ForwardRefExoticComponent<EnhancedTitleBarProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const titleBarVariants: (props?: ({
+    showBorder?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const toast: AppBridgeToastAPI;
+
+export declare interface ToastAction {
+    /** Label for the action button */
+    label: string;
+    /** Callback when action is clicked */
+    onClick: () => void;
+}
+
+export declare const Toaster: React_2.ForwardRefExoticComponent<EnhancedToastProps & React_2.RefAttributes<HTMLElement>>;
+
+export declare interface ToastOptions {
+    /** Duration in milliseconds before the toast auto-dismisses (default: 4000) */
+    duration?: number;
+    /** Action button configuration */
+    action?: ToastAction;
+    /** Callback when toast is dismissed */
+    onDismiss?: () => void;
+    /** Whether the toast can be dismissed by clicking (default: true) */
+    dismissible?: boolean;
+}
+
+export declare const toastVariants: (props?: ({
+    variant?: "success" | "default" | "error" | "warning" | "info" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare const useIndexResourceState: <T extends {

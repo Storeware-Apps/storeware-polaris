@@ -75,8 +75,8 @@ export const Default: Story = {
   args: {
     hasPrevious: true,
     hasNext: true,
-    onPrevious: () => console.log("Previous clicked"),
-    onNext: () => console.log("Next clicked"),
+    onPrevious: () => {},
+    onNext: () => {},
   },
 };
 
@@ -85,8 +85,8 @@ export const WithKeyboardNavigation: Story = {
   args: {
     hasPrevious: true,
     hasNext: true,
-    onPrevious: () => console.log("Previous clicked"),
-    onNext: () => console.log("Next clicked"),
+    onPrevious: () => {},
+    onNext: () => {},
     previousKeys: ["ArrowLeft"],
     nextKeys: ["ArrowRight"],
     previousTooltip: "Previous page (←)",
@@ -95,7 +95,8 @@ export const WithKeyboardNavigation: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Pagination with keyboard navigation support. Use arrow keys to navigate.",
+        story:
+          "Pagination with keyboard navigation support. Use arrow keys to navigate.",
       },
     },
   },
@@ -106,8 +107,8 @@ export const WithLabel: Story = {
   args: {
     hasPrevious: true,
     hasNext: true,
-    onPrevious: () => console.log("Previous clicked"),
-    onNext: () => console.log("Next clicked"),
+    onPrevious: () => {},
+    onNext: () => {},
     label: "Page 1 of 10",
   },
   parameters: {
@@ -124,8 +125,8 @@ export const WithTableType: Story = {
   args: {
     hasPrevious: true,
     hasNext: true,
-    onPrevious: () => console.log("Previous clicked"),
-    onNext: () => console.log("Next clicked"),
+    onPrevious: () => {},
+    onNext: () => {},
     type: "table",
   },
   parameters: {
@@ -142,8 +143,8 @@ export const FirstPage: Story = {
   args: {
     hasPrevious: false,
     hasNext: true,
-    onPrevious: () => console.log("Previous clicked"),
-    onNext: () => console.log("Next clicked"),
+    onPrevious: () => {},
+    onNext: () => {},
     label: "Page 1 of 10",
   },
   parameters: {
@@ -160,8 +161,8 @@ export const LastPage: Story = {
   args: {
     hasPrevious: true,
     hasNext: false,
-    onPrevious: () => console.log("Previous clicked"),
-    onNext: () => console.log("Next clicked"),
+    onPrevious: () => {},
+    onNext: () => {},
     label: "Page 10 of 10",
   },
   parameters: {
@@ -178,14 +179,15 @@ export const SinglePage: Story = {
   args: {
     hasPrevious: false,
     hasNext: false,
-    onPrevious: () => console.log("Previous clicked"),
-    onNext: () => console.log("Next clicked"),
+    onPrevious: () => {},
+    onNext: () => {},
     label: "Page 1 of 1",
   },
   parameters: {
     docs: {
       description: {
-        story: "Pagination with both buttons disabled when there's only one page.",
+        story:
+          "Pagination with both buttons disabled when there's only one page.",
       },
     },
   },

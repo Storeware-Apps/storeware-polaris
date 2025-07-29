@@ -3,7 +3,7 @@
  *
  * This component provides 100% API compatibility with Shopify's Polaris InlineStack component
  * while being built on shadcn/ui foundation with Tailwind CSS for maximum flexibility.
- * 
+ *
  * Use to display children horizontally in a row. Based on CSS Flexbox.
  */
 
@@ -16,28 +16,28 @@ import { cn } from "../../lib/utils";
 import type { SpaceScale, BreakpointsAlias } from "../Box/box";
 
 // Type definitions following Polaris design tokens
-export type InlineStackAlign = 
-  | "start" 
-  | "center" 
-  | "end" 
-  | "space-around" 
-  | "space-between" 
+export type InlineStackAlign =
+  | "start"
+  | "center"
+  | "end"
+  | "space-around"
+  | "space-between"
   | "space-evenly";
 
 export type InlineStackDirection = "row" | "row-reverse";
 
-export type InlineStackBlockAlign = 
-  | "start" 
-  | "center" 
-  | "end" 
-  | "baseline" 
+export type InlineStackBlockAlign =
+  | "start"
+  | "center"
+  | "end"
+  | "baseline"
   | "stretch";
 
 export type InlineStackAs = "div" | "span" | "li" | "ol" | "ul";
 
 // Responsive type for gap spacing
-export type ResponsiveGap = 
-  | SpaceScale 
+export type ResponsiveGap =
+  | SpaceScale
   | { [Breakpoint in BreakpointsAlias]?: SpaceScale };
 
 // Polaris InlineStack Props interface - matches Shopify Polaris InlineStack component exactly
@@ -160,6 +160,7 @@ export const inlineStackVariants = cva(
   }
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const InlineStack = React.forwardRef<any, EnhancedInlineStackProps>(
   (
     {
@@ -193,11 +194,7 @@ export const InlineStack = React.forwardRef<any, EnhancedInlineStackProps>(
     );
 
     return (
-      <Component
-        ref={ref}
-        className={inlineStackClassName}
-        {...props}
-      >
+      <Component ref={ref} className={inlineStackClassName} {...props}>
         {children}
       </Component>
     );

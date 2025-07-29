@@ -168,6 +168,58 @@ describe("IndexTable", () => {
 
     expect(screen.getByText("1 item selected")).toBeInTheDocument();
   });
+
+  it("supports both bulk actions and sorting simultaneously", () => {
+    const mockOnSort = vi.fn();
+    const mockBulkAction = vi.fn();
+
+    const bulkActions = [
+      {
+        content: "Delete",
+        onAction: mockBulkAction,
+      },
+    ];
+
+    render(
+      <IndexTable
+        resourceName={{ singular: "order", plural: "orders" }}
+        itemCount={2}
+        selectedItemsCount={1}
+        headings={[{ title: "Order" }, { title: "Customer" }]}
+        bulkActions={bulkActions}
+        sortable={[true, true]}
+        sortColumnIndex={0}
+        sortDirection="ascending"
+        onSort={mockOnSort}>
+        <IndexTable.Row id="1" selected position={0}>
+          <IndexTable.Cell>Order 1</IndexTable.Cell>
+          <IndexTable.Cell>Customer 1</IndexTable.Cell>
+        </IndexTable.Row>
+        <IndexTable.Row id="2" selected={false} position={1}>
+          <IndexTable.Cell>Order 2</IndexTable.Cell>
+          <IndexTable.Cell>Customer 2</IndexTable.Cell>
+        </IndexTable.Row>
+      </IndexTable>
+    );
+
+    // Should show bulk actions when items are selected
+    expect(screen.getByText("1 order selected")).toBeInTheDocument();
+    expect(screen.getByText("Delete")).toBeInTheDocument();
+
+    // Should still show sortable column headers
+    const orderHeader = screen.getByText("Order");
+    const customerHeader = screen.getByText("Customer");
+    expect(orderHeader).toBeInTheDocument();
+    expect(customerHeader).toBeInTheDocument();
+
+    // Should be able to click on sortable headers
+    fireEvent.click(orderHeader);
+    expect(mockOnSort).toHaveBeenCalledWith(0, "descending");
+
+    // Should be able to click bulk actions
+    fireEvent.click(screen.getByText("Delete"));
+    expect(mockBulkAction).toHaveBeenCalled();
+  });
 });
 
 describe("IndexTable.Row", () => {

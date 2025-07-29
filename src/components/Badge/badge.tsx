@@ -123,7 +123,6 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       icon,
       size = "medium",
       className,
-      asChild = false,
       ...props
     },
     ref
@@ -153,7 +152,11 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
       if (React.isValidElement(icon)) {
         return React.cloneElement(icon as React.ReactElement, {
-          className: cn("w-3 h-3 mr-1", (icon as any).props?.className),
+          className: cn(
+            "w-3 h-3 mr-1",
+            (icon as React.ReactElement<{ className?: string }>).props
+              ?.className
+          ),
         });
       }
 

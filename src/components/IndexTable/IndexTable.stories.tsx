@@ -103,7 +103,7 @@ function MyComponent() {
 
 // With pagination
 export const WithPagination: Story = {
-  render: () => {
+  render: function WithPaginationStory() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
     const totalPages = Math.ceil(sampleOrders.length / itemsPerPage);
@@ -180,7 +180,7 @@ export const WithPagination: Story = {
 
 // With bulk actions
 export const WithBulkActions: Story = {
-  render: () => {
+  render: function WithBulkActionsStory() {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
@@ -189,21 +189,18 @@ export const WithBulkActions: Story = {
       {
         content: "Mark as fulfilled",
         onAction: () => {
-          console.log("Mark as fulfilled clicked for:", selectedResources);
           alert(`Marking ${selectedResources.length} orders as fulfilled`);
         },
       },
       {
         content: "Archive orders",
         onAction: () => {
-          console.log("Archive orders clicked for:", selectedResources);
           alert(`Archiving ${selectedResources.length} orders`);
         },
       },
       {
         content: "Delete",
         onAction: () => {
-          console.log("Delete clicked for:", selectedResources);
           alert(`Deleting ${selectedResources.length} orders`);
         },
         destructive: true,
@@ -311,7 +308,7 @@ const sampleOrders = [
 
 // Default story - basic IndexTable
 export const Default: Story = {
-  render: () => {
+  render: function DefaultStory() {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
@@ -373,29 +370,185 @@ export const Default: Story = {
 };
 
 // With IndexFilters integration
+export const WithSorting: Story = {
+  render: function WithSortingStory() {
+    const sampleOrders = [
+      {
+        id: "1020",
+        order: "#1020",
+        date: "Jul 20 at 4:34pm",
+        customer: "Jaydon Stanton",
+        total: "$969.44",
+        paymentStatus: <Badge progress="complete">Paid</Badge>,
+        fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
+      },
+      {
+        id: "1019",
+        order: "#1019",
+        date: "Jul 20 at 3:46pm",
+        customer: "Ruben Westerfelt",
+        total: "$701.19",
+        paymentStatus: (
+          <Badge progress="partiallyComplete">Partially paid</Badge>
+        ),
+        fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
+      },
+      {
+        id: "1018",
+        order: "#1018",
+        date: "Jul 20 at 3:44pm",
+        customer: "Leo Carder",
+        total: "$798.24",
+        paymentStatus: <Badge progress="complete">Paid</Badge>,
+        fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
+      },
+      {
+        id: "1017",
+        order: "#1017",
+        date: "Jul 19 at 2:15pm",
+        customer: "Alice Johnson",
+        total: "$1,234.56",
+        paymentStatus: <Badge progress="complete">Paid</Badge>,
+        fulfillmentStatus: <Badge progress="complete">Fulfilled</Badge>,
+      },
+      {
+        id: "1016",
+        order: "#1016",
+        date: "Jul 19 at 1:30pm",
+        customer: "Bob Smith",
+        total: "$456.78",
+        paymentStatus: <Badge progress="incomplete">Pending</Badge>,
+        fulfillmentStatus: <Badge progress="incomplete">Unfulfilled</Badge>,
+      },
+    ];
+
+    const resourceName = {
+      singular: "order",
+      plural: "orders",
+    };
+
+    const [sortColumnIndex, setSortColumnIndex] = useState<number | undefined>(
+      undefined
+    );
+    const [sortDirection, setSortDirection] = useState<
+      "ascending" | "descending" | undefined
+    >(undefined);
+    const [orders, setOrders] = useState(sampleOrders);
+
+    const { selectedResources, allResourcesSelected, handleSelectionChange } =
+      useIndexResourceState(orders);
+
+    // Handle sorting
+    const handleSort = (
+      headingIndex: number,
+      direction: "ascending" | "descending"
+    ) => {
+      setSortColumnIndex(headingIndex);
+      setSortDirection(direction);
+
+      // Sort the data based on the column and direction
+      const sortedOrders = [...orders].sort((a, b) => {
+        let aValue: string | number;
+        let bValue: string | number;
+
+        switch (headingIndex) {
+          case 0: // Order
+            aValue = a.order;
+            bValue = b.order;
+            break;
+          case 1: // Date
+            aValue = a.date;
+            bValue = b.date;
+            break;
+          case 2: // Customer
+            aValue = a.customer;
+            bValue = b.customer;
+            break;
+          case 3: // Total
+            aValue = parseFloat(a.total.replace(/[$,]/g, ""));
+            bValue = parseFloat(b.total.replace(/[$,]/g, ""));
+            break;
+          default:
+            return 0;
+        }
+
+        if (direction === "ascending") {
+          return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+        } else {
+          return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+        }
+      });
+
+      setOrders(sortedOrders);
+    };
+
+    const rowMarkup = orders.map(
+      (
+        { id, order, date, customer, total, paymentStatus, fulfillmentStatus },
+        index
+      ) => (
+        <IndexTable.Row
+          id={id}
+          key={id}
+          selected={selectedResources.includes(id)}
+          position={index}>
+          <IndexTable.Cell>
+            <Text variant="bodyMd" fontWeight="bold" as="span">
+              {order}
+            </Text>
+          </IndexTable.Cell>
+          <IndexTable.Cell>{date}</IndexTable.Cell>
+          <IndexTable.Cell>{customer}</IndexTable.Cell>
+          <IndexTable.Cell>
+            <Text as="span" alignment="end" numeric>
+              {total}
+            </Text>
+          </IndexTable.Cell>
+          <IndexTable.Cell>{paymentStatus}</IndexTable.Cell>
+          <IndexTable.Cell>{fulfillmentStatus}</IndexTable.Cell>
+        </IndexTable.Row>
+      )
+    );
+
+    return (
+      <Card>
+        <IndexTable
+          resourceName={resourceName}
+          itemCount={orders.length}
+          selectedItemsCount={
+            allResourcesSelected ? "All" : selectedResources.length
+          }
+          onSelectionChange={handleSelectionChange}
+          sortable={[true, true, true, true, false, false]} // First 4 columns are sortable
+          sortColumnIndex={sortColumnIndex}
+          sortDirection={sortDirection}
+          onSort={handleSort}
+          headings={[
+            { title: "Order" },
+            { title: "Date" },
+            { title: "Customer" },
+            { title: "Total", alignment: "end" },
+            { title: "Payment status" },
+            { title: "Fulfillment status" },
+          ]}>
+          {rowMarkup}
+        </IndexTable>
+      </Card>
+    );
+  },
+};
+
 export const WithIndexFilters: Story = {
-  render: () => {
+  render: function WithIndexFiltersStory() {
     const { mode, setMode } = useSetIndexFiltersMode();
     const [queryValue, setQueryValue] = useState("");
-    const [sortSelected, setSortSelected] = useState(["order asc"]);
+    const [statusFilter, setStatusFilter] = useState<string[]>([]);
+    const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
 
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
 
-    const sortOptions = [
-      { label: "Order", value: "order asc", directionLabel: "Ascending" },
-      { label: "Order", value: "order desc", directionLabel: "Descending" },
-      { label: "Customer", value: "customer asc", directionLabel: "A-Z" },
-      { label: "Customer", value: "customer desc", directionLabel: "Z-A" },
-      { label: "Date", value: "date asc", directionLabel: "A-Z" },
-      { label: "Date", value: "date desc", directionLabel: "Z-A" },
-      { label: "Total", value: "total asc", directionLabel: "Ascending" },
-      { label: "Total", value: "total desc", directionLabel: "Descending" },
-    ];
-
-    // const { mode, setMode } = useSetIndexFiltersMode();
-    // const [queryValue, setQueryValue] = useState("");
     const [selected, setSelected] = useState(0);
     const [tabItems, setTabItems] = useState([
       "All",
@@ -492,7 +645,7 @@ export const WithIndexFilters: Story = {
           selected={selected}
           onSelect={setSelected}
           canCreateNewView
-          onCreateNewView={async name => {
+          onCreateNewView={async _name => {
             // setTabItems([...tabItems, name]);
             // setSelected(tabItems.length);
             return true;
@@ -506,11 +659,9 @@ export const WithIndexFilters: Story = {
                 { label: "Inactive", value: "inactive" },
                 { label: "Pending", value: "pending" },
               ],
-              selected: [],
+              selected: statusFilter,
               allowMultiple: true,
-              onChange: (selected, key) => {
-                console.log(`Filter ${key} changed:`, selected);
-              },
+              onChange: selected => setStatusFilter(selected),
             },
             {
               key: "category",
@@ -520,11 +671,9 @@ export const WithIndexFilters: Story = {
                 { label: "Clothing", value: "clothing" },
                 { label: "Books", value: "books" },
               ],
-              selected: [],
-              allowMultiple: false,
-              onChange: (selected, key) => {
-                console.log(`Filter ${key} changed:`, selected);
-              },
+              selected: categoryFilter,
+              allowMultiple: true,
+              onChange: selected => setCategoryFilter(selected),
             },
           ]}
         />
@@ -534,6 +683,29 @@ export const WithIndexFilters: Story = {
           selectedItemsCount={
             allResourcesSelected ? "All" : selectedResources.length
           }
+          bulkActions={[
+            {
+              content: "Mark as fulfilled",
+              onAction: () => {
+                alert(
+                  `Marking ${selectedResources.length} orders as fulfilled`
+                );
+              },
+            },
+            {
+              content: "Archive orders",
+              onAction: () => {
+                alert(`Archiving ${selectedResources.length} orders`);
+              },
+            },
+            {
+              content: "Delete",
+              onAction: () => {
+                alert(`Deleting ${selectedResources.length} orders`);
+              },
+              destructive: true,
+            },
+          ]}
           onSelectionChange={handleSelectionChange}
           hasIndexFilters={true}
           headings={[
@@ -547,9 +719,6 @@ export const WithIndexFilters: Story = {
           {rowMarkup}
         </IndexTable>
       </>
-      // <Card>
-
-      // </Card>
     );
   },
   parameters: {
@@ -563,113 +732,194 @@ export const WithIndexFilters: Story = {
 };
 
 // Complete integration with IndexFilters and Pagination
+const CompleteIntegrationComponent = () => {
+  const { mode, setMode } = useSetIndexFiltersMode();
+  const [queryValue, setQueryValue] = useState("");
+  const [sortSelected, setSortSelected] = useState(["order asc"]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
+
+  // Sorting state
+  const [sortColumnIndex, setSortColumnIndex] = useState<number | undefined>(
+    undefined
+  );
+  const [sortDirection, setSortDirection] = useState<
+    "ascending" | "descending" | undefined
+  >(undefined);
+  const [orders, setOrders] = useState(sampleOrders);
+
+  const resourceName = { singular: "order", plural: "orders" };
+  const { selectedResources, allResourcesSelected, handleSelectionChange } =
+    useIndexResourceState(orders);
+
+  const sortOptions = [
+    { label: "Order", value: "order asc", directionLabel: "Ascending" },
+    { label: "Order", value: "order desc", directionLabel: "Descending" },
+    { label: "Customer", value: "customer asc", directionLabel: "A-Z" },
+    { label: "Customer", value: "customer desc", directionLabel: "Z-A" },
+  ];
+
+  // Handle sorting
+  const handleSort = (
+    headingIndex: number,
+    direction: "ascending" | "descending"
+  ) => {
+    setSortColumnIndex(headingIndex);
+    setSortDirection(direction);
+
+    // Sort the data based on the column and direction
+    const sortedOrders = [...orders].sort((a, b) => {
+      let aValue: string | number;
+      let bValue: string | number;
+
+      switch (headingIndex) {
+        case 0: // Order
+          aValue = a.order;
+          bValue = b.order;
+          break;
+        case 1: // Date
+          aValue = a.date;
+          bValue = b.date;
+          break;
+        case 2: // Customer
+          aValue = a.customer;
+          bValue = b.customer;
+          break;
+        case 3: // Total
+          aValue = parseFloat(a.total.replace(/[$,]/g, ""));
+          bValue = parseFloat(b.total.replace(/[$,]/g, ""));
+          break;
+        default:
+          return 0;
+      }
+
+      if (direction === "ascending") {
+        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+      } else {
+        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+      }
+    });
+
+    setOrders(sortedOrders);
+  };
+
+  // Bulk actions
+  const bulkActions = [
+    {
+      content: "Mark as fulfilled",
+      onAction: () => {
+        alert(`Marking ${selectedResources.length} orders as fulfilled`);
+      },
+    },
+    {
+      content: "Archive orders",
+      onAction: () => {
+        alert(`Archiving ${selectedResources.length} orders`);
+      },
+    },
+    {
+      content: "Delete",
+      onAction: () => {
+        alert(`Deleting ${selectedResources.length} orders`);
+      },
+      destructive: true,
+    },
+  ];
+
+  // Simple pagination logic
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentOrders = orders.slice(startIndex, endIndex);
+
+  const rowMarkup = currentOrders.map((order, index) => (
+    <IndexTable.Row
+      id={order.id}
+      key={order.id}
+      selected={selectedResources.includes(order.id)}
+      position={startIndex + index}>
+      <IndexTable.Cell>
+        <Text variant="bodyMd" fontWeight="bold" as="span">
+          {order.order}
+        </Text>
+      </IndexTable.Cell>
+      <IndexTable.Cell>{order.date}</IndexTable.Cell>
+      <IndexTable.Cell>{order.customer}</IndexTable.Cell>
+      <IndexTable.Cell>
+        <Text as="span" alignment="end">
+          {order.total}
+        </Text>
+      </IndexTable.Cell>
+      <IndexTable.Cell>
+        <Badge
+          progress={
+            order.paymentStatus === "Paid" ? "complete" : "partiallyComplete"
+          }>
+          {order.paymentStatus}
+        </Badge>
+      </IndexTable.Cell>
+      <IndexTable.Cell>
+        <Badge progress="incomplete">{order.fulfillmentStatus}</Badge>
+      </IndexTable.Cell>
+    </IndexTable.Row>
+  ));
+
+  return (
+    <>
+      <IndexFilters
+        sortOptions={sortOptions}
+        sortSelected={sortSelected}
+        queryValue={queryValue}
+        queryPlaceholder="Searching in all orders"
+        onQueryChange={setQueryValue}
+        onQueryClear={() => setQueryValue("")}
+        onSort={setSortSelected}
+        mode={mode}
+        setMode={setMode}
+      />
+      <IndexTable
+        resourceName={resourceName}
+        itemCount={orders.length}
+        selectedItemsCount={
+          allResourcesSelected ? "All" : selectedResources.length
+        }
+        onSelectionChange={handleSelectionChange}
+        hasIndexFilters={true}
+        // Sorting props
+        sortable={[true, true, true, true, false, false]} // First 4 columns are sortable
+        sortColumnIndex={sortColumnIndex}
+        sortDirection={sortDirection}
+        onSort={handleSort}
+        // Bulk actions
+        bulkActions={bulkActions}
+        pagination={{
+          hasPrevious: currentPage > 1,
+          hasNext: currentPage < totalPages,
+          onPrevious: () => setCurrentPage(prev => Math.max(1, prev - 1)),
+          onNext: () => setCurrentPage(prev => Math.min(totalPages, prev + 1)),
+          label: `Page ${currentPage} of ${totalPages}`,
+        }}
+        headings={[
+          { title: "Order" },
+          { title: "Date" },
+          { title: "Customer" },
+          { title: "Total", alignment: "end" },
+          { title: "Payment status" },
+          { title: "Fulfillment status" },
+        ]}>
+        {rowMarkup}
+      </IndexTable>
+    </>
+  );
+};
+
 export const CompleteIntegration: Story = {
-  render: () => {
-    const { mode, setMode } = useSetIndexFiltersMode();
-    const [queryValue, setQueryValue] = useState("");
-    const [sortSelected, setSortSelected] = useState(["order asc"]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 2;
-
-    const resourceName = { singular: "order", plural: "orders" };
-    const { selectedResources, allResourcesSelected, handleSelectionChange } =
-      useIndexResourceState(sampleOrders);
-
-    const sortOptions = [
-      { label: "Order", value: "order asc", directionLabel: "Ascending" },
-      { label: "Order", value: "order desc", directionLabel: "Descending" },
-      { label: "Customer", value: "customer asc", directionLabel: "A-Z" },
-      { label: "Customer", value: "customer desc", directionLabel: "Z-A" },
-    ];
-
-    // Simple pagination logic
-    const totalPages = Math.ceil(sampleOrders.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentOrders = sampleOrders.slice(startIndex, endIndex);
-
-    const rowMarkup = currentOrders.map((order, index) => (
-      <IndexTable.Row
-        id={order.id}
-        key={order.id}
-        selected={selectedResources.includes(order.id)}
-        position={startIndex + index}>
-        <IndexTable.Cell>
-          <Text variant="bodyMd" fontWeight="bold" as="span">
-            {order.order}
-          </Text>
-        </IndexTable.Cell>
-        <IndexTable.Cell>{order.date}</IndexTable.Cell>
-        <IndexTable.Cell>{order.customer}</IndexTable.Cell>
-        <IndexTable.Cell>
-          <Text as="span" alignment="end">
-            {order.total}
-          </Text>
-        </IndexTable.Cell>
-        <IndexTable.Cell>
-          <Badge
-            progress={
-              order.paymentStatus === "Paid" ? "complete" : "partiallyComplete"
-            }>
-            {order.paymentStatus}
-          </Badge>
-        </IndexTable.Cell>
-        <IndexTable.Cell>
-          <Badge progress="incomplete">{order.fulfillmentStatus}</Badge>
-        </IndexTable.Cell>
-      </IndexTable.Row>
-    ));
-
-    return (
-      <>
-        <IndexFilters
-          sortOptions={sortOptions}
-          sortSelected={sortSelected}
-          queryValue={queryValue}
-          queryPlaceholder="Searching in all orders"
-          onQueryChange={setQueryValue}
-          onQueryClear={() => setQueryValue("")}
-          onSort={setSortSelected}
-          mode={mode}
-          setMode={setMode}
-        />
-        <IndexTable
-          resourceName={resourceName}
-          itemCount={sampleOrders.length}
-          selectedItemsCount={
-            allResourcesSelected ? "All" : selectedResources.length
-          }
-          onSelectionChange={handleSelectionChange}
-          hasIndexFilters={true}
-          pagination={{
-            hasPrevious: currentPage > 1,
-            hasNext: currentPage < totalPages,
-            onPrevious: () => setCurrentPage(prev => Math.max(1, prev - 1)),
-            onNext: () =>
-              setCurrentPage(prev => Math.min(totalPages, prev + 1)),
-            label: `Page ${currentPage} of ${totalPages}`,
-          }}
-          headings={[
-            { title: "Order" },
-            { title: "Date" },
-            { title: "Customer" },
-            { title: "Total", alignment: "end" },
-            { title: "Payment status" },
-            { title: "Fulfillment status" },
-          ]}>
-          {rowMarkup}
-        </IndexTable>
-      </>
-      // <Card>
-
-      // </Card>
-    );
-  },
+  render: () => <CompleteIntegrationComponent />,
   parameters: {
     docs: {
       description: {
         story:
-          "Complete integration showing IndexTable with IndexFilters and Pagination working together.",
+          "Complete integration showing IndexTable with IndexFilters, Pagination, column sorting, and bulk actions working together.",
       },
     },
   },
@@ -680,7 +930,7 @@ export const WithZebraStriping: Story = {
   args: {
     hasZebraStriping: true,
   },
-  render: args => {
+  render: function ZebraStripingStory(args) {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);
@@ -731,7 +981,7 @@ export const WithZebraStriping: Story = {
 
 // Conditional styling demonstration
 export const ConditionalStyling: Story = {
-  render: () => {
+  render: function ConditionalStylingStory() {
     const resourceName = { singular: "order", plural: "orders" };
     const { selectedResources, allResourcesSelected, handleSelectionChange } =
       useIndexResourceState(sampleOrders);

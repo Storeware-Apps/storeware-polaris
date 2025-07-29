@@ -798,6 +798,7 @@ const polarisBoxVariants = cva("", {
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Box = React.forwardRef<any, EnhancedBoxProps>(
   (
     {
@@ -912,8 +913,8 @@ export const Box = React.forwardRef<any, EnhancedBoxProps>(
       outlineStyle === "dashed"
         ? "outline-dashed"
         : outlineStyle === "solid"
-        ? "outline-solid"
-        : "",
+          ? "outline-solid"
+          : "",
       outlineWidth &&
         getBorderWidthClass(outlineWidth).replace("border-", "outline-"),
       className
@@ -937,8 +938,7 @@ export const Box = React.forwardRef<any, EnhancedBoxProps>(
         id={id}
         role={role}
         tabIndex={tabIndex}
-        {...props}
-      >
+        {...props}>
         {children}
       </Component>
     );

@@ -40,7 +40,7 @@ export interface ChoiceListProps {
   /** Toggles display of the title */
   titleHidden?: boolean;
   /** Display an error message */
-  error?: any;
+  error?: string | React.ReactNode;
   /** Disable all choices */
   disabled?: boolean;
   /** Callback when the selected choices change */
@@ -80,7 +80,7 @@ const polarisChoiceListVariants = cva("space-y-1", {
 });
 
 const choiceVariants = cva(
-  "flex items-start gap-1 p-1 rounded-lg transition-colors",
+  "flex items-center justify-center gap-2 rounded-lg transition-colors",
   {
     variants: {
       disabled: {
@@ -88,7 +88,7 @@ const choiceVariants = cva(
         false: "cursor-pointer",
       },
       selected: {
-        true: "bg-black border-black",
+        true: "border-black",
         false: "",
       },
     },
@@ -116,7 +116,6 @@ export const ChoiceList = React.forwardRef<
       onChange,
       tone,
       className,
-      asChild = false,
       ...props
     },
     ref
@@ -170,7 +169,7 @@ export const ChoiceList = React.forwardRef<
           </legend>
         )}
 
-        <div>
+        <>
           {choices.map((choice, index) => {
             const isSelected = selected.includes(choice.value);
             const inputId = `${name}-${choice.value}-${index}`;
@@ -179,7 +178,7 @@ export const ChoiceList = React.forwardRef<
             return (
               <label
                 key={choice.value}
-                htmlFor={inputId}
+                // htmlFor={inputId}
                 className={cn(
                   choiceVariants({
                     disabled: disabled || choice.disabled,
@@ -196,18 +195,14 @@ export const ChoiceList = React.forwardRef<
                   onChange={e =>
                     handleChoiceChange(choice.value, e.target.checked)
                   }
-                  className="mt-0.5 h-4 w-4 text-black rounded hover:bg-gray-400 accent-black"
+                  className="mt-0.5 h-4 w-4 text-black rounded accent-black cursor-pointer"
                 />
-                <div className="flex-1 min-w-0">
+                <div className="flex-1">
                   <Text variant="bodyMd" as="span">
                     {choice.label}
                   </Text>
                   {choice.helpText && (
-                    <Text
-                      variant="bodySm"
-                      as="p"
-                      tone="subdued"
-                      className="mt-1">
+                    <Text variant="bodySm" as="p" tone="subdued">
                       {choice.helpText}
                     </Text>
                   )}
@@ -215,11 +210,13 @@ export const ChoiceList = React.forwardRef<
               </label>
             );
           })}
-        </div>
+        </>
 
-        <Button variant="plain" onClick={handleClear} disabled={disabled}>
-          Clear
-        </Button>
+        {selected.length > 0 && (
+          <Button variant="plain" onClick={handleClear} disabled={disabled}>
+            Clear
+          </Button>
+        )}
 
         {error && (
           <Text variant="bodySm" tone="critical" as="p" className="mt-2">

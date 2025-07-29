@@ -162,7 +162,6 @@ export const NonWrapping: Story = {
 };
 
 export const Gap: Story = {
-  name: "Gap",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       <div>
@@ -447,7 +446,6 @@ export const Align: Story = {
 };
 
 export const Direction: Story = {
-  name: "Direction",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       <div>
