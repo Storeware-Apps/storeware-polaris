@@ -254,7 +254,7 @@ export declare interface ChoiceListProps {
     /** Toggles display of the title */
     titleHidden?: boolean;
     /** Display an error message */
-    error?: any;
+    error?: string | React_2.ReactNode;
     /** Disable all choices */
     disabled?: boolean;
     /** Callback when the selected choices change */
@@ -1251,7 +1251,9 @@ export declare type PolarisFilterDescriptor = FilterDescriptor;
 
 export declare interface PolarisIconProps {
     /** The SVG contents to display in the icon (icons should fit in a 20 × 20 pixel viewBox) */
-    source: any;
+    source: React_2.ComponentType<{
+        className?: string;
+    }> | React_2.ReactElement | string;
     /** Set the color for the SVG fill */
     tone?: IconTone;
     /** Descriptive text to be read to screenreaders */

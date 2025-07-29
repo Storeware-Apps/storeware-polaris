@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { BlockStack } from "./blockStack";
+import { TextField } from "../TextField/TextField";
+import { Text } from "../Text/Text";
 
 const meta: Meta<typeof BlockStack> = {
   title: "Layout and Structure/BlockStack",
@@ -284,5 +286,239 @@ export const ResponsiveGap: Story = {
         <Placeholder>Responsive Item 3</Placeholder>
       </BlockStack>
     </SpacingBackground>
+  ),
+};
+
+// Full-width TextField components example
+export const FullWidthTextFields: Story = {
+  args: {
+    gap: "400",
+  },
+  render: args => (
+    <div style={{ padding: "20px", maxWidth: "600px", background: "#f6f6f7" }}>
+      <Text variant="headingMd" as="h3" style={{ marginBottom: "16px" }}>
+        TextField Components with Full Width
+      </Text>
+      <BlockStack {...args}>
+        <TextField
+          label="First Name"
+          value=""
+          onChange={() => {}}
+          placeholder="Enter your first name"
+        />
+        <TextField
+          label="Last Name"
+          value=""
+          onChange={() => {}}
+          placeholder="Enter your last name"
+        />
+        <TextField
+          label="Email Address"
+          type="email"
+          value=""
+          onChange={() => {}}
+          placeholder="Enter your email"
+        />
+        <TextField
+          label="Company"
+          value=""
+          onChange={() => {}}
+          placeholder="Enter your company name"
+        />
+      </BlockStack>
+    </div>
+  ),
+};
+
+// Full-width Text components example
+export const FullWidthTextComponents: Story = {
+  args: {
+    gap: "300",
+  },
+  render: args => (
+    <div style={{ padding: "20px", maxWidth: "600px", background: "#f6f6f7" }}>
+      <Text variant="headingMd" as="h3" style={{ marginBottom: "16px" }}>
+        Text Components with Full Width
+      </Text>
+      <BlockStack {...args}>
+        <Text variant="headingLg" as="h2">
+          Main Heading - Full Width
+        </Text>
+        <Text variant="bodyLg">
+          This is a large body text that demonstrates full width behavior within
+          the BlockStack container. Notice how it spans the entire width.
+        </Text>
+        <Text variant="bodyMd">
+          This is medium body text that also takes full width by default. The
+          BlockStack component ensures all children receive full width styling.
+        </Text>
+        <Text variant="bodySm" tone="subdued">
+          Small subdued text that also spans full width, maintaining consistency
+          across all text variants.
+        </Text>
+      </BlockStack>
+    </div>
+  ),
+};
+
+// Mixed components with full width
+export const MixedComponentsFullWidth: Story = {
+  args: {
+    gap: "400",
+  },
+  render: args => (
+    <div style={{ padding: "20px", maxWidth: "600px", background: "#f6f6f7" }}>
+      <Text variant="headingMd" as="h3" style={{ marginBottom: "16px" }}>
+        Mixed Components with Full Width
+      </Text>
+      <BlockStack {...args}>
+        <Text variant="headingLg" as="h2">
+          Contact Information
+        </Text>
+        <TextField
+          label="Full Name"
+          value=""
+          onChange={() => {}}
+          placeholder="Enter your full name"
+        />
+        <Text variant="bodyMd">
+          Please provide your contact details below. All fields are required for
+          processing your request.
+        </Text>
+        <TextField
+          label="Phone Number"
+          type="tel"
+          value=""
+          onChange={() => {}}
+          placeholder="(555) 123-4567"
+        />
+        <Text variant="bodySm" tone="subdued">
+          We'll use this information to contact you about your inquiry.
+        </Text>
+      </BlockStack>
+    </div>
+  ),
+};
+
+// ClassName override examples
+export const ClassNameOverrides: Story = {
+  args: {
+    gap: "400",
+  },
+  render: args => (
+    <div style={{ padding: "20px", maxWidth: "600px", background: "#f6f6f7" }}>
+      <Text variant="headingMd" as="h3" style={{ marginBottom: "16px" }}>
+        ClassName Override Examples
+      </Text>
+      <BlockStack {...args}>
+        <Text variant="bodyMd">
+          Default full-width text component (no className override)
+        </Text>
+        <Text variant="bodyMd" className="w-1/2">
+          Half-width text using className="w-1/2" override
+        </Text>
+        <Text variant="bodyMd" className="w-1/3">
+          One-third width text using className="w-1/3" override
+        </Text>
+        <TextField
+          label="Default Full Width TextField"
+          value=""
+          onChange={() => {}}
+          placeholder="This takes full width by default"
+        />
+        <TextField
+          label="Custom Width TextField"
+          value=""
+          onChange={() => {}}
+          placeholder="This has custom width"
+          className="w-2/3"
+        />
+        <div
+          className="w-1/4"
+          style={{
+            background: "#e3e3e3",
+            padding: "12px",
+            borderRadius: "4px",
+          }}>
+          <Text variant="bodySm">Custom div with w-1/4 className override</Text>
+        </div>
+      </BlockStack>
+    </div>
+  ),
+};
+
+// Alignment with width behavior
+export const AlignmentWithWidth: Story = {
+  args: {
+    gap: "300",
+    inlineAlign: "center",
+  },
+  render: args => (
+    <div style={{ padding: "20px", maxWidth: "600px", background: "#f6f6f7" }}>
+      <Text variant="headingMd" as="h3" style={{ marginBottom: "16px" }}>
+        Center Alignment with Width Overrides
+      </Text>
+      <BlockStack {...args}>
+        <Text variant="bodyMd">Full-width text (default behavior)</Text>
+        <Text variant="bodyMd" className="w-1/2">
+          Half-width text, centered in container
+        </Text>
+        <TextField
+          label="Centered TextField"
+          value=""
+          onChange={() => {}}
+          placeholder="Half width, centered"
+          className="w-1/2"
+        />
+        <div
+          className="w-1/3"
+          style={{
+            background: "#e3e3e3",
+            padding: "12px",
+            borderRadius: "4px",
+          }}>
+          <Text variant="bodySm" alignment="center">
+            One-third width, centered
+          </Text>
+        </div>
+      </BlockStack>
+    </div>
+  ),
+};
+
+// Stretch alignment demonstration
+export const StretchAlignment: Story = {
+  args: {
+    gap: "300",
+    inlineAlign: "stretch",
+  },
+  render: args => (
+    <div style={{ padding: "20px", maxWidth: "600px", background: "#f6f6f7" }}>
+      <Text variant="headingMd" as="h3" style={{ marginBottom: "16px" }}>
+        Stretch Alignment (inlineAlign="stretch")
+      </Text>
+      <BlockStack {...args}>
+        <Text variant="bodyMd">
+          With stretch alignment, all children naturally take full width
+        </Text>
+        <TextField
+          label="Stretched TextField"
+          value=""
+          onChange={() => {}}
+          placeholder="Automatically stretched to full width"
+        />
+        <div
+          style={{
+            background: "#e3e3e3",
+            padding: "12px",
+            borderRadius: "4px",
+            minHeight: "60px",
+          }}>
+          <Text variant="bodySm">
+            This div stretches to full width and height
+          </Text>
+        </div>
+      </BlockStack>
+    </div>
   ),
 };

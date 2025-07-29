@@ -65,7 +65,7 @@ A comprehensive Text component that provides 100% API compatibility with Shopify
       control: "select",
       options: [
         "headingXs",
-        "headingSm", 
+        "headingSm",
         "headingMd",
         "headingLg",
         "headingXl",
@@ -80,7 +80,20 @@ A comprehensive Text component that provides 100% API compatibility with Shopify
     },
     as: {
       control: "select",
-      options: ["dt", "dd", "h1", "h2", "h3", "h4", "h5", "h6", "p", "span", "strong", "legend"],
+      options: [
+        "dt",
+        "dd",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "p",
+        "span",
+        "strong",
+        "legend",
+      ],
       description: "HTML element type",
     },
     alignment: {
@@ -168,13 +181,27 @@ export const Heading: Story = {
 export const HeadingVariants: Story = {
   render: () => (
     <div className="space-y-4">
-      <Text variant="heading3xl" as="h1">Heading 3XL</Text>
-      <Text variant="heading2xl" as="h2">Heading 2XL</Text>
-      <Text variant="headingXl" as="h3">Heading XL</Text>
-      <Text variant="headingLg" as="h4">Heading Large</Text>
-      <Text variant="headingMd" as="h5">Heading Medium</Text>
-      <Text variant="headingSm" as="h6">Heading Small</Text>
-      <Text variant="headingXs" as="h6">Heading XS</Text>
+      <Text variant="heading3xl" as="h1">
+        Heading 3XL
+      </Text>
+      <Text variant="heading2xl" as="h2">
+        Heading 2XL
+      </Text>
+      <Text variant="headingXl" as="h3">
+        Heading XL
+      </Text>
+      <Text variant="headingLg" as="h4">
+        Heading Large
+      </Text>
+      <Text variant="headingMd" as="h5">
+        Heading Medium
+      </Text>
+      <Text variant="headingSm" as="h6">
+        Heading Small
+      </Text>
+      <Text variant="headingXs" as="h6">
+        Heading XS
+      </Text>
     </div>
   ),
 };
@@ -182,10 +209,18 @@ export const HeadingVariants: Story = {
 export const BodyVariants: Story = {
   render: () => (
     <div className="space-y-2">
-      <Text variant="bodyLg">Body Large - This is larger body text for emphasis</Text>
-      <Text variant="bodyMd">Body Medium - This is the default body text size</Text>
-      <Text variant="bodySm">Body Small - This is smaller body text for captions</Text>
-      <Text variant="bodyXs">Body XS - This is the smallest body text size</Text>
+      <Text variant="bodyLg">
+        Body Large - This is larger body text for emphasis
+      </Text>
+      <Text variant="bodyMd">
+        Body Medium - This is the default body text size
+      </Text>
+      <Text variant="bodySm">
+        Body Small - This is smaller body text for captions
+      </Text>
+      <Text variant="bodyXs">
+        Body XS - This is the smallest body text size
+      </Text>
     </div>
   ),
 };
@@ -213,7 +248,10 @@ export const Alignments: Story = {
       <Text alignment="start">Left aligned text</Text>
       <Text alignment="center">Center aligned text</Text>
       <Text alignment="end">Right aligned text</Text>
-      <Text alignment="justify">Justified text that will wrap and justify across multiple lines when the content is long enough</Text>
+      <Text alignment="justify">
+        Justified text that will wrap and justify across multiple lines when the
+        content is long enough
+      </Text>
     </div>
   ),
 };
@@ -240,19 +278,19 @@ export const SpecialFeatures: Story = {
           <Text breakWord>ThisIsAVeryLongWordThatWouldNormallyOverflow</Text>
         </div>
       </div>
-      
+
       <div>
         <Text variant="headingSm">Truncate:</Text>
         <div className="w-32 border border-gray-200 p-2">
           <Text truncate>This is a very long text that will be truncated</Text>
         </div>
       </div>
-      
+
       <div>
         <Text variant="headingSm">Numeric:</Text>
         <Text numeric>1234567890</Text>
       </div>
-      
+
       <div>
         <Text variant="headingSm">Line Through:</Text>
         <Text textDecorationLine="line-through">Strikethrough text</Text>
@@ -265,7 +303,9 @@ export const SpecialFeatures: Story = {
 export const InverseText: Story = {
   render: () => (
     <div className="bg-gray-900 p-4 space-y-2">
-      <Text tone="text-inverse" variant="headingMd">Inverse text on dark background</Text>
+      <Text tone="text-inverse" variant="headingMd">
+        Inverse text on dark background
+      </Text>
       <Text tone="text-inverse-secondary">Secondary inverse text</Text>
     </div>
   ),
