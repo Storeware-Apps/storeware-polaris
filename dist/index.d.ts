@@ -12,6 +12,27 @@ export declare interface AccessibilityLabels {
     next?: string;
 }
 
+declare interface Action {
+    /** A unique identifier for the action */
+    id?: string;
+    /** Content the action displays */
+    content?: string;
+    /** Visually hidden text for screen readers */
+    accessibilityLabel?: string;
+    /** A destination to link to, rendered in the action */
+    url?: string;
+    /** Forces url to open in a new tab */
+    external?: boolean;
+    /** Where to display the url */
+    target?: "_blank" | "_self" | "_parent" | "_top";
+    /** Callback when an action takes place */
+    onAction?(): void;
+    /** Callback when mouse enter */
+    onMouseEnter?(): void;
+    /** Callback when element is touched */
+    onTouchStart?(): void;
+}
+
 export declare interface AppBridgeModalProps {
     /** A unique identifier for the Modal */
     id: string;
@@ -351,6 +372,11 @@ export declare interface EnhancedPaginationProps extends PaginationProps {
 
 export declare interface EnhancedPopoverProps extends PolarisPopoverProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
+export declare interface EnhancedSelectProps extends PolarisSelectProps {
+    /** Additional CSS class name for custom styling */
     className?: string;
 }
 
@@ -1399,6 +1425,49 @@ export declare const polarisPopoverVariants: (props?: ({
     hideOnPrint?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare interface PolarisSelectProps {
+    /** List of options or option groups to choose from */
+    options?: (SelectOption | SelectGroup)[];
+    /** Label for the select */
+    label: React_2.ReactNode;
+    /** Adds an action to the label */
+    labelAction?: Action;
+    /** Visually hide the label */
+    labelHidden?: boolean;
+    /** Show the label to the left of the value, inside the control */
+    labelInline?: boolean;
+    /** Disable input */
+    disabled?: boolean;
+    /** Additional text to aide in use */
+    helpText?: React_2.ReactNode;
+    /** Example text to display as placeholder */
+    placeholder?: string;
+    /** ID for form input */
+    id?: string;
+    /** Name for form input */
+    name?: string;
+    /** Value for form input */
+    value?: string;
+    /** Display an error state */
+    error?: SelectError;
+    /** Callback when selection is changed */
+    onChange?(selected: string, id: string): void;
+    /** Callback when select is focused */
+    onFocus?(event?: React_2.FocusEvent<HTMLButtonElement>): void;
+    /** Callback when focus is removed */
+    onBlur?(event?: React_2.FocusEvent<HTMLButtonElement>): void;
+    /** Visual required indicator, add an asterisk to label */
+    requiredIndicator?: boolean;
+    /** Indicates the tone of the select */
+    tone?: "magic";
+}
+
+export declare const polarisSelectVariants: (props?: ({
+    tone?: "default" | "magic" | null | undefined;
+    error?: boolean | null | undefined;
+    labelInline?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare type PolarisSortButtonChoice = SortButtonChoice;
 
 export declare type PolarisTabProps = TabProps;
@@ -1480,7 +1549,21 @@ export declare const saveBarVariants: (props?: ({
     open?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare const Select: React_2.ForwardRefExoticComponent<SelectProps & React_2.RefAttributes<HTMLButtonElement>>;
+
+export declare type SelectError = string | boolean | React_2.ReactNode;
+
+export declare interface SelectGroup {
+    title: string;
+    options: SelectOption[];
+}
+
 export declare type SelectionType = "single" | "multiple" | "page" | "all";
+
+export declare type SelectOption = string | StrictOption;
+
+export declare interface SelectProps extends EnhancedSelectProps {
+}
 
 export declare type ShadowAliasOrScale = "0" | "100" | "200" | "300" | "400" | "500" | "600" | "bevel-100" | "inset-100" | "inset-200" | "button" | "button-hover" | "button-inset" | "button-primary" | "button-primary-hover" | "button-primary-inset" | "button-primary-critical" | "button-primary-critical-hover" | "button-primary-critical-inset" | "button-primary-success" | "button-primary-success-hover" | "button-primary-success-inset" | "border-inset";
 
@@ -1496,6 +1579,19 @@ export declare interface SortButtonChoice {
 export declare type SpaceScale = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
 
 declare type SpaceScale_2 = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
+
+export declare interface StrictOption {
+    /** Machine value of the option; this is the value passed to `onChange` */
+    value: string;
+    /** Human-readable text for the option */
+    label: string;
+    /** Option will be visible, but not selectable */
+    disabled?: boolean;
+    /** Element to display to the left of the option label. Does not show in the dropdown. */
+    prefix?: React_2.ReactNode;
+    /** Unique key applied to the option element. Defaults to option value prop when undefined. */
+    key?: string;
+}
 
 export declare interface TabAction {
     /** Type of action */

@@ -21,6 +21,9 @@ export {
   textFieldVariants,
 } from "./components/TextField/TextField.js";
 
+// Export Select component
+export { Select, polarisSelectVariants } from "./components/Select/select.js";
+
 // Export Popover component
 export {
   Popover,
@@ -352,6 +355,17 @@ export type {
   AppBridgeToastAPI,
   EnhancedToastProps,
 } from "./components/Toast/toast";
+
+// Export Select types (consolidated in select.tsx following shadcn/ui pattern)
+export type {
+  PolarisSelectProps,
+  EnhancedSelectProps,
+  SelectProps,
+  SelectOption,
+  StrictOption,
+  SelectGroup,
+  SelectError,
+} from "./components/Select/select";
 
 // Export utilities
 export { cn } from "./lib/utils.js";

@@ -305,12 +305,14 @@ export const FullWidthTextFields: Story = {
           value=""
           onChange={() => {}}
           placeholder="Enter your first name"
+          autoComplete="off"
         />
         <TextField
           label="Last Name"
           value=""
           onChange={() => {}}
           placeholder="Enter your last name"
+          autoComplete="off"
         />
         <TextField
           label="Email Address"
@@ -318,12 +320,14 @@ export const FullWidthTextFields: Story = {
           value=""
           onChange={() => {}}
           placeholder="Enter your email"
+          autoComplete="email"
         />
         <TextField
           label="Company"
           value=""
           onChange={() => {}}
           placeholder="Enter your company name"
+          autoComplete="off"
         />
       </BlockStack>
     </div>
@@ -425,6 +429,7 @@ export const ClassNameOverrides: Story = {
           value=""
           onChange={() => {}}
           placeholder="This takes full width by default"
+          autoComplete="off"
         />
         <TextField
           label="Custom Width TextField"
@@ -432,6 +437,7 @@ export const ClassNameOverrides: Story = {
           onChange={() => {}}
           placeholder="This has custom width"
           className="w-2/3"
+          autoComplete="off"
         />
         <div
           className="w-1/4"
@@ -506,6 +512,7 @@ export const StretchAlignment: Story = {
           value=""
           onChange={() => {}}
           placeholder="Automatically stretched to full width"
+          autoComplete="off"
         />
         <div
           style={{
