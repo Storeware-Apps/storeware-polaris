@@ -8698,8 +8698,8 @@ const Xo = (e) => e && {
     }
   }), t.join(" ");
 }, Yf = re(
-  "flex flex-col [&>*]:w-full",
-  // Base flexbox styling with column direction and full-width children
+  "flex flex-col",
+  // Base flexbox styling with column direction - children stretch by default with items-stretch
   {
     variants: {
       align: {
@@ -8718,13 +8718,14 @@ const Xo = (e) => e && {
         stretch: "items-stretch"
       },
       reverseOrder: {
-        true: "flex-col-reverse [&>*]:w-full",
-        false: "flex-col [&>*]:w-full"
+        true: "flex-col-reverse",
+        false: "flex-col"
       }
     },
     defaultVariants: {
       align: "start",
-      inlineAlign: "start",
+      inlineAlign: "stretch",
+      // Default to stretch for full-width children behavior
       reverseOrder: !1
     }
   }
@@ -8733,7 +8734,8 @@ const Xo = (e) => e && {
     children: e,
     as: t = "div",
     align: n = "start",
-    inlineAlign: r = "start",
+    inlineAlign: r = "stretch",
+    // Default to stretch for full-width children behavior
     gap: o,
     id: s,
     reverseOrder: i = !1,
