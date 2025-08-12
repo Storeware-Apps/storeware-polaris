@@ -78,7 +78,7 @@ function MyComponent() {
       options: ["start", "center", "end", "baseline", "stretch"],
       description: "Horizontal alignment of children",
       table: {
-        defaultValue: { summary: "start" },
+        defaultValue: { summary: "stretch" },
       },
     },
     gap: {

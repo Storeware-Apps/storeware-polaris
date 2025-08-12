@@ -38,40 +38,58 @@ import "@storeware/polaris/styles";
 
 ### Core Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | - | Content to display inside the block stack |
-| `as` | `'div' \| 'span' \| 'ul' \| 'ol' \| 'li' \| 'fieldset'` | `'div'` | HTML Element type |
-| `align` | `'start' \| 'center' \| 'end' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'` | Vertical alignment of children |
-| `inlineAlign` | `'start' \| 'center' \| 'end' \| 'baseline' \| 'stretch'` | `'start'` | Horizontal alignment of children |
-| `gap` | `SpaceScale \| ResponsiveGap` | - | The spacing between children |
-| `id` | `string` | - | HTML id attribute |
-| `reverseOrder` | `boolean` | `false` | Reverse the render order of child items |
-| `role` | `string` | - | Aria role |
+| Prop           | Type                                                                                  | Default     | Description                               |
+| -------------- | ------------------------------------------------------------------------------------- | ----------- | ----------------------------------------- |
+| `children`     | `React.ReactNode`                                                                     | -           | Content to display inside the block stack |
+| `as`           | `'div' \| 'span' \| 'ul' \| 'ol' \| 'li' \| 'fieldset'`                               | `'div'`     | HTML Element type                         |
+| `align`        | `'start' \| 'center' \| 'end' \| 'space-around' \| 'space-between' \| 'space-evenly'` | `'start'`   | Vertical alignment of children            |
+| `inlineAlign`  | `'start' \| 'center' \| 'end' \| 'baseline' \| 'stretch'`                             | `'stretch'` | Horizontal alignment of children          |
+| `gap`          | `SpaceScale \| ResponsiveGap`                                                         | -           | The spacing between children              |
+| `id`           | `string`                                                                              | -           | HTML id attribute                         |
+| `reverseOrder` | `boolean`                                                                             | `false`     | Reverse the render order of child items   |
+| `role`         | `string`                                                                              | -           | Aria role                                 |
+
+## Full-Width Behavior
+
+By default, BlockStack displays children with full width using CSS Flexbox. The default `inlineAlign="stretch"` ensures that all child elements stretch to fill the available horizontal space, matching the official Shopify Polaris BlockStack behavior.
+
+```tsx
+// Children automatically take full width
+<BlockStack gap="400">
+  <TextField label="Full width input" />
+  <Button>Full width button</Button>
+  <Text>Full width text</Text>
+</BlockStack>
+
+// Override with custom alignment if needed
+<BlockStack inlineAlign="center" gap="400">
+  <Button>Centered button</Button>
+</BlockStack>
+```
 
 ### Space Scale Values
 
 The `gap` prop accepts Polaris space scale tokens:
 
-| Token | Value | Description |
-|-------|-------|-------------|
-| `"0"` | `0px` | No spacing |
-| `"025"` | `1px` | Extra tight spacing |
-| `"050"` | `2px` | Extra tight spacing |
-| `"100"` | `4px` | Tight spacing |
-| `"150"` | `6px` | Tight spacing |
-| `"200"` | `8px` | Base spacing |
-| `"300"` | `12px` | Loose spacing |
-| `"400"` | `16px` | Loose spacing |
-| `"500"` | `20px` | Extra loose spacing |
-| `"600"` | `24px` | Extra loose spacing |
-| `"800"` | `32px` | Loose spacing |
-| `"1000"` | `40px` | Extra loose spacing |
-| `"1200"` | `48px` | Extra loose spacing |
-| `"1600"` | `64px` | Extra loose spacing |
-| `"2000"` | `80px` | Extra loose spacing |
-| `"2400"` | `96px` | Extra loose spacing |
-| `"2800"` | `112px` | Extra loose spacing |
+| Token    | Value   | Description            |
+| -------- | ------- | ---------------------- |
+| `"0"`    | `0px`   | No spacing             |
+| `"025"`  | `1px`   | Extra tight spacing    |
+| `"050"`  | `2px`   | Extra tight spacing    |
+| `"100"`  | `4px`   | Tight spacing          |
+| `"150"`  | `6px`   | Tight spacing          |
+| `"200"`  | `8px`   | Base spacing           |
+| `"300"`  | `12px`  | Loose spacing          |
+| `"400"`  | `16px`  | Loose spacing          |
+| `"500"`  | `20px`  | Extra loose spacing    |
+| `"600"`  | `24px`  | Extra loose spacing    |
+| `"800"`  | `32px`  | Loose spacing          |
+| `"1000"` | `40px`  | Extra loose spacing    |
+| `"1200"` | `48px`  | Extra loose spacing    |
+| `"1600"` | `64px`  | Extra loose spacing    |
+| `"2000"` | `80px`  | Extra loose spacing    |
+| `"2400"` | `96px`  | Extra loose spacing    |
+| `"2800"` | `112px` | Extra loose spacing    |
 | `"3200"` | `128px` | Extra gigantic spacing |
 
 ## Examples
@@ -99,37 +117,45 @@ The `gap` prop accepts Polaris space scale tokens:
 ### Vertical Alignment
 
 ```tsx
-{/* Center alignment */}
+{
+  /* Center alignment */
+}
 <BlockStack align="center" gap="200">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</BlockStack>
+</BlockStack>;
 
-{/* Space between */}
-<BlockStack align="space-between" style={{ height: '200px' }}>
+{
+  /* Space between */
+}
+<BlockStack align="space-between" style={{ height: "200px" }}>
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</BlockStack>
+</BlockStack>;
 ```
 
 ### Horizontal Alignment
 
 ```tsx
-{/* Center alignment */}
+{
+  /* Center alignment */
+}
 <BlockStack inlineAlign="center" gap="200">
-  <div style={{ width: '100px' }}>Item 1</div>
-  <div style={{ width: '150px' }}>Item 2</div>
-  <div style={{ width: '80px' }}>Item 3</div>
-</BlockStack>
+  <div style={{ width: "100px" }}>Item 1</div>
+  <div style={{ width: "150px" }}>Item 2</div>
+  <div style={{ width: "80px" }}>Item 3</div>
+</BlockStack>;
 
-{/* End alignment */}
+{
+  /* End alignment */
+}
 <BlockStack inlineAlign="end" gap="200">
-  <div style={{ width: '100px' }}>Item 1</div>
-  <div style={{ width: '150px' }}>Item 2</div>
-  <div style={{ width: '80px' }}>Item 3</div>
-</BlockStack>
+  <div style={{ width: "100px" }}>Item 1</div>
+  <div style={{ width: "150px" }}>Item 2</div>
+  <div style={{ width: "80px" }}>Item 3</div>
+</BlockStack>;
 ```
 
 ### Reverse Order
@@ -145,20 +171,24 @@ The `gap` prop accepts Polaris space scale tokens:
 ### Different HTML Elements
 
 ```tsx
-{/* As a list */}
+{
+  /* As a list */
+}
 <BlockStack as="ul" gap="200">
   <li>List item 1</li>
   <li>List item 2</li>
   <li>List item 3</li>
-</BlockStack>
+</BlockStack>;
 
-{/* As a fieldset for form grouping */}
+{
+  /* As a fieldset for form grouping */
+}
 <BlockStack as="fieldset" gap="300">
   <legend>Form Section</legend>
   <input type="text" placeholder="Field 1" />
   <input type="text" placeholder="Field 2" />
   <input type="text" placeholder="Field 3" />
-</BlockStack>
+</BlockStack>;
 ```
 
 ## Responsive Design
@@ -193,10 +223,10 @@ This component provides 100% API compatibility with Shopify's Polaris BlockStack
 
 ```tsx
 // Before
-import { BlockStack } from '@shopify/polaris';
+import { BlockStack } from "@shopify/polaris";
 
 // After
-import { BlockStack } from '@storeware/polaris';
+import { BlockStack } from "@storeware/polaris";
 ```
 
 All existing props and behaviors remain the same.

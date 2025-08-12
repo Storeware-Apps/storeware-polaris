@@ -125,7 +125,7 @@ const getResponsiveGapClasses = (gap?: ResponsiveGap): string => {
 
 // Create Polaris-specific block stack variants using CVA
 export const blockStackVariants = cva(
-  "flex flex-col [&>*]:w-full", // Base flexbox styling with column direction and full-width children
+  "flex flex-col", // Base flexbox styling with column direction - children stretch by default with items-stretch
   {
     variants: {
       align: {
@@ -144,13 +144,13 @@ export const blockStackVariants = cva(
         stretch: "items-stretch",
       },
       reverseOrder: {
-        true: "flex-col-reverse [&>*]:w-full",
-        false: "flex-col [&>*]:w-full",
+        true: "flex-col-reverse",
+        false: "flex-col",
       },
     },
     defaultVariants: {
       align: "start",
-      inlineAlign: "start",
+      inlineAlign: "stretch", // Default to stretch for full-width children behavior
       reverseOrder: false,
     },
   }
@@ -163,7 +163,7 @@ export const BlockStack = React.forwardRef<any, EnhancedBlockStackProps>(
       children,
       as = "div",
       align = "start",
-      inlineAlign = "start",
+      inlineAlign = "stretch", // Default to stretch for full-width children behavior
       gap,
       id,
       reverseOrder = false,

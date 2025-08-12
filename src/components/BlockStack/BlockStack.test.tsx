@@ -47,7 +47,28 @@ describe("BlockStack", () => {
     );
 
     const blockStack = screen.getByTestId("block-stack");
-    expect(blockStack).toHaveClass("flex", "flex-col", "justify-start", "items-start");
+    expect(blockStack).toHaveClass(
+      "flex",
+      "flex-col",
+      "justify-start",
+      "items-stretch"
+    );
+  });
+
+  it("provides full-width children by default using items-stretch", () => {
+    render(
+      <BlockStack data-testid="block-stack">
+        <div data-testid="child-1">Child 1</div>
+        <div data-testid="child-2">Child 2</div>
+      </BlockStack>
+    );
+
+    const blockStack = screen.getByTestId("block-stack");
+    // Verify that the container uses items-stretch by default for full-width children
+    expect(blockStack).toHaveClass("items-stretch");
+
+    // Verify that the container is a flex column
+    expect(blockStack).toHaveClass("flex", "flex-col");
   });
 
   it("applies align classes correctly", () => {
@@ -140,14 +161,13 @@ describe("BlockStack", () => {
 
   it("forwards ref correctly", () => {
     let ref: HTMLDivElement | null = null;
-    
+
     render(
       <BlockStack
-        ref={(el) => {
+        ref={el => {
           ref = el;
         }}
-        data-testid="block-stack"
-      >
+        data-testid="block-stack">
         <div>Content</div>
       </BlockStack>
     );
@@ -157,9 +177,16 @@ describe("BlockStack", () => {
   });
 
   it("handles all align variants", () => {
-    const alignVariants = ["start", "center", "end", "space-around", "space-between", "space-evenly"] as const;
-    
-    alignVariants.forEach((align) => {
+    const alignVariants = [
+      "start",
+      "center",
+      "end",
+      "space-around",
+      "space-between",
+      "space-evenly",
+    ] as const;
+
+    alignVariants.forEach(align => {
       const { unmount } = render(
         <BlockStack align={align} data-testid={`block-stack-${align}`}>
           <div>Content</div>
@@ -169,17 +196,25 @@ describe("BlockStack", () => {
       const blockStack = screen.getByTestId(`block-stack-${align}`);
       const expectedClass = `justify-${align === "space-around" ? "around" : align === "space-between" ? "between" : align === "space-evenly" ? "evenly" : align}`;
       expect(blockStack).toHaveClass(expectedClass);
-      
+
       unmount();
     });
   });
 
   it("handles all inlineAlign variants", () => {
-    const inlineAlignVariants = ["start", "center", "end", "baseline", "stretch"] as const;
-    
-    inlineAlignVariants.forEach((inlineAlign) => {
+    const inlineAlignVariants = [
+      "start",
+      "center",
+      "end",
+      "baseline",
+      "stretch",
+    ] as const;
+
+    inlineAlignVariants.forEach(inlineAlign => {
       const { unmount } = render(
-        <BlockStack inlineAlign={inlineAlign} data-testid={`block-stack-${inlineAlign}`}>
+        <BlockStack
+          inlineAlign={inlineAlign}
+          data-testid={`block-stack-${inlineAlign}`}>
           <div>Content</div>
         </BlockStack>
       );
@@ -187,15 +222,15 @@ describe("BlockStack", () => {
       const blockStack = screen.getByTestId(`block-stack-${inlineAlign}`);
       const expectedClass = `items-${inlineAlign}`;
       expect(blockStack).toHaveClass(expectedClass);
-      
+
       unmount();
     });
   });
 
   it("handles all as variants", () => {
     const asVariants = ["div", "span", "ul", "ol", "li", "fieldset"] as const;
-    
-    asVariants.forEach((as) => {
+
+    asVariants.forEach(as => {
       const { unmount } = render(
         <BlockStack as={as} data-testid={`block-stack-${as}`}>
           <div>Content</div>
@@ -204,7 +239,7 @@ describe("BlockStack", () => {
 
       const blockStack = screen.getByTestId(`block-stack-${as}`);
       expect(blockStack.tagName).toBe(as.toUpperCase());
-      
+
       unmount();
     });
   });
