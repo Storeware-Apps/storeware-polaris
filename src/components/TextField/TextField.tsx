@@ -565,8 +565,7 @@ export const TextField = React.forwardRef<
       characterCountMarkup = (
         <div
           id={`${id}-CharacterCounter`}
-          className="text-xs text-muted-foreground mt-1"
-        >
+          className="text-xs text-muted-foreground mt-1">
           {characterCountText}
         </div>
       );
@@ -581,8 +580,7 @@ export const TextField = React.forwardRef<
           className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground focus:outline-hidden focus:ring-3 focus:ring-ring focus:ring-offset-2 rounded-sm"
           onClick={handleClearButtonClick}
           tabIndex={-1}
-          aria-label="Clear"
-        >
+          aria-label="Clear">
           <XCircleIcon className="h-4 w-4" />
         </button>
       ) : null;
@@ -591,8 +589,7 @@ export const TextField = React.forwardRef<
     const prefixMarkup = prefix ? (
       <div
         id={`${id}-Prefix`}
-        className="flex items-center px-3 text-sm text-muted-foreground border-r border-input bg-muted/50"
-      >
+        className="flex items-center px-3 text-sm text-muted-foreground border-r border-input bg-muted/50">
         {prefix}
       </div>
     ) : null;
@@ -601,8 +598,7 @@ export const TextField = React.forwardRef<
     const suffixMarkup = suffix ? (
       <div
         id={`${id}-Suffix`}
-        className="flex items-center px-3 text-sm text-muted-foreground border-l border-input bg-muted/50"
-      >
+        className="flex items-center px-3 text-sm text-muted-foreground border-l border-input bg-muted/50">
         {suffix}
       </div>
     ) : null;
@@ -623,15 +619,13 @@ export const TextField = React.forwardRef<
           "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
           requiredIndicator &&
             "after:content-['*'] after:ml-1 after:text-destructive"
-        )}
-      >
+        )}>
         {label}
         {labelAction && (
           <button
             type="button"
             onClick={labelAction.onAction}
-            className="ml-2 text-xs text-primary hover:underline focus:outline-hidden focus:underline"
-          >
+            className="ml-2 text-xs text-primary hover:underline focus:outline-hidden focus:underline">
             {labelAction.content}
           </button>
         )}
@@ -650,9 +644,8 @@ export const TextField = React.forwardRef<
       error && typeof error !== "boolean" ? (
         <div
           id={`${id}Error`}
-          className="text-xs text-destructive mt-1"
-          role="alert"
-        >
+          className="text-xs text-red-400 text-destructive mt-1"
+          role="alert">
           {error}
         </div>
       ) : null;
@@ -661,8 +654,7 @@ export const TextField = React.forwardRef<
     const verticalContentMarkup = verticalContent ? (
       <div
         id={`${id}-VerticalContent`}
-        className="text-sm text-muted-foreground mb-2"
-      >
+        className="text-sm text-muted-foreground mb-2">
         {verticalContent}
       </div>
     ) : null;
