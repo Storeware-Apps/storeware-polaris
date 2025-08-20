@@ -66,6 +66,9 @@ export {
   blockStackVariants,
 } from "./components/BlockStack/blockStack.js";
 
+// Export Divider component
+export { Divider, dividerVariants } from "./components/Divider/divider.js";
+
 // Export Pagination component
 export {
   Pagination,
@@ -264,6 +267,15 @@ export type {
   BlockStackAs,
   ResponsiveGap as BlockStackResponsiveGap,
 } from "./components/BlockStack/blockStack";
+
+// Export Divider types (consolidated in divider.tsx following shadcn/ui pattern)
+export type {
+  PolarisDividerProps,
+  EnhancedDividerProps,
+  DividerProps,
+  PolarisBorderColorAlias,
+  PolarisBorderWidthScale,
+} from "./components/Divider/divider";
 
 // Export Pagination types (consolidated in pagination.tsx following shadcn/ui pattern)
 export type {

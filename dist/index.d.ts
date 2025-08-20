@@ -148,6 +148,8 @@ export declare type BorderRadiusAliasOrScale = "0" | "050" | "100" | "150" | "20
 
 export declare type BorderWidthScale = "0" | "0165" | "025" | "050" | "100";
 
+declare type BorderWidthScale_2 = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500";
+
 export declare const Box: React_2.ForwardRefExoticComponent<EnhancedBoxProps & React_2.RefAttributes<any>>;
 
 export declare const boxVariants: (props?: ({
@@ -292,9 +294,17 @@ export declare type ColorBackgroundAlias = "bg" | "bg-inverse" | "bg-surface" | 
 
 export declare type ColorBorderAlias = "border" | "border-hover" | "border-disabled" | "border-secondary" | "border-tertiary" | "border-focus" | "border-brand" | "border-info" | "border-success" | "border-caution" | "border-warning" | "border-critical" | "border-critical-secondary" | "border-emphasis" | "border-emphasis-hover" | "border-emphasis-active" | "border-magic" | "border-magic-secondary" | "border-magic-secondary-hover" | "border-inverse" | "border-inverse-hover" | "border-inverse-active";
 
+declare type ColorBorderAlias_2 = "border" | "border-secondary" | "border-tertiary" | "border-inverse" | "border-brand" | "border-info" | "border-success" | "border-warning" | "border-critical";
+
 export declare type ColorTextAlias = "text" | "text-secondary" | "text-disabled" | "text-link" | "text-link-hover" | "text-link-active" | "text-brand" | "text-brand-hover" | "text-brand-on-bg-fill" | "text-brand-on-bg-fill-hover" | "text-brand-on-bg-fill-active" | "text-brand-on-bg-fill-disabled" | "text-info" | "text-info-hover" | "text-info-active" | "text-info-secondary" | "text-info-on-bg-fill" | "text-success" | "text-success-hover" | "text-success-active" | "text-success-secondary" | "text-success-on-bg-fill" | "text-caution" | "text-caution-hover" | "text-caution-active" | "text-caution-secondary" | "text-caution-on-bg-fill" | "text-warning" | "text-warning-hover" | "text-warning-active" | "text-warning-secondary" | "text-warning-on-bg-fill" | "text-critical" | "text-critical-hover" | "text-critical-active" | "text-critical-secondary" | "text-critical-on-bg-fill" | "text-emphasis" | "text-emphasis-hover" | "text-emphasis-active" | "text-emphasis-on-bg-fill" | "text-emphasis-on-bg-fill-hover" | "text-emphasis-on-bg-fill-active" | "text-magic" | "text-magic-secondary" | "text-magic-on-bg-fill" | "text-inverse" | "text-inverse-secondary" | "text-link-inverse";
 
 export declare const ContextualSaveBar: React_2.ForwardRefExoticComponent<EnhancedContextualSaveBarProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const Divider: React_2.ForwardRefExoticComponent<EnhancedDividerProps & React_2.RefAttributes<HTMLHRElement>>;
+
+export declare type DividerProps = EnhancedDividerProps;
+
+export declare const dividerVariants: (props?: ({} & ClassProp) | undefined) => string;
 
 export declare interface EnhancedBadgeProps extends PolarisBadgeProps {
     /** Use the Slot component for composition (shadcn/ui feature) */
@@ -329,6 +339,11 @@ export declare interface EnhancedChoiceListProps extends ChoiceListProps {
 }
 
 export declare interface EnhancedContextualSaveBarProps extends AppBridgeSaveBarProps {
+}
+
+export declare interface EnhancedDividerProps extends PolarisDividerProps {
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
 }
 
 export declare interface EnhancedIconProps extends PolarisIconProps {
@@ -1036,6 +1051,10 @@ export declare interface PolarisBlockStackProps {
     className?: string;
 }
 
+export declare type PolarisBorderColorAlias = ColorBorderAlias_2;
+
+export declare type PolarisBorderWidthScale = BorderWidthScale_2;
+
 export declare interface PolarisBoxProps {
     /** Content to display inside the box */
     children?: React_2.ReactNode;
@@ -1268,6 +1287,13 @@ export declare const polarisChoiceListVariants: (props?: ({
     tone?: "default" | "magic" | null | undefined;
     disabled?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare interface PolarisDividerProps {
+    /** Divider border color */
+    borderColor?: ColorBorderAlias_2 | "transparent";
+    /** Divider border width */
+    borderWidth?: BorderWidthScale_2;
+}
 
 export declare type PolarisEnhancedCardProps = EnhancedCardProps;
 
