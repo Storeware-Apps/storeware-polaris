@@ -370,6 +370,11 @@ export declare interface EnhancedIndexTableProps<TData = any> extends IndexTable
 export declare interface EnhancedInlineStackProps extends PolarisInlineStackProps {
 }
 
+export declare interface EnhancedLinkProps extends PolarisLinkProps {
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
 export declare interface EnhancedModalProps extends AppBridgeModalProps {
     /** Whether to show the close button (default: true) */
     showCloseButton?: boolean;
@@ -386,6 +391,11 @@ export declare interface EnhancedPaginationProps extends PaginationProps {
 }
 
 export declare interface EnhancedPopoverProps extends PolarisPopoverProps {
+    /** Additional CSS class name (inherited from shadcn/ui pattern) */
+    className?: string;
+}
+
+export declare interface EnhancedRadioButtonProps extends PolarisRadioButtonProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
     className?: string;
 }
@@ -744,6 +754,8 @@ export declare const inlineStackVariants: (props?: ({
 
 export declare type Key = string;
 
+export declare const Link: React_2.ForwardRefExoticComponent<EnhancedLinkProps & React_2.RefAttributes<HTMLAnchorElement>>;
+
 export declare interface LinkAction {
     /** Content the action displays */
     content?: React_2.ReactNode;
@@ -762,6 +774,16 @@ export declare interface LinkAction {
     /** A label for the action used by assistive technologies */
     accessibilityLabel?: string;
 }
+
+export declare type LinkProps = EnhancedLinkProps;
+
+export declare type LinkTarget = "_blank" | "_self" | "_parent" | "_top";
+
+export declare const linkVariants: (props?: ({
+    monochrome?: boolean | null | undefined;
+    removeUnderline?: boolean | null | undefined;
+    dataPrimaryLink?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare const Modal: React_2.ForwardRefExoticComponent<EnhancedModalProps & React_2.RefAttributes<HTMLDivElement>>;
 
@@ -1341,6 +1363,33 @@ export declare interface PolarisInlineStackProps {
 
 export declare type PolarisKey = Key;
 
+export declare interface PolarisLinkProps {
+    /** ID for the link */
+    id?: string;
+    /** The url to link to */
+    url?: string;
+    /** The content to display inside the link */
+    children?: React_2.ReactNode;
+    /** Makes the link open in a new tab
+     * @deprecated use `target` set to `_blank` instead
+     */
+    external?: boolean;
+    /** Where to display the url */
+    target?: LinkTarget;
+    /** Makes the link color the same as the current text color and adds an underline */
+    monochrome?: boolean;
+    /** Removes text decoration underline to the link */
+    removeUnderline?: boolean;
+    /** Callback when a link is clicked */
+    onClick?(): void;
+    /** Descriptive text to be read to screenreaders */
+    accessibilityLabel?: string;
+    /** Indicates whether or not the link is the primary navigation link when rendered inside of an `IndexTable.Row` */
+    dataPrimaryLink?: boolean;
+}
+
+export declare type PolarisLinkTarget = LinkTarget;
+
 export declare type PolarisMenuGroupDescriptor = IndexTableMenuGroupDescriptor;
 
 export declare interface PolarisPageProps {
@@ -1451,6 +1500,47 @@ export declare const polarisPopoverVariants: (props?: ({
     hideOnPrint?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare interface PolarisRadioButtonProps {
+    /** Indicates the ID of the element that describes the radio button */
+    ariaDescribedBy?: string;
+    /** Label for the radio button */
+    label: React_2.ReactNode;
+    /** Visually hide the label */
+    labelHidden?: boolean;
+    /** Radio button is selected */
+    checked?: boolean;
+    /** Disable input */
+    disabled?: boolean;
+    /** ID for form input */
+    id?: string;
+    /** Name for form input */
+    name?: string;
+    /** Value for form input */
+    value?: string;
+    /** Callback when the radio button is toggled */
+    onChange?(newValue: boolean, id: string): void;
+    /** Callback when radio button is focused */
+    onFocus?(): void;
+    /** Callback when focus is removed */
+    onBlur?(): void;
+    /** Grow to fill the space. Equivalent to width: 100%; height: 100% */
+    fill?: boolean;
+    /** Additional text to aide in use */
+    helpText?: React_2.ReactNode;
+    /** Indicates the tone of the radio button */
+    tone?: "magic";
+    /** Spacing around children. Accepts a spacing token */
+    bleed?: SpacingScale;
+    /** Vertical start spacing around children */
+    bleedBlockStart?: SpacingScale;
+    /** Vertical end spacing around children */
+    bleedBlockEnd?: SpacingScale;
+    /** Horizontal start spacing around children */
+    bleedInlineStart?: SpacingScale;
+    /** Horizontal end spacing around children */
+    bleedInlineEnd?: SpacingScale;
+}
+
 export declare interface PolarisSelectProps {
     /** List of options or option groups to choose from */
     options?: (SelectOption | SelectGroup)[];
@@ -1495,6 +1585,8 @@ export declare const polarisSelectVariants: (props?: ({
 } & ClassProp) | undefined) => string;
 
 export declare type PolarisSortButtonChoice = SortButtonChoice;
+
+export declare type PolarisSpacingScale = SpacingScale;
 
 export declare type PolarisTabProps = TabProps;
 
@@ -1553,6 +1645,16 @@ export declare type PopoverPreferredAlignment = "left" | "center" | "right";
 
 export declare type PopoverPreferredPosition = "above" | "below" | "mostSpace" | "cover";
 
+export declare const RadioButton: React_2.ForwardRefExoticComponent<EnhancedRadioButtonProps & React_2.RefAttributes<HTMLInputElement>>;
+
+export declare type RadioButtonProps = EnhancedRadioButtonProps;
+
+export declare const radioButtonVariants: (props?: ({
+    disabled?: boolean | null | undefined;
+    fill?: boolean | null | undefined;
+    tone?: "default" | "magic" | null | undefined;
+} & ClassProp) | undefined) => string;
+
 declare interface Range_2 {
     start: number;
     end: number;
@@ -1605,6 +1707,8 @@ export declare interface SortButtonChoice {
 export declare type SpaceScale = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
 
 declare type SpaceScale_2 = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
+
+export declare type SpacingScale = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
 
 export declare interface StrictOption {
     /** Machine value of the option; this is the value passed to `onChange` */

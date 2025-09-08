@@ -69,6 +69,15 @@ export {
 // Export Divider component
 export { Divider, dividerVariants } from "./components/Divider/divider.js";
 
+// Export RadioButton component
+export {
+  RadioButton,
+  radioButtonVariants,
+} from "./components/RadioButton/radioButton.js";
+
+// Export Link component
+export { Link, linkVariants } from "./components/Link/link.js";
+
 // Export Pagination component
 export {
   Pagination,
@@ -276,6 +285,24 @@ export type {
   PolarisBorderColorAlias,
   PolarisBorderWidthScale,
 } from "./components/Divider/divider";
+
+// Export RadioButton types (consolidated in radioButton.tsx following shadcn/ui pattern)
+export type {
+  PolarisRadioButtonProps,
+  EnhancedRadioButtonProps,
+  RadioButtonProps,
+  SpacingScale,
+  PolarisSpacingScale,
+} from "./components/RadioButton/radioButton";
+
+// Export Link types (consolidated in link.tsx following shadcn/ui pattern)
+export type {
+  PolarisLinkProps,
+  EnhancedLinkProps,
+  LinkProps,
+  LinkTarget,
+  PolarisLinkTarget,
+} from "./components/Link/link";
 
 // Export Pagination types (consolidated in pagination.tsx following shadcn/ui pattern)
 export type {
