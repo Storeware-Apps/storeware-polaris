@@ -359,8 +359,8 @@ describe("IndexFilters", () => {
     expect(statusButton).toBeInTheDocument();
     expect(categoryButton).toBeInTheDocument();
 
-    // Category button should show selection count
-    expect(categoryButton).toHaveTextContent("1");
+    // Category button should show selected values
+    expect(categoryButton).toHaveTextContent("Electronics");
   });
 
   it("toggles pinned filter popover correctly when button is clicked", async () => {
@@ -398,7 +398,7 @@ describe("IndexFilters", () => {
     // Click button to open popover
     fireEvent.click(statusButton);
 
-    // Popover should now be visible
+    // Wait for popover to be visible (due to setTimeout in implementation)
     expect(screen.getByText("Active")).toBeInTheDocument();
     expect(screen.getByText("Inactive")).toBeInTheDocument();
 

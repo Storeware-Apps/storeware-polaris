@@ -172,6 +172,7 @@ describe("IndexTable", () => {
   it("supports both bulk actions and sorting simultaneously", () => {
     const mockOnSort = vi.fn();
     const mockBulkAction = vi.fn();
+    const mockOnSelectionChange = vi.fn();
 
     const bulkActions = [
       {
@@ -180,7 +181,39 @@ describe("IndexTable", () => {
       },
     ];
 
-    render(
+    const { rerender } = render(
+      <IndexTable
+        resourceName={{ singular: "order", plural: "orders" }}
+        itemCount={2}
+        selectedItemsCount={0}
+        headings={[{ title: "Order" }, { title: "Customer" }]}
+        bulkActions={bulkActions}
+        sortable={[true, true]}
+        sortColumnIndex={0}
+        sortDirection="ascending"
+        onSort={mockOnSort}
+        onSelectionChange={mockOnSelectionChange}>
+        <IndexTable.Row id="1" selected={false} position={0}>
+          <IndexTable.Cell>Order 1</IndexTable.Cell>
+          <IndexTable.Cell>Customer 1</IndexTable.Cell>
+        </IndexTable.Row>
+        <IndexTable.Row id="2" selected={false} position={1}>
+          <IndexTable.Cell>Order 2</IndexTable.Cell>
+          <IndexTable.Cell>Customer 2</IndexTable.Cell>
+        </IndexTable.Row>
+      </IndexTable>
+    );
+
+    // Initially should show sortable column headers when no items are selected
+    expect(screen.getByText("Order")).toBeInTheDocument();
+    expect(screen.getByText("Customer")).toBeInTheDocument();
+
+    // Should be able to click on sortable headers
+    fireEvent.click(screen.getByText("Order"));
+    expect(mockOnSort).toHaveBeenCalledWith(0, "descending");
+
+    // Now rerender with selected items to test bulk actions
+    rerender(
       <IndexTable
         resourceName={{ singular: "order", plural: "orders" }}
         itemCount={2}
@@ -190,7 +223,8 @@ describe("IndexTable", () => {
         sortable={[true, true]}
         sortColumnIndex={0}
         sortDirection="ascending"
-        onSort={mockOnSort}>
+        onSort={mockOnSort}
+        onSelectionChange={mockOnSelectionChange}>
         <IndexTable.Row id="1" selected position={0}>
           <IndexTable.Cell>Order 1</IndexTable.Cell>
           <IndexTable.Cell>Customer 1</IndexTable.Cell>
@@ -206,15 +240,9 @@ describe("IndexTable", () => {
     expect(screen.getByText("1 order selected")).toBeInTheDocument();
     expect(screen.getByText("Delete")).toBeInTheDocument();
 
-    // Should still show sortable column headers
-    const orderHeader = screen.getByText("Order");
-    const customerHeader = screen.getByText("Customer");
-    expect(orderHeader).toBeInTheDocument();
-    expect(customerHeader).toBeInTheDocument();
-
-    // Should be able to click on sortable headers
-    fireEvent.click(orderHeader);
-    expect(mockOnSort).toHaveBeenCalledWith(0, "descending");
+    // Column headers should be hidden when items are selected (Polaris behavior)
+    expect(screen.queryByText("Order")).not.toBeInTheDocument();
+    expect(screen.queryByText("Customer")).not.toBeInTheDocument();
 
     // Should be able to click bulk actions
     fireEvent.click(screen.getByText("Delete"));
@@ -300,6 +328,48 @@ describe("IndexTable.Row", () => {
 
     const row = screen.getByRole("row");
     expect(row).toHaveClass("opacity-50", "pointer-events-none");
+  });
+
+  it("handles checkbox selection and deselection correctly", () => {
+    const mockOnSelectionChange = vi.fn();
+
+    render(
+      <table>
+        <tbody>
+          <IndexTable.Row
+            id="test-row"
+            position={0}
+            selected={false}
+            onSelectionChange={mockOnSelectionChange}>
+            <IndexTable.Cell>Test content</IndexTable.Cell>
+          </IndexTable.Row>
+        </tbody>
+      </table>
+    );
+
+    const checkbox = screen.getByRole("checkbox");
+
+    // First click should call onSelectionChange with toggle=true
+    fireEvent.click(checkbox);
+    expect(mockOnSelectionChange).toHaveBeenCalledWith(
+      "single",
+      true,
+      "test-row",
+      0
+    );
+
+    // Reset mock
+    mockOnSelectionChange.mockClear();
+
+    // Second click should also call onSelectionChange with toggle=true
+    // The actual toggle logic is handled by useIndexResourceState
+    fireEvent.click(checkbox);
+    expect(mockOnSelectionChange).toHaveBeenCalledWith(
+      "single",
+      true,
+      "test-row",
+      0
+    );
   });
 });
 

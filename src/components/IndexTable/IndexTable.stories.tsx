@@ -10,6 +10,37 @@ import { Card } from "../Card/card";
 import { Badge } from "../Badge/badge";
 import { Text } from "../Text/Text";
 
+// Sample data
+const sampleOrders = [
+  {
+    id: "1020",
+    order: "#1020",
+    date: "Jul 20 at 4:34pm",
+    customer: "Jaydon Stanton",
+    total: "$969.44",
+    paymentStatus: "Paid",
+    fulfillmentStatus: "Unfulfilled",
+  },
+  {
+    id: "1019",
+    order: "#1019",
+    date: "Jul 20 at 3:46pm",
+    customer: "Ruben Westerfelt",
+    total: "$701.19",
+    paymentStatus: "Partially paid",
+    fulfillmentStatus: "Unfulfilled",
+  },
+  {
+    id: "1018",
+    order: "#1018",
+    date: "Jul 20 at 3:44pm",
+    customer: "Leo Carder",
+    total: "$798.24",
+    paymentStatus: "Paid",
+    fulfillmentStatus: "Unfulfilled",
+  },
+];
+
 const meta: Meta<typeof IndexTable> = {
   title: "Components/IndexTable",
   component: IndexTable,
@@ -274,37 +305,6 @@ export const WithBulkActions: Story = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-// Sample data
-const sampleOrders = [
-  {
-    id: "1020",
-    order: "#1020",
-    date: "Jul 20 at 4:34pm",
-    customer: "Jaydon Stanton",
-    total: "$969.44",
-    paymentStatus: "Paid",
-    fulfillmentStatus: "Unfulfilled",
-  },
-  {
-    id: "1019",
-    order: "#1019",
-    date: "Jul 20 at 3:46pm",
-    customer: "Ruben Westerfelt",
-    total: "$701.19",
-    paymentStatus: "Partially paid",
-    fulfillmentStatus: "Unfulfilled",
-  },
-  {
-    id: "1018",
-    order: "#1018",
-    date: "Jul 20 at 3:44pm",
-    customer: "Leo Carder",
-    total: "$798.24",
-    paymentStatus: "Paid",
-    fulfillmentStatus: "Unfulfilled",
-  },
-];
 
 // Default story - basic IndexTable
 export const Default: Story = {

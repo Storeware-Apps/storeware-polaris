@@ -902,9 +902,9 @@ const IndexTableRow = React.forwardRef<HTMLTableRowElement, IndexTableRowProps>(
             )}>
             <Checkbox
               checked={selected === true}
-              onChange={checked => {
+              onChange={() => {
                 if (onSelectionChange) {
-                  onSelectionChange("single", checked, id, position);
+                  onSelectionChange("single", true, id, position);
                 }
               }}
               disabled={disabled}

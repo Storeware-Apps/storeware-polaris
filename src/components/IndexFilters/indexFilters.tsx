@@ -252,6 +252,7 @@ interface PinnedFilterButtonProps {
   disabled?: boolean;
   isOpen: boolean;
   onToggle: () => void;
+  onClose: () => void;
 }
 
 const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
@@ -264,8 +265,29 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
     filter.onChange(selected, filter.key);
   };
 
+  const getSelectedLabels = () => {
+    if (!filter.selected || filter.selected.length === 0) {
+      return null;
+    }
+
+    const selectedChoices = filter.choices.filter(choice =>
+      filter.selected.includes(choice.value)
+    );
+
+    if (selectedChoices.length === 0) {
+      return null;
+    }
+
+    if (selectedChoices.length === 1) {
+      return selectedChoices[0].label;
+    }
+
+    return `${selectedChoices.length} selected`;
+  };
+
+  const selectedLabelsText = getSelectedLabels();
+
   return (
-    // Sorting Popover buttons
     <Popover
       active={isOpen}
       activator={
@@ -277,9 +299,9 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
           disabled={disabled}
           pressed={isOpen}>
           {filter.label}
-          {filter.selected.length > 0 && (
-            <span className="ml-1 px-1.5 py-0.5 text-xs bg-blue-100 text-black rounded-full">
-              {filter.selected.length}
+          {selectedLabelsText && (
+            <span className="ml-1 text-xs text-gray-600">
+              {selectedLabelsText}
             </span>
           )}
         </Button>
@@ -496,6 +518,7 @@ export const IndexFilters = React.forwardRef<
                         onToggle={() =>
                           handlePopoverToggle(`filter-${filter.key}`)
                         }
+                        onClose={handlePopoverClose}
                       />
                     ))}
                   </div>
