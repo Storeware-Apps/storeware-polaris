@@ -106,6 +106,10 @@ export declare interface AppliedFilter {
     onRemove: () => void;
 }
 
+export declare type Areas = {
+    [Breakpoint in Breakpoints]?: string[];
+};
+
 export declare const Badge: React_2.ForwardRefExoticComponent<EnhancedBadgeProps & React_2.RefAttributes<HTMLSpanElement>>;
 
 export declare type BadgeProgress = "incomplete" | "partiallyComplete" | "complete";
@@ -156,6 +160,8 @@ export declare const boxVariants: (props?: ({
     visuallyHidden?: boolean | null | undefined;
     printHidden?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
 
 export declare type BreakpointsAlias = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -298,6 +304,14 @@ declare type ColorBorderAlias_2 = "border" | "border-secondary" | "border-tertia
 
 export declare type ColorTextAlias = "text" | "text-secondary" | "text-disabled" | "text-link" | "text-link-hover" | "text-link-active" | "text-brand" | "text-brand-hover" | "text-brand-on-bg-fill" | "text-brand-on-bg-fill-hover" | "text-brand-on-bg-fill-active" | "text-brand-on-bg-fill-disabled" | "text-info" | "text-info-hover" | "text-info-active" | "text-info-secondary" | "text-info-on-bg-fill" | "text-success" | "text-success-hover" | "text-success-active" | "text-success-secondary" | "text-success-on-bg-fill" | "text-caution" | "text-caution-hover" | "text-caution-active" | "text-caution-secondary" | "text-caution-on-bg-fill" | "text-warning" | "text-warning-hover" | "text-warning-active" | "text-warning-secondary" | "text-warning-on-bg-fill" | "text-critical" | "text-critical-hover" | "text-critical-active" | "text-critical-secondary" | "text-critical-on-bg-fill" | "text-emphasis" | "text-emphasis-hover" | "text-emphasis-active" | "text-emphasis-on-bg-fill" | "text-emphasis-on-bg-fill-hover" | "text-emphasis-on-bg-fill-active" | "text-magic" | "text-magic-secondary" | "text-magic-on-bg-fill" | "text-inverse" | "text-inverse-secondary" | "text-link-inverse";
 
+export declare type Columns = {
+    [Breakpoint in Breakpoints]?: number;
+};
+
+export declare type ColumnSpan = {
+    [Breakpoint in Breakpoints]?: number;
+};
+
 export declare const ContextualSaveBar: React_2.ForwardRefExoticComponent<EnhancedContextualSaveBarProps & React_2.RefAttributes<HTMLDivElement>>;
 
 export declare const Divider: React_2.ForwardRefExoticComponent<EnhancedDividerProps & React_2.RefAttributes<HTMLHRElement>>;
@@ -344,6 +358,16 @@ export declare interface EnhancedContextualSaveBarProps extends AppBridgeSaveBar
 export declare interface EnhancedDividerProps extends PolarisDividerProps {
     /** Additional CSS class name (inherited from shadcn/ui pattern) */
     className?: string;
+}
+
+export declare interface EnhancedGridCellProps extends GridCellProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
+}
+
+export declare interface EnhancedGridProps extends PolarisGridProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
 }
 
 export declare interface EnhancedIconProps extends PolarisIconProps {
@@ -405,6 +429,11 @@ export declare interface EnhancedSelectProps extends PolarisSelectProps {
     className?: string;
 }
 
+export declare interface EnhancedTabsProps extends PolarisTabsProps {
+    /** Use the Slot component for composition (shadcn/ui feature) */
+    asChild?: boolean;
+}
+
 export declare interface EnhancedTextFieldProps extends NonMutuallyExclusiveProps {
     /** Additional CSS class name for custom styling */
     className?: string;
@@ -451,6 +480,33 @@ export declare interface FilterDescriptor {
     /** Whether the filter is a shortcut (pinned) */
     shortcut?: boolean;
 }
+
+export declare type Gap = {
+    [Breakpoint in Breakpoints]?: string;
+};
+
+export declare const Grid: GridCompoundComponent;
+
+export declare const GridCell: React_2.ForwardRefExoticComponent<EnhancedGridCellProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare interface GridCellProps {
+    /** Column span for different breakpoints */
+    columnSpan?: ColumnSpan;
+    /** Grid area name (when using areas) */
+    area?: string;
+    /** Cell content */
+    children?: React_2.ReactNode;
+    /** Additional CSS class name */
+    className?: string;
+}
+
+export declare const gridCellVariants: (props?: ({} & ClassProp) | undefined) => string;
+
+declare interface GridCompoundComponent extends React_2.ForwardRefExoticComponent<EnhancedGridProps & React_2.RefAttributes<HTMLDivElement>> {
+    Cell: typeof GridCell;
+}
+
+export declare const gridVariants: (props?: ({} & ClassProp) | undefined) => string;
 
 export declare const Icon: React_2.ForwardRefExoticComponent<IconProps & React_2.RefAttributes<HTMLSpanElement>>;
 
@@ -540,7 +596,7 @@ export declare interface IndexFiltersProps {
     /** Whether to auto-focus the search field */
     autoFocusSearchField?: boolean;
     /** Available tabs/views */
-    tabs?: TabProps[];
+    tabs?: TabProps_2[];
     /** Currently selected tab index */
     selected?: number;
     /** Callback when tab is selected */
@@ -1323,6 +1379,26 @@ export declare type PolarisEnhancedPopoverProps = EnhancedPopoverProps;
 
 export declare type PolarisFilterDescriptor = FilterDescriptor;
 
+export declare type PolarisGridCellProps = GridCellProps;
+
+export declare interface PolarisGridProps {
+    /**
+     * Set grid-template-areas
+     * @deprecated To avoid a11y issues, nest layout components in individual grid
+     * cells instead. See:
+     * https://polaris.shopify.com/components/layout-and-structure
+     */
+    areas?: Areas;
+    /** Number of columns */
+    columns?: Columns;
+    /** Grid gap */
+    gap?: Gap;
+    /** Grid content */
+    children?: React_2.ReactNode;
+    /** Additional CSS class name */
+    className?: string;
+}
+
 export declare interface PolarisIconProps {
     /** The SVG contents to display in the icon (icons should fit in a 20 × 20 pixel viewBox) */
     source: React_2.ComponentType<{
@@ -1590,6 +1666,33 @@ export declare type PolarisSpacingScale = SpacingScale;
 
 export declare type PolarisTabProps = TabProps;
 
+export declare interface PolarisTabsProps {
+    /** The items that map to each Tab */
+    tabs: TabProps[];
+    /** Content to display in tabs */
+    children?: React_2.ReactNode;
+    /** The index of the currently selected Tab */
+    selected: number;
+    /** Whether the Tabs are disabled or not */
+    disabled?: boolean;
+    /** Whether to show the add new view Tab */
+    canCreateNewView?: boolean;
+    /** Label for the new view Tab. Will override the default of "Create new view" */
+    newViewAccessibilityLabel?: string;
+    /** Fit tabs to container */
+    fitted?: boolean;
+    /** Text to replace disclosures horizontal dots */
+    disclosureText?: string;
+    /** Override z-index of popovers and tooltips */
+    disclosureZIndexOverride?: number;
+    /** Optional callback invoked when a Tab becomes selected */
+    onSelect?: (selectedTabIndex: number) => void;
+    /** Optional callback invoked when a merchant saves a new view from the Modal */
+    onCreateNewView?: (value: string) => Promise<boolean>;
+    /** Additional CSS class name */
+    className?: string;
+}
+
 export declare type PolarisTextAlignment = TextAlignment;
 
 export declare type PolarisTextElement = TextElement;
@@ -1732,7 +1835,37 @@ export declare interface TabAction {
     onPrimaryAction?: (value: string) => Promise<boolean>;
 }
 
+declare interface TabAction_2 {
+    /** Type of action */
+    type: "rename" | "duplicate" | "edit" | "delete";
+    /** Callback for the action */
+    onAction?: () => void;
+    /** Primary action callback (for rename/duplicate) */
+    onPrimaryAction?: (value: string) => Promise<boolean>;
+}
+
 export declare interface TabProps {
+    /** Unique identifier for the tab */
+    id: string;
+    /** Content to display in the tab */
+    content: string;
+    /** Accessibility label for the tab */
+    accessibilityLabel?: string;
+    /** ID of the panel controlled by the tab */
+    panelID?: string;
+    /** Badge content to display */
+    badge?: string;
+    /** Actions available for the tab */
+    actions?: TabAction[];
+    /** Whether the tab is locked (cannot be deleted) */
+    isLocked?: boolean;
+    /** Index of the tab */
+    index?: number;
+    /** Callback when tab is clicked */
+    onAction?: () => void;
+}
+
+declare interface TabProps_2 {
     /** Content for the tab */
     content: string;
     /** Index of the tab */
@@ -1744,8 +1877,21 @@ export declare interface TabProps {
     /** Whether the tab is locked (cannot be deleted) */
     isLocked?: boolean;
     /** Actions available for the tab */
-    actions?: TabAction[];
+    actions?: TabAction_2[];
 }
+
+export declare const Tabs: React_2.ForwardRefExoticComponent<EnhancedTabsProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare const tabsVariants: (props?: ({
+    fitted?: boolean | null | undefined;
+    disabled?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
+export declare const tabVariants: (props?: ({
+    selected?: boolean | null | undefined;
+    fitted?: boolean | null | undefined;
+    disabled?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
 
 declare const Text_2: React_2.ForwardRefExoticComponent<EnhancedTextProps & VariantProps<(props?: ({
     variant?: "headingXs" | "headingSm" | "headingMd" | "headingLg" | "headingXl" | "heading2xl" | "heading3xl" | "bodyXs" | "bodySm" | "bodyMd" | "bodyLg" | null | undefined;

@@ -110,6 +110,17 @@ export { Icon, iconVariants } from "./components/Icon/icon.js";
 // Export Toast component
 export { Toaster, toast, toastVariants } from "./components/Toast/toast.js";
 
+// Export Tabs component
+export { Tabs, tabsVariants, tabVariants } from "./components/Tabs/tabs.js";
+
+// Export Grid component
+export {
+  Grid,
+  GridCell,
+  gridVariants,
+  gridCellVariants,
+} from "./components/Grid/grid.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -321,8 +332,6 @@ export type {
   IndexFiltersProps,
   EnhancedIndexFiltersProps,
   SortButtonChoice,
-  TabProps,
-  TabAction,
   IndexFiltersPrimaryAction,
   IndexFiltersCancelAction,
   FilterDescriptor,
@@ -330,7 +339,6 @@ export type {
   IndexFiltersMode,
   // Backward compatibility aliases
   PolarisIndexFiltersProps,
-  PolarisTabProps,
   PolarisSortButtonChoice,
   PolarisFilterDescriptor,
   PolarisAppliedFilter,
@@ -405,6 +413,29 @@ export type {
   SelectGroup,
   SelectError,
 } from "./components/Select/select";
+
+// Export Tabs types (consolidated in tabs.tsx following shadcn/ui pattern)
+export type {
+  PolarisTabsProps,
+  EnhancedTabsProps,
+  TabProps,
+  PolarisTabProps,
+  TabAction,
+} from "./components/Tabs/tabs";
+
+// Export Grid types (consolidated in grid.tsx following shadcn/ui pattern)
+export type {
+  PolarisGridProps,
+  EnhancedGridProps,
+  GridCellProps,
+  PolarisGridCellProps,
+  EnhancedGridCellProps,
+  Breakpoints,
+  Areas,
+  Columns,
+  Gap,
+  ColumnSpan,
+} from "./components/Grid/grid";
 
 // Export utilities
 export { cn } from "./lib/utils.js";
