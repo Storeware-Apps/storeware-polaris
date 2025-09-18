@@ -7,7 +7,11 @@
 
 import * as React from "react";
 import { cva } from "class-variance-authority";
-import { ChevronLeftIcon, ChevronRightIcon } from "@shopify/polaris-icons";
+import {
+  ArrowLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@shopify/polaris-icons";
 
 import { cn } from "../../lib/utils";
 import { Button, type ButtonTarget } from "../Button/button";
@@ -168,8 +172,7 @@ export interface EnhancedPageProps extends PolarisPageProps {
 
 // Page variants using cva
 const polarisPageVariants = cva(
-  // Base styles matching Polaris Page
-  // "min-h-screen bg-[rgb(246,246,247)]",
+  // Base styles matching Polaris Page - simple layout wrapper without background
   "min-h-screen",
   {
     variants: {
@@ -185,21 +188,18 @@ const polarisPageVariants = cva(
   }
 );
 
-// Header variants
-const pageHeaderVariants = cva(
-  "bg-white border-b border-[rgb(227,227,227)] px-6 py-4",
-  {
-    variants: {
-      compact: {
-        true: "pb-2",
-        false: "pb-4",
-      },
+// Header variants - removed background and border to match Polaris specification
+const pageHeaderVariants = cva("px-6 py-4", {
+  variants: {
+    compact: {
+      true: "pb-2",
+      false: "pb-4",
     },
-    defaultVariants: {
-      compact: false,
-    },
-  }
-);
+  },
+  defaultVariants: {
+    compact: false,
+  },
+});
 
 // Content variants
 const pageContentVariants = cva("px-6 py-6", {
@@ -265,12 +265,12 @@ export const Page = React.forwardRef<HTMLDivElement, EnhancedPageProps>(
       );
     };
 
-    // Render pagination
+    // Render pagination - removed background and border to match Polaris specification
     const renderPagination = () => {
       if (!pagination) return null;
 
       return (
-        <div className="flex items-center justify-between px-6 py-4 bg-white border-t border-[rgb(227,227,227)]">
+        <div className="flex items-center justify-between px-6 py-4">
           <Button
             variant="secondary"
             disabled={!pagination.hasPrevious}
@@ -309,66 +309,87 @@ export const Page = React.forwardRef<HTMLDivElement, EnhancedPageProps>(
           secondaryActions.length > 0 ||
           actionGroups.length > 0) && (
           <header className={cn(pageHeaderVariants({ compact: compactTitle }))}>
-            {/* Back Action - separate from title/actions layout */}
-            {backAction && (
-              <div className="mb-4">
-                {renderAction(backAction, "secondary")}
-              </div>
-            )}
+            {/* Back Action and Title Container - positioned side by side */}
+            <div className="flex items-start justify-between">
+              <div className="flex-1 min-w-0">
+                {/* Back Action and Title Row */}
+                <div className="flex items-center gap-1 mb-1">
+                  {/* Back Action - positioned to the left of title with ArrowLeft icon */}
+                  {backAction && (
+                    <Button
+                      variant="plain"
+                      onClick={backAction.onAction}
+                      url={"url" in backAction ? backAction.url : undefined}
+                      external={
+                        "external" in backAction
+                          ? backAction.external
+                          : undefined
+                      }
+                      target={
+                        "target" in backAction ? backAction.target : undefined
+                      }
+                      download={
+                        "download" in backAction
+                          ? backAction.download
+                          : undefined
+                      }
+                      accessibilityLabel={
+                        backAction.accessibilityLabel ||
+                        (typeof backAction.content === "string"
+                          ? backAction.content
+                          : "Back")
+                      }
+                      className="hover:bg-gray-200 rounded-md p-1 -ml-1"
+                      icon={<ArrowLeftIcon className="size-5" />}
+                    />
+                  )}
 
-            {/* Title and Actions Container */}
-            {(title ||
-              primaryAction ||
-              secondaryActions.length > 0 ||
-              actionGroups.length > 0) && (
-              <div className="flex items-start justify-between">
-                <div className="flex-1 min-w-0">
                   {/* Title and Metadata */}
                   {title && !titleHidden && (
-                    <div className="flex items-center gap-2 mb-1">
+                    <>
                       <Text as="h1" variant="headingLg" fontWeight="semibold">
                         {title}
                       </Text>
                       {titleMetadata && (
                         <div className="flex items-center">{titleMetadata}</div>
                       )}
-                    </div>
-                  )}
-
-                  {/* Subtitle */}
-                  {subtitle && (
-                    <div
-                      className={cn(
-                        "mt-1",
-                        hasSubtitleMaxWidth && "max-w-[640px]"
-                      )}>
-                      <Text variant="bodyMd" tone="subdued">
-                        {subtitle}
-                      </Text>
-                    </div>
-                  )}
-
-                  {/* Additional Metadata */}
-                  {additionalMetadata && (
-                    <div className="mt-2">{additionalMetadata}</div>
+                    </>
                   )}
                 </div>
 
-                {/* Actions */}
-                {(primaryAction ||
-                  secondaryActions.length > 0 ||
-                  actionGroups.length > 0) && (
-                  <div className="flex items-center gap-2 ml-4">
-                    <ButtonGroup>
-                      {secondaryActions.map(action =>
-                        renderAction(action, "secondary")
-                      )}
-                      {primaryAction && renderAction(primaryAction, "primary")}
-                    </ButtonGroup>
+                {/* Subtitle - aligned with title */}
+                {subtitle && (
+                  <div
+                    className={cn(
+                      backAction && "ml-12", // Offset to align with title when back action is present
+                      hasSubtitleMaxWidth && "max-w-[640px]"
+                    )}>
+                    <Text variant="bodyLg" tone="subdued">
+                      {subtitle}
+                    </Text>
                   </div>
                 )}
+
+                {/* Additional Metadata */}
+                {additionalMetadata && (
+                  <div className="mt-2">{additionalMetadata}</div>
+                )}
               </div>
-            )}
+
+              {/* Actions */}
+              {(primaryAction ||
+                secondaryActions.length > 0 ||
+                actionGroups.length > 0) && (
+                <div className="flex items-center gap-2 ml-4">
+                  <ButtonGroup>
+                    {secondaryActions.map(action =>
+                      renderAction(action, "secondary")
+                    )}
+                    {primaryAction && renderAction(primaryAction, "primary")}
+                  </ButtonGroup>
+                </div>
+              )}
+            </div>
           </header>
         )}
 
