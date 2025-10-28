@@ -8205,7 +8205,7 @@ const $f = Q(
         small: "!max-w-sm",
         base: "!max-w-lg",
         large: "!max-w-2xl",
-        max: "max-w-[90vw] max-h-[90vh]"
+        max: "!w-screen !h-screen !max-w-none !rounded-none"
       }
     },
     defaultVariants: {
@@ -9241,17 +9241,18 @@ const dg = Q("w-full", {
   filter: e,
   disabled: t = !1,
   isOpen: n,
-  onToggle: r
+  onToggle: r,
+  onClose: o
 }) => {
-  const o = (i) => {
-    e.onChange(i, e.key);
-  }, a = (() => {
+  const s = (l) => {
+    e.onChange(l, e.key);
+  }, i = (() => {
     if (!e.selected || e.selected.length === 0)
       return null;
-    const i = e.choices.filter(
-      (l) => e.selected.includes(l.value)
+    const l = e.choices.filter(
+      (c) => e.selected.includes(c.value)
     );
-    return i.length === 0 ? null : i.length === 1 ? i[0].label : `${i.length} selected`;
+    return l.length === 0 ? null : l.length === 1 ? l[0].label : `${l.length} selected`;
   })();
   return /* @__PURE__ */ p(
     qn,
@@ -9268,12 +9269,11 @@ const dg = Q("w-full", {
           pressed: n,
           children: [
             e.label,
-            a && /* @__PURE__ */ p("span", { className: "ml-1 text-xs text-gray-600", children: a })
+            i && /* @__PURE__ */ p("span", { className: "ml-1 text-xs text-gray-600", children: i })
           ]
         }
       ),
-      onClose: () => {
-      },
+      onClose: o,
       preferredPosition: "below",
       sectioned: !0,
       children: /* @__PURE__ */ p(
@@ -9283,7 +9283,7 @@ const dg = Q("w-full", {
           titleHidden: !0,
           choices: e.choices,
           selected: e.selected,
-          onChange: o,
+          onChange: s,
           allowMultiple: e.allowMultiple
         }
       )
@@ -11278,7 +11278,7 @@ const Zt = d.forwardRef(
 );
 Zt.displayName = "Checkbox";
 const sp = Q(
-  "w-full border-collapse bg-white overflow-hidden relative before:content-[''] before:absolute before:inset-0 before:z-[101] before:pointer-events-none before:border before:border-[#e3e3e3] before:mix-blend-luminosity before:shadow-[var(--p-shadow-bevel-100)]",
+  "w-full border-collapse bg-white overflow-hidden relative before:content-[''] before:absolute before:inset-0 before:z-[101] before:pointer-events-none before:border before:border-transparent before:shadow-[var(--p-shadow-bevel-100)]",
   {
     variants: {
       condensed: {
