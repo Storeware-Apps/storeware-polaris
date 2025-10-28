@@ -299,6 +299,128 @@ export const CriticalAction: Story = {
   },
 };
 
+// New Full-Screen Max Modal Example
+export const NewMaxModal: Story = {
+  render: function NewMaxModalStory() {
+    const [open, setOpen] = useState(false);
+
+    return (
+      <>
+        <Button onClick={() => setOpen(true)}>
+          Open Full-Screen Max Modal
+        </Button>
+        <Modal
+          id="new-max-modal"
+          variant="max"
+          open={open}
+          onOpenChange={setOpen}
+          actions={
+            <>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  // Handle save action
+                  setOpen(false);
+                }}>
+                Save Changes
+              </Button>
+            </>
+          }>
+          <TitleBar title="Full-Screen Dashboard">
+            <Button variant="primary">Save</Button>
+            <Button onClick={() => setOpen(false)}>Close</Button>
+          </TitleBar>
+          <Box padding="400">
+            <div className="space-y-6">
+              <div>
+                <Text as="h2" variant="headingMd" fontWeight="semibold">
+                  Full-Screen Max Modal
+                </Text>
+                <Text as="p" variant="bodyMd" tone="subdued">
+                  This modal now fills the entire viewport (100% width and
+                  height) as per Shopify Polaris specification. Perfect for
+                  complex interfaces, dashboards, or detailed forms.
+                </Text>
+              </div>
+
+              {/* Content Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <Text as="h3" variant="headingSm" fontWeight="semibold">
+                    Section 1
+                  </Text>
+                  <Text as="p" variant="bodySm" tone="subdued">
+                    Content area for detailed information
+                  </Text>
+                  <div className="mt-4 space-y-2">
+                    <div className="h-20 bg-white rounded border border-gray-200 flex items-center justify-center">
+                      Chart Area
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <Text as="h3" variant="headingSm" fontWeight="semibold">
+                    Section 2
+                  </Text>
+                  <Text as="p" variant="bodySm" tone="subdued">
+                    Analytics and metrics display
+                  </Text>
+                  <div className="mt-4 space-y-2">
+                    <div className="h-20 bg-white rounded border border-gray-200 flex items-center justify-center">
+                      Metrics
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <Text as="h3" variant="headingSm" fontWeight="semibold">
+                    Section 3
+                  </Text>
+                  <Text as="p" variant="bodySm" tone="subdued">
+                    Additional controls and settings
+                  </Text>
+                  <div className="mt-4 space-y-2">
+                    <div className="h-20 bg-white rounded border border-gray-200 flex items-center justify-center">
+                      Controls
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Large Content Area */}
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <Text as="h3" variant="headingSm" fontWeight="semibold">
+                  Main Content Area
+                </Text>
+                <div className="mt-4 grid grid-cols-2 gap-4">
+                  <div className="h-48 bg-white rounded border border-gray-200 flex items-center justify-center">
+                    Content Block 1
+                  </div>
+                  <div className="h-48 bg-white rounded border border-gray-200 flex items-center justify-center">
+                    Content Block 2
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer Info */}
+              <div className="pt-4 border-t border-gray-200">
+                <Text as="p" variant="bodySm" tone="subdued">
+                  The max variant uses !w-screen !h-screen !rounded-none to fill
+                  the entire viewport (100% width and height with no margins or
+                  rounded corners), providing a true full-screen experience as
+                  specified in Shopify Polaris documentation.
+                </Text>
+              </div>
+            </div>
+          </Box>
+        </Modal>
+      </>
+    );
+  },
+};
+
 // Modal with Events
 export const WithEvents: Story = {
   render: function WithEventsStory() {

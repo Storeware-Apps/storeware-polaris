@@ -9,6 +9,9 @@ import {
 import { Card } from "../Card/card";
 import { Badge } from "../Badge/badge";
 import { Text } from "../Text/Text";
+import { Modal } from "../Modal/modal";
+import { TitleBar } from "../Modal/titleBar";
+import { Button } from "../Button/button";
 
 // Sample data
 const sampleOrders = [
@@ -1085,6 +1088,186 @@ export const ConditionalStyling: Story = {
       description: {
         story:
           "Demonstrates the conditional styling of IndexTable based on whether IndexFilters is present above it. When hasIndexFilters=true, only the bottom corners are rounded. When hasIndexFilters=false, all corners are rounded.",
+      },
+    },
+  },
+};
+
+// IndexTable with Delete Confirmation Modal
+export const IndexTableWithDeleteConfirmation: Story = {
+  render: function IndexTableWithDeleteConfirmationStory() {
+    const [orders, setOrders] = useState([
+      {
+        id: "1020",
+        order: "#1020",
+        date: "Jul 20 at 4:34pm",
+        customer: "Jaydon Stanton",
+        total: "$969.44",
+        paymentStatus: "Paid",
+        fulfillmentStatus: "Unfulfilled",
+      },
+      {
+        id: "1019",
+        order: "#1019",
+        date: "Jul 20 at 3:46pm",
+        customer: "Ruben Westerfelt",
+        total: "$701.19",
+        paymentStatus: "Partially paid",
+        fulfillmentStatus: "Unfulfilled",
+      },
+      {
+        id: "1018",
+        order: "#1018",
+        date: "Jul 20 at 3:44pm",
+        customer: "Leo Carder",
+        total: "$798.24",
+        paymentStatus: "Paid",
+        fulfillmentStatus: "Unfulfilled",
+      },
+      {
+        id: "1017",
+        order: "#1017",
+        date: "Jul 20 at 2:15pm",
+        customer: "Sarah Johnson",
+        total: "$543.99",
+        paymentStatus: "Paid",
+        fulfillmentStatus: "Fulfilled",
+      },
+      {
+        id: "1016",
+        order: "#1016",
+        date: "Jul 20 at 1:30pm",
+        customer: "Michael Chen",
+        total: "$892.50",
+        paymentStatus: "Pending",
+        fulfillmentStatus: "Unfulfilled",
+      },
+    ]);
+
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [orderToDelete, setOrderToDelete] = useState<string | null>(null);
+
+    const { selectedResources, handleSelectionChange, clearSelection } =
+      useIndexResourceState(orders);
+
+    const handleDeleteClick = (orderId: string) => {
+      setOrderToDelete(orderId);
+      setDeleteModalOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+      if (orderToDelete) {
+        setOrders(orders.filter(order => order.id !== orderToDelete));
+        setOrderToDelete(null);
+        setDeleteModalOpen(false);
+        clearSelection();
+      }
+    };
+
+    const handleCancelDelete = () => {
+      setOrderToDelete(null);
+      setDeleteModalOpen(false);
+    };
+
+    const orderToDeleteData = orders.find(order => order.id === orderToDelete);
+
+    return (
+      <div className="p-6">
+        <Card>
+          <IndexTable
+            resourceName={{ singular: "order", plural: "orders" }}
+            itemCount={orders.length}
+            selectedItemsCount={selectedResources.length}
+            onSelectionChange={handleSelectionChange}
+            headings={[
+              { title: "Order" },
+              { title: "Date" },
+              { title: "Customer" },
+              { title: "Total", alignment: "end" },
+              { title: "Payment status" },
+              { title: "Actions" },
+            ]}>
+            {orders.map((order, index) => (
+              <IndexTable.Row
+                id={order.id}
+                key={order.id}
+                selected={selectedResources.includes(order.id)}
+                position={index}>
+                <IndexTable.Cell>
+                  <Text variant="bodyMd" fontWeight="semibold" as="span">
+                    {order.order}
+                  </Text>
+                </IndexTable.Cell>
+                <IndexTable.Cell>{order.date}</IndexTable.Cell>
+                <IndexTable.Cell>{order.customer}</IndexTable.Cell>
+                <IndexTable.Cell>
+                  <Text as="span" alignment="end" numeric>
+                    {order.total}
+                  </Text>
+                </IndexTable.Cell>
+                <IndexTable.Cell>
+                  <Badge
+                    tone={
+                      order.paymentStatus === "Paid"
+                        ? "success"
+                        : order.paymentStatus === "Partially paid"
+                          ? "attention"
+                          : undefined
+                    }>
+                    {order.paymentStatus}
+                  </Badge>
+                </IndexTable.Cell>
+                <IndexTable.Cell>
+                  <Button
+                    variant="plain"
+                    tone="critical"
+                    onClick={() => handleDeleteClick(order.id)}>
+                    Delete
+                  </Button>
+                </IndexTable.Cell>
+              </IndexTable.Row>
+            ))}
+          </IndexTable>
+        </Card>
+
+        {/* Delete Confirmation Modal */}
+        <Modal
+          id="delete-confirmation-modal"
+          variant="small"
+          open={deleteModalOpen}
+          onOpenChange={setDeleteModalOpen}>
+          <TitleBar title="Delete order?" />
+          <div className="p-6">
+            <Text as="p" variant="bodyMd">
+              Are you sure you want to delete order{" "}
+              <Text as="span" variant="bodyMd" fontWeight="semibold">
+                {orderToDeleteData?.order}
+              </Text>{" "}
+              for customer{" "}
+              <Text as="span" variant="bodyMd" fontWeight="semibold">
+                {orderToDeleteData?.customer}
+              </Text>
+              ? This action cannot be undone.
+            </Text>
+          </div>
+          <div className="flex justify-end gap-2 p-4 border-t border-gray-200">
+            <Button onClick={handleCancelDelete}>Cancel</Button>
+            <Button
+              variant="primary"
+              tone="critical"
+              onClick={handleConfirmDelete}>
+              Delete order
+            </Button>
+          </div>
+        </Modal>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates IndexTable with delete confirmation modal. Each row has a delete button that opens a confirmation modal. The white border issue has been fixed by using transparent borders, ensuring the table looks correct on both light backgrounds and when the modal overlay is active.",
       },
     },
   },

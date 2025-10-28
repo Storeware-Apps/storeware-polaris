@@ -53,7 +53,7 @@ describe("Modal", () => {
         </Modal>
       );
       const modalContent = screen.getByRole("dialog");
-      expect(modalContent).toHaveClass("max-w-sm");
+      expect(modalContent).toHaveClass("!max-w-sm");
     });
 
     it("applies base variant class (default)", () => {
@@ -63,7 +63,7 @@ describe("Modal", () => {
         </Modal>
       );
       const modalContent = screen.getByRole("dialog");
-      expect(modalContent).toHaveClass("max-w-lg");
+      expect(modalContent).toHaveClass("!max-w-lg");
     });
 
     it("applies large variant class", () => {
@@ -73,7 +73,7 @@ describe("Modal", () => {
         </Modal>
       );
       const modalContent = screen.getByRole("dialog");
-      expect(modalContent).toHaveClass("max-w-2xl");
+      expect(modalContent).toHaveClass("!max-w-2xl");
     });
 
     it("applies max variant class", () => {
@@ -83,7 +83,10 @@ describe("Modal", () => {
         </Modal>
       );
       const modalContent = screen.getByRole("dialog");
-      expect(modalContent).toHaveClass("max-w-[90vw]");
+      expect(modalContent).toHaveClass("!w-screen");
+      expect(modalContent).toHaveClass("!h-screen");
+      expect(modalContent).toHaveClass("!max-w-none");
+      expect(modalContent).toHaveClass("!rounded-none");
     });
 
     it("uses base variant as default", () => {
@@ -93,7 +96,7 @@ describe("Modal", () => {
         </Modal>
       );
       const modalContent = screen.getByRole("dialog");
-      expect(modalContent).toHaveClass("max-w-lg");
+      expect(modalContent).toHaveClass("!max-w-lg");
     });
   });
 

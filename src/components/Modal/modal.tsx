@@ -184,7 +184,7 @@ const modalVariants = cva(
         small: "!max-w-sm",
         base: "!max-w-lg",
         large: "!max-w-2xl",
-        max: "max-w-[90vw] max-h-[90vh]",
+        max: "!w-screen !h-screen !max-w-none !rounded-none",
       },
     },
     defaultVariants: {

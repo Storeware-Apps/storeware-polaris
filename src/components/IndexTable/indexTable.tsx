@@ -216,7 +216,7 @@ export type PolarisMenuGroupDescriptor = MenuGroupDescriptor;
 
 // Create Polaris-specific IndexTable variants using CVA
 const polarisIndexTableVariants = cva(
-  "w-full border-collapse bg-white overflow-hidden relative before:content-[''] before:absolute before:inset-0 before:z-[101] before:pointer-events-none before:border before:border-[#e3e3e3] before:mix-blend-luminosity before:shadow-[var(--p-shadow-bevel-100)]",
+  "w-full border-collapse bg-white overflow-hidden relative before:content-[''] before:absolute before:inset-0 before:z-[101] before:pointer-events-none before:border before:border-transparent before:shadow-[var(--p-shadow-bevel-100)]",
   {
     variants: {
       condensed: {

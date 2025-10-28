@@ -260,6 +260,7 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
   disabled = false,
   isOpen,
   onToggle,
+  onClose,
 }) => {
   const handleSelectionChange = (selected: string[]) => {
     filter.onChange(selected, filter.key);
@@ -306,7 +307,7 @@ const PinnedFilterButton: React.FC<PinnedFilterButtonProps> = ({
           )}
         </Button>
       }
-      onClose={() => {}}
+      onClose={onClose}
       preferredPosition="below"
       sectioned>
       <ChoiceList
