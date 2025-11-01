@@ -246,7 +246,7 @@ const polarisIndexTableVariants = cva(
 );
 
 const tableHeaderVariants = cva(
-  "border-b border-gray-100 overflow-hidden bg-[#f7fafc] p-2 text-left text-xs font-medium text-gray-500 capitalize",
+  "border-b border-gray-100 overflow-hidden bg-[#F7F7F7] p-2 text-left text-xs font-medium text-gray-500 capitalize",
   {
     variants: {
       alignment: {
@@ -410,7 +410,7 @@ const IndexTableBase = React.forwardRef<
       if (table) {
         // TanStack Table headers
         return (
-          <thead className="sticky top-0 z-10">
+          <thead className="sticky top-0 z-10 border-b-[#EBEBEB]">
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {selectable && (
@@ -817,7 +817,7 @@ const IndexTableRow = React.forwardRef<HTMLTableRowElement, IndexTableRowProps>(
     ref
   ) => {
     const rowVariants = cva(
-      "hover:bg-[#f7fafc] transition-colors border-b border-[#e3e3e3] last:border-b-0 ",
+      "hover:bg-[#F7F7F7] transition-colors border-b border-[#e3e3e3] ",
       {
         variants: {
           selected: {

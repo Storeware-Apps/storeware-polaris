@@ -9395,7 +9395,7 @@ const dg = Q("w-full", {
           M
         ),
         ...G,
-        children: /* @__PURE__ */ p("div", { className: "p-1 border border-[#e3e3e3] rounded-md border-b-0 rounded-b-none", children: W ? /* @__PURE__ */ I("div", { className: "space-y-2", children: [
+        children: /* @__PURE__ */ p("div", { className: "p-1 border border-[#e3e3e3] rounded-md border-b-0 rounded-b-none border-l-0 border-r-0 border-t-0", children: W ? /* @__PURE__ */ I("div", { className: "space-y-2", children: [
           /* @__PURE__ */ I("div", { className: "flex items-center gap-2", children: [
             /* @__PURE__ */ p("div", { className: "flex items-center gap-2", children: e && e.length > 0 && /* @__PURE__ */ p(
               Qo,
@@ -9422,7 +9422,7 @@ const dg = Q("w-full", {
                 autoFocus: _,
                 autoComplete: "off",
                 size: "slim",
-                className: "border border-[#e3e3e3] hover:border-[#e3e3e3] bg-white"
+                className: "border border-[#e3e3e3] hover:border-[#fafafa] bg-white"
               }
             ) }),
             /* @__PURE__ */ p(
@@ -11306,7 +11306,7 @@ const sp = Q(
     }
   }
 ), vt = Q(
-  "border-b border-gray-100 overflow-hidden bg-[#f7fafc] p-2 text-left text-xs font-medium text-gray-500 capitalize",
+  "border-b border-gray-100 overflow-hidden bg-[#F7F7F7] p-2 text-left text-xs font-medium text-gray-500 capitalize",
   {
     variants: {
       alignment: {
@@ -11415,7 +11415,7 @@ const sp = Q(
         },
         G
       )) });
-      return B ? /* @__PURE__ */ p("thead", { className: "sticky top-0 z-10", children: B.getHeaderGroups().map((M) => /* @__PURE__ */ I("tr", { children: [
+      return B ? /* @__PURE__ */ p("thead", { className: "sticky top-0 z-10 border-b-[#EBEBEB]", children: B.getHeaderGroups().map((M) => /* @__PURE__ */ I("tr", { children: [
         c && /* @__PURE__ */ p(
           "th",
           {
@@ -11651,7 +11651,7 @@ const ao = d.forwardRef(
     ...m
   }, v) => {
     const y = Q(
-      "hover:bg-[#f7fafc] transition-colors border-b border-[#e3e3e3] last:border-b-0 ",
+      "hover:bg-[#F7F7F7] transition-colors border-b border-[#e3e3e3] ",
       {
         variants: {
           selected: {

@@ -461,7 +461,7 @@ export const IndexFilters = React.forwardRef<
         )}
         {...props}>
         {/* Filter Controls */}
-        <div className="p-1 border border-[#e3e3e3] rounded-md border-b-0 rounded-b-none">
+        <div className="p-1 border border-[#e3e3e3] rounded-md border-b-0 rounded-b-none border-l-0 border-r-0 border-t-0">
           {isFilteringMode ? (
             <div className="space-y-2">
               {/* Search and Filter Row */}
@@ -494,7 +494,7 @@ export const IndexFilters = React.forwardRef<
                     autoFocus={autoFocusSearchField}
                     autoComplete="off"
                     size="slim"
-                    className="border border-[#e3e3e3] hover:border-[#e3e3e3] bg-white"
+                    className="border border-[#e3e3e3] hover:border-[#fafafa] bg-white"
                   />
                 </div>
 
