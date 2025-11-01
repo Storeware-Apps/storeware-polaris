@@ -461,7 +461,7 @@ export const IndexFilters = React.forwardRef<
         )}
         {...props}>
         {/* Filter Controls */}
-        <div className="p-1 border border-[#e3e3e3] rounded-md">
+        <div className="p-1 rounded-md">
           {isFilteringMode ? (
             <div className="space-y-2">
               {/* Search and Filter Row */}

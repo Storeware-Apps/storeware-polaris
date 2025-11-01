@@ -59,7 +59,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         disabled={disabled}
         aria-label={ariaLabel}
         className={cn(
-          "h-4 w-4 rounded border border-gray-300 focus:ring-2 focus:ring-black focus:ring-offset-2",
+          "h-4 w-4 rounded border border-gray-300 focus:ring-1 focus:ring-black focus:ring-offset-2",
           "disabled:cursor-not-allowed disabled:opacity-50",
           // Custom styling to ensure black checkmark and proper appearance
           "accent-black [&:checked]:bg-black [&:checked]:border-black",

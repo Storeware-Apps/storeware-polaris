@@ -9395,7 +9395,7 @@ const dg = Q("w-full", {
           M
         ),
         ...G,
-        children: /* @__PURE__ */ p("div", { className: "p-1 border border-[#e3e3e3] rounded-md", children: W ? /* @__PURE__ */ I("div", { className: "space-y-2", children: [
+        children: /* @__PURE__ */ p("div", { className: "p-1 rounded-md", children: W ? /* @__PURE__ */ I("div", { className: "space-y-2", children: [
           /* @__PURE__ */ I("div", { className: "flex items-center gap-2", children: [
             /* @__PURE__ */ p("div", { className: "flex items-center gap-2", children: e && e.length > 0 && /* @__PURE__ */ p(
               Qo,
@@ -11264,7 +11264,7 @@ const Zt = d.forwardRef(
         disabled: n,
         "aria-label": r,
         className: D(
-          "h-4 w-4 rounded border border-gray-300 focus:ring-2 focus:ring-black focus:ring-offset-2",
+          "h-4 w-4 rounded border border-gray-300 focus:ring-1 focus:ring-black focus:ring-offset-2",
           "disabled:cursor-not-allowed disabled:opacity-50",
           // Custom styling to ensure black checkmark and proper appearance
           "accent-black [&:checked]:bg-black [&:checked]:border-black",
