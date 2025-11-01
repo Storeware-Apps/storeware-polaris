@@ -9395,7 +9395,7 @@ const dg = Q("w-full", {
           M
         ),
         ...G,
-        children: /* @__PURE__ */ p("div", { className: "p-1 border border-[#e3e3e3] rounded-md border-b-0 rounded-b-none border-l-0 border-r-0 border-t-0", children: W ? /* @__PURE__ */ I("div", { className: "space-y-2", children: [
+        children: /* @__PURE__ */ p("div", { className: "p-1 border border-[#e3e3e3] rounded-md", children: W ? /* @__PURE__ */ I("div", { className: "space-y-2", children: [
           /* @__PURE__ */ I("div", { className: "flex items-center gap-2", children: [
             /* @__PURE__ */ p("div", { className: "flex items-center gap-2", children: e && e.length > 0 && /* @__PURE__ */ p(
               Qo,
@@ -9422,7 +9422,7 @@ const dg = Q("w-full", {
                 autoFocus: _,
                 autoComplete: "off",
                 size: "slim",
-                className: "border border-[#e3e3e3] hover:border-[#fafafa] bg-white"
+                className: "hover:border-[#fafafa] bg-white"
               }
             ) }),
             /* @__PURE__ */ p(
