@@ -121,6 +121,21 @@ export {
   gridCellVariants,
 } from "./components/Grid/grid.js";
 
+// Export Spinner component
+export { Spinner, spinnerVariants } from "./components/Spinner/spinner.js";
+
+// Export SkeletonBodyText component
+export {
+  SkeletonBodyText,
+  skeletonBodyTextVariants,
+} from "./components/SkeletonBodyText/skeletonBodyText.js";
+
+// Export SkeletonPage component
+export {
+  SkeletonPage,
+  skeletonPageVariants,
+} from "./components/SkeletonPage/skeletonPage.js";
+
 // Export Button types (now consolidated in button.tsx following shadcn/ui pattern)
 export type {
   PolarisButtonProps,
@@ -436,6 +451,28 @@ export type {
   Gap,
   ColumnSpan,
 } from "./components/Grid/grid";
+
+// Export Spinner types (consolidated in spinner.tsx following shadcn/ui pattern)
+export type {
+  PolarisSpinnerProps,
+  EnhancedSpinnerProps,
+  SpinnerProps,
+  SpinnerSize,
+} from "./components/Spinner/spinner";
+
+// Export SkeletonBodyText types (consolidated in skeletonBodyText.tsx following shadcn/ui pattern)
+export type {
+  PolarisSkeletonBodyTextProps,
+  EnhancedSkeletonBodyTextProps,
+  SkeletonBodyTextProps,
+} from "./components/SkeletonBodyText/skeletonBodyText";
+
+// Export SkeletonPage types (consolidated in skeletonPage.tsx following shadcn/ui pattern)
+export type {
+  PolarisSkeletonPageProps,
+  EnhancedSkeletonPageProps,
+  SkeletonPageProps,
+} from "./components/SkeletonPage/skeletonPage";
 
 // Export utilities
 export { cn } from "./lib/utils.js";

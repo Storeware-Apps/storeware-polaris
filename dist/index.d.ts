@@ -429,6 +429,21 @@ export declare interface EnhancedSelectProps extends PolarisSelectProps {
     className?: string;
 }
 
+export declare interface EnhancedSkeletonBodyTextProps extends PolarisSkeletonBodyTextProps {
+    /** Additional CSS class name */
+    className?: string;
+}
+
+export declare interface EnhancedSkeletonPageProps extends PolarisSkeletonPageProps {
+    /** Additional CSS class name */
+    className?: string;
+}
+
+export declare interface EnhancedSpinnerProps extends PolarisSpinnerProps {
+    /** Additional CSS class name */
+    className?: string;
+}
+
 export declare interface EnhancedTabsProps extends PolarisTabsProps {
     /** Use the Slot component for composition (shadcn/ui feature) */
     asChild?: boolean;
@@ -1660,9 +1675,44 @@ export declare const polarisSelectVariants: (props?: ({
     labelInline?: boolean | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare interface PolarisSkeletonBodyTextProps {
+    /**
+     * Number of lines to display
+     * @default 3
+     */
+    lines?: number;
+}
+
+export declare interface PolarisSkeletonPageProps {
+    /** Page title, in large type */
+    title?: string;
+    /** Remove the normal max-width on the page */
+    fullWidth?: boolean;
+    /** Decreases the maximum layout width. Intended for single-column layouts */
+    narrowWidth?: boolean;
+    /** Shows a skeleton over the primary action */
+    primaryAction?: boolean;
+    /** Shows a skeleton over the backAction */
+    backAction?: boolean;
+    /** The child elements to render in the skeleton page. */
+    children?: React_2.ReactNode;
+}
+
 export declare type PolarisSortButtonChoice = SortButtonChoice;
 
 export declare type PolarisSpacingScale = SpacingScale;
+
+export declare interface PolarisSpinnerProps {
+    /**
+     * Size of spinner
+     * @default 'large'
+     */
+    size?: SpinnerSize;
+    /** Accessible label for the spinner */
+    accessibilityLabel?: string;
+    /** Allows the component to apply the correct accessibility roles based on focus */
+    hasFocusableParent?: boolean;
+}
 
 export declare type PolarisTabProps = TabProps;
 
@@ -1798,6 +1848,21 @@ export declare interface SelectProps extends EnhancedSelectProps {
 
 export declare type ShadowAliasOrScale = "0" | "100" | "200" | "300" | "400" | "500" | "600" | "bevel-100" | "inset-100" | "inset-200" | "button" | "button-hover" | "button-inset" | "button-primary" | "button-primary-hover" | "button-primary-inset" | "button-primary-critical" | "button-primary-critical-hover" | "button-primary-critical-inset" | "button-primary-success" | "button-primary-success-hover" | "button-primary-success-inset" | "border-inset";
 
+export declare const SkeletonBodyText: React_2.ForwardRefExoticComponent<EnhancedSkeletonBodyTextProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare type SkeletonBodyTextProps = EnhancedSkeletonBodyTextProps;
+
+export declare const skeletonBodyTextVariants: (props?: ({} & ClassProp) | undefined) => string;
+
+export declare const SkeletonPage: React_2.ForwardRefExoticComponent<EnhancedSkeletonPageProps & React_2.RefAttributes<HTMLDivElement>>;
+
+export declare type SkeletonPageProps = EnhancedSkeletonPageProps;
+
+export declare const skeletonPageVariants: (props?: ({
+    fullWidth?: boolean | null | undefined;
+    narrowWidth?: boolean | null | undefined;
+} & ClassProp) | undefined) => string;
+
 export declare interface SortButtonChoice {
     /** Label for the sort option */
     label: string;
@@ -1812,6 +1877,16 @@ export declare type SpaceScale = "0" | "025" | "050" | "100" | "150" | "200" | "
 declare type SpaceScale_2 = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
 
 export declare type SpacingScale = "0" | "025" | "050" | "100" | "150" | "200" | "300" | "400" | "500" | "600" | "800" | "1000" | "1200" | "1600" | "2000" | "2400" | "2800" | "3200";
+
+export declare const Spinner: React_2.ForwardRefExoticComponent<EnhancedSpinnerProps & React_2.RefAttributes<HTMLSpanElement>>;
+
+export declare type SpinnerProps = EnhancedSpinnerProps;
+
+export declare type SpinnerSize = "small" | "large";
+
+export declare const spinnerVariants: (props?: ({
+    size?: "large" | "small" | null | undefined;
+} & ClassProp) | undefined) => string;
 
 export declare interface StrictOption {
     /** Machine value of the option; this is the value passed to `onChange` */

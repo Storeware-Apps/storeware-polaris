@@ -494,7 +494,7 @@ export const IndexFilters = React.forwardRef<
                     autoFocus={autoFocusSearchField}
                     autoComplete="off"
                     size="slim"
-                    className="hover:border-[#fafafa] bg-white"
+                    className="border-none hover:border-[#fafafa] bg-white"
                   />
                 </div>
 
