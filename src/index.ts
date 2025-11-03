@@ -89,6 +89,7 @@ export {
   IndexFilters,
   indexFiltersVariants,
   useSetIndexFiltersMode,
+  IndexFiltersMode,
 } from "./components/IndexFilters/indexFilters.js";
 
 // Export IndexTable component
@@ -351,7 +352,6 @@ export type {
   IndexFiltersCancelAction,
   FilterDescriptor,
   AppliedFilter,
-  IndexFiltersMode,
   // Backward compatibility aliases
   PolarisIndexFiltersProps,
   PolarisSortButtonChoice,
